@@ -55,7 +55,7 @@ double a[100];
 希望上述过程好好体会一下。注意：上述的代码都不太符合编程规范，只是演示了大致的一个过程。你需按照严格的编程规范来完成该练习。
 
 ## 作业及要求
-
+ 
 现在要求动态数组的类的接口为：[DArray.h](../../project/src/executables/1_BasicDArray/DArray.h) 
 
 测试代码：[main.cpp](../../project/src/executables/1_BasicDArray/main.cpp) 

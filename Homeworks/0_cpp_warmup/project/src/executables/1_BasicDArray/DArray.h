@@ -32,4 +32,4 @@ private:
 private:
 	void Init(); // initilize the array
 	void Free(); // free the array
-};
+}; 

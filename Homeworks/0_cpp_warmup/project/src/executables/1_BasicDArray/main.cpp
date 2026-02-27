@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 	DArray acopy3, acopy4;
 	acopy4 = acopy3 = a; // 此处用到了赋值操作符号"="的重载
 	acopy3.Print();
-	acopy4.Print();
+	acopy4.Print(); 
 
 	DArray b;
 	b.PushBack(21);

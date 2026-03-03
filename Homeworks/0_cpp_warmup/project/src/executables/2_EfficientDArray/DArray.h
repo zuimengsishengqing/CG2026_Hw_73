@@ -30,7 +30,7 @@ private:
 	int m_nSize; // the size of the array
 	int m_nMax;
 
-private:
+private: 
 	void Init(); // initilize the array
 	void Free(); // free the array
 	void Reserve(int nSize); // allocate enough memory

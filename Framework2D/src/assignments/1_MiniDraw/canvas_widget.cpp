@@ -69,6 +69,11 @@ void Canvas::set_polygon()
     draw_status_ = false;
     shape_type_ = kPolygon;
 }
+void Canvas::set_freehand()
+{
+    draw_status_ = false;
+    shape_type_ = kFreehand;
+}
 // HW1_TODO: more shape types, implements
 
 void Canvas::clear_shape_list()
@@ -116,10 +121,43 @@ void Canvas::draw_shapes()
 void Canvas::mouse_click_event()
 {
     // HW1_TODO: Drawing rule for more primitives
+    start_point_ = end_point_ = mouse_pos_in_canvas();
+    // 单独处理自由绘制
+    if(shape_type_ == kFreehand){
+
+    }
+    // 处理多边形绘制的特殊情况
+    if (shape_type_ == kPolygon)
+    {
+        if (!current_shape_)
+        {
+            // 首次创建多边形
+            current_shape_ = std::make_shared<Polygon>();
+            current_shape_->add_control_point(start_point_.x, start_point_.y);
+            current_shape_->add_control_point(end_point_.x, end_point_.y);
+        }
+        else
+        {
+            // 添加新的顶点
+            auto polygon = std::dynamic_pointer_cast<Polygon>(current_shape_);
+            if (polygon)
+            {
+                // 移除临时点（最后一个点）
+                polygon->remove_last_point();
+                // 添加新的固定点
+                polygon->add_control_point(start_point_.x, start_point_.y);
+                // 添加新的临时点
+                polygon->add_control_point(end_point_.x, end_point_.y);
+            }
+        }
+        draw_status_ = true;
+        return;
+    }
+    
+    // 处理其他形状的绘制
     if (!draw_status_)
     {
         draw_status_ = true;
-        start_point_ = end_point_ = mouse_pos_in_canvas();
         switch (shape_type_)
         {
             case USTC_CG::Canvas::kDefault:
@@ -145,44 +183,18 @@ void Canvas::mouse_click_event()
                     start_point_.x, start_point_.y, end_point_.x, end_point_.y);
                 break;
             }
-            case USTC_CG::Canvas::kPolygon:
-            {
-                // 待定，可能需要多次链接
-                if(!current_shape_){
-                    //首次创建
-                    current_shape_ = std::make_shared<Polygon>();
-                    
-                    current_shape_->add_control_point(start_point_.x,start_point_.y);
-                    current_shape_->add_control_point(end_point_.x,end_point_.y);
-                }else{
-                    //添加边
-                    auto polygon = std::dynamic_pointer_cast<Polygon>(current_shape_);
-                    if(polygon){
-                        //更新点击位置
-                        polygon->add_control_point(start_point_.x,start_point_.y);
-                        //添加临时点
-                        polygon->add_control_point(end_point_.x,end_point_.y);
-                    }
-                }
-                //维持创建
-                draw_status_ = true;
-                break;
-            }
             default: break;
         }
     }
     else
     {
-        //多边形不可以结束！！！
-        if(shape_type_ != kPolygon){
-            draw_status_ = false;
-            if (current_shape_)
-            {
-                shape_list_.push_back(current_shape_);
-                current_shape_.reset();
-            }
+        // 结束绘制非多边形形状
+        draw_status_ = false;
+        if (current_shape_)
+        {
+            shape_list_.push_back(current_shape_);
+            current_shape_.reset();
         }
-
     }
 }
 

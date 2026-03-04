@@ -14,6 +14,8 @@ namespace USTC_CG
         void draw(const Config& config) const;
         void update(float x, float y);
         void add_control_point(float x, float y);
+        //移除最后一个控制点（通常是临时点）
+        void remove_last_point();
         //连接最后一条边，补齐
         void close();
 

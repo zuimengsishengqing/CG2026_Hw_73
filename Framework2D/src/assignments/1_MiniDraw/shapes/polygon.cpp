@@ -55,6 +55,13 @@ namespace USTC_CG{
         x_list_.push_back(x);
         y_list_.push_back(y);
     }
+    void Polygon::remove_last_point()
+    {
+        if(!x_list_.empty() && !y_list_.empty()){
+            x_list_.pop_back();
+            y_list_.pop_back();
+        }
+    }
     void Polygon::close(){
         is_closed_ = true;
     }

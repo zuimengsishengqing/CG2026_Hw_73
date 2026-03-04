@@ -8,6 +8,7 @@
 #include "shapes/rect.h"
 #include "shapes/ellipse.h"
 #include "shapes/polygon.h"
+#include "shapes/freehand.h"
 
 namespace USTC_CG
 {
@@ -124,7 +125,14 @@ void Canvas::mouse_click_event()
     start_point_ = end_point_ = mouse_pos_in_canvas();
     // 单独处理自由绘制
     if(shape_type_ == kFreehand){
-
+        //点击后开始在屏幕自由绘制
+        if(!current_shape_){
+            current_shape_ = std::make_shared<Freehand>();
+            current_shape_->add_control_point(start_point_.x, start_point_.y);
+            current_shape_->add_control_point(end_point_.x, end_point_.y);
+        }
+        draw_status_ = true;
+        return;
     }
     // 处理多边形绘制的特殊情况
     if (shape_type_ == kPolygon)
@@ -207,6 +215,10 @@ void Canvas::mouse_move_event()
         if (current_shape_)
         {
             current_shape_->update(end_point_.x, end_point_.y);
+            //自由绘制，每帧更新
+            if(shape_type_ == kFreehand){
+                current_shape_->add_control_point(end_point_.x, end_point_.y);
+            }
         }
     }
 }
@@ -214,6 +226,12 @@ void Canvas::mouse_move_event()
 void Canvas::mouse_release_event()
 {
     // HW1_TODO: Drawing rule for more primitives
+    //自由绘制，松开鼠标停止落笔：
+    if(shape_type_ == kFreehand && current_shape_ && draw_status_){
+        draw_status_ = false;
+        shape_list_.push_back(current_shape_);
+        current_shape_.reset();
+    }
 }
 void Canvas::mouse_right_click_event(){
     if(shape_type_ == kPolygon && current_shape_){

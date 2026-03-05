@@ -30,6 +30,7 @@ class Canvas : public Widget
         kEllipse = 3,
         kPolygon = 4,
         kFreehand = 5,
+        kFreehandSmooth = 6,
     };
 
     // Shape type setters.
@@ -39,6 +40,7 @@ class Canvas : public Widget
     void set_ellipse();
     void set_polygon();
     void set_freehand();
+    void set_freehand_smooth();
     // HW1_TODO: more shape types.
 
     // Clears all shapes from the canvas.

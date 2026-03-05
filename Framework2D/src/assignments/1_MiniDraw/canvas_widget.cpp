@@ -9,6 +9,7 @@
 #include "shapes/ellipse.h"
 #include "shapes/polygon.h"
 #include "shapes/freehand.h"
+#include "shapes/freehand_smooth.h"
 
 namespace USTC_CG
 {
@@ -75,6 +76,11 @@ void Canvas::set_freehand()
     draw_status_ = false;
     shape_type_ = kFreehand;
 }
+void Canvas::set_freehand_smooth()
+{
+    draw_status_ = false;
+    shape_type_ = kFreehandSmooth;
+}
 // HW1_TODO: more shape types, implements
 
 void Canvas::clear_shape_list()
@@ -130,6 +136,21 @@ void Canvas::mouse_click_event()
             current_shape_ = std::make_shared<Freehand>();
             current_shape_->add_control_point(start_point_.x, start_point_.y);
             current_shape_->add_control_point(end_point_.x, end_point_.y);
+        }
+        draw_status_ = true;
+        return;
+    }
+    // 处理平滑自由绘制
+    if(shape_type_ == kFreehandSmooth){
+        //点击后开始在屏幕平滑自由绘制
+        if(!current_shape_){
+            current_shape_ = std::make_shared<FreehandSmooth>();
+            // 使用force_add_control_point确保初始点被添加
+            auto smooth_shape = std::dynamic_pointer_cast<FreehandSmooth>(current_shape_);
+            if(smooth_shape){
+                smooth_shape->force_add_control_point(start_point_.x, start_point_.y);
+                smooth_shape->force_add_control_point(end_point_.x, end_point_.y);
+            }
         }
         draw_status_ = true;
         return;
@@ -219,6 +240,14 @@ void Canvas::mouse_move_event()
             if(shape_type_ == kFreehand){
                 current_shape_->add_control_point(end_point_.x, end_point_.y);
             }
+            //平滑自由绘制，每帧更新
+            if(shape_type_ == kFreehandSmooth){
+                // 使用force_add_control_point确保添加新点而不是更新最后一个点
+                auto smooth_shape = std::dynamic_pointer_cast<FreehandSmooth>(current_shape_);
+                if(smooth_shape){
+                    smooth_shape->force_add_control_point(end_point_.x, end_point_.y);
+                }
+            }
         }
     }
 }
@@ -228,6 +257,12 @@ void Canvas::mouse_release_event()
     // HW1_TODO: Drawing rule for more primitives
     //自由绘制，松开鼠标停止落笔：
     if(shape_type_ == kFreehand && current_shape_ && draw_status_){
+        draw_status_ = false;
+        shape_list_.push_back(current_shape_);
+        current_shape_.reset();
+    }
+    //平滑自由绘制，松开鼠标停止落笔：
+    if(shape_type_ == kFreehandSmooth && current_shape_ && draw_status_){
         draw_status_ = false;
         shape_list_.push_back(current_shape_);
         current_shape_.reset();

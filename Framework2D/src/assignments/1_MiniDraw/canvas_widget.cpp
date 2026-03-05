@@ -2,6 +2,10 @@
 
 #include <cmath>
 #include <iostream>
+#include <filesystem>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 
 #include "imgui.h"
 #include "shapes/line.h"
@@ -10,6 +14,11 @@
 #include "shapes/polygon.h"
 #include "shapes/freehand.h"
 #include "shapes/freehand_smooth.h"
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
+#include <glad/glad.h>
 
 namespace USTC_CG
 {
@@ -288,5 +297,90 @@ ImVec2 Canvas::mouse_pos_in_canvas() const
     const ImVec2 mouse_pos_in_canvas(
         io.MousePos.x - canvas_min_.x, io.MousePos.y - canvas_min_.y);
     return mouse_pos_in_canvas;
+}
+
+void Canvas::save_canvas(const std::string& filename)
+{
+    try {
+        // 创建保存目录
+        std::filesystem::path save_path = std::filesystem::current_path() / "save_pic";
+        std::filesystem::create_directories(save_path);
+        
+        // 生成带时间戳的文件名
+        auto now = std::chrono::system_clock::now();
+        auto now_time = std::chrono::system_clock::to_time_t(now);
+        std::stringstream ss;
+        ss << std::put_time(std::localtime(&now_time), "%Y%m%d_%H%M%S");
+        std::string timestamp = ss.str();
+        
+        std::string full_path = (save_path / ("minidraw_" + timestamp + ".png")).string();
+        
+        // 创建图像数据缓冲区
+        int width = static_cast<int>(canvas_size_.x);
+        int height = static_cast<int>(canvas_size_.y);
+        
+        // 检查画布尺寸是否有效
+        if (width <= 0 || height <= 0) {
+            std::cout << "Invalid canvas size: " << width << "x" << height << std::endl;
+            return;
+        }
+        
+        // 分配4通道(RGBA)图像数据
+        std::vector<unsigned char> image_data(width * height * 4);
+        
+        // 初始化为背景色
+        for (int i = 0; i < width * height * 4; i += 4) {
+            image_data[i] = (background_color_ >> IM_COL32_R_SHIFT) & 0xFF;     // R
+            image_data[i+1] = (background_color_ >> IM_COL32_G_SHIFT) & 0xFF; // G
+            image_data[i+2] = (background_color_ >> IM_COL32_B_SHIFT) & 0xFF; // B
+            image_data[i+3] = (background_color_ >> IM_COL32_A_SHIFT) & 0xFF; // A
+        }
+        
+        // 使用OpenGL读取帧缓冲区内容
+        GLint viewport[4];
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        
+        // 设置读取区域为画布区域
+        glReadPixels(
+            static_cast<int>(canvas_min_.x), 
+            static_cast<int>(viewport[3] - canvas_min_.y - height), 
+            width, 
+            height, 
+            GL_RGBA, 
+            GL_UNSIGNED_BYTE, 
+            image_data.data()
+        );
+        
+        // 检查是否成功读取像素
+        GLenum error = glGetError();
+        if (error != GL_NO_ERROR) {
+            std::cout << "OpenGL error while reading pixels: " << error << std::endl;
+            return;
+        }
+        
+        // OpenGL读取的图像是上下颠倒的，需要翻转
+        int row_size = width * 4;
+        std::vector<unsigned char> temp_row(row_size);
+        for (int y = 0; y < height / 2; y++) {
+            int top_idx = y * row_size;
+            int bottom_idx = (height - 1 - y) * row_size;
+            
+            // 交换行
+            std::memcpy(temp_row.data(), &image_data[top_idx], row_size);
+            std::memcpy(&image_data[top_idx], &image_data[bottom_idx], row_size);
+            std::memcpy(&image_data[bottom_idx], temp_row.data(), row_size);
+        }
+        
+        // 使用stb_image_write保存图像
+        if (stbi_write_png(full_path.c_str(), width, height, 4, image_data.data(), width * 4)) {
+            std::cout << "Successfully saved canvas to: " << full_path << std::endl;
+        } else {
+            std::cout << "Failed to save canvas to: " << full_path << std::endl;
+        }
+    } catch (const std::exception& e) {
+        std::cout << "Exception in save_canvas: " << e.what() << std::endl;
+    } catch (...) {
+        std::cout << "Unknown exception in save_canvas" << std::endl;
+    }
 }
 }  // namespace USTC_CG

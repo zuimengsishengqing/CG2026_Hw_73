@@ -1,0 +1,8 @@
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/CMakeFiles/ALL_BUILD.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/CMakeFiles/ZERO_CHECK.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/1_MiniDraw/CMakeFiles/1_MiniDraw.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/1_MiniDraw/CMakeFiles/ALL_BUILD.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/2_ImageWarping/CMakeFiles/2_ImageWarping.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/2_ImageWarping/CMakeFiles/ALL_BUILD.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/3_PoissonImageEditing/CMakeFiles/3_PoissonImageEditing.dir
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/1_MiniDraw/3_PoissonImageEditing/CMakeFiles/ALL_BUILD.dir

@@ -11,6 +11,7 @@ MiniDraw::MiniDraw(const std::string& window_name) : Window(window_name)
 
 MiniDraw::~MiniDraw()
 {
+    
 }
 
 void MiniDraw::draw()
@@ -64,6 +65,12 @@ void MiniDraw::draw_canvas()
         {
             std::cout<<"Set shape to Freehand Smooth" << std::endl;
             p_canvas_->set_freehand_smooth();
+        }
+        ImGui::SameLine();
+        if(ImGui::Button("Save Canvas"))
+        {
+            std::cout<<"Save Canvas" << std::endl;
+            p_canvas_->save_canvas("minidraw.png");
         }
 
         // HW1_TODO: More primitives

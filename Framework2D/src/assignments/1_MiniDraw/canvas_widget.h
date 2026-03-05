@@ -51,6 +51,9 @@ class Canvas : public Widget
 
     // Controls the visibility of the canvas background.
     void show_background(bool flag);
+    
+    // Save the canvas to a file
+    void save_canvas(const std::string& filename);
 
    private:
     // Drawing functions.

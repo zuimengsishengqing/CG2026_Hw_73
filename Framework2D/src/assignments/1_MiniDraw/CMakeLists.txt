@@ -1,3 +1,4 @@
+
 project(1_MiniDraw)
 file(GLOB source
   "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"

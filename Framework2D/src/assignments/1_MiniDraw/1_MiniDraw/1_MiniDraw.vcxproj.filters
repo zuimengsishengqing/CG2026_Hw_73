@@ -69,4 +69,7 @@
       <UniqueIdentifier>{70609026-600C-3A0B-93EA-623E1B8BB9DE}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>

@@ -1,2 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="USTC_CG::Canvas" Collapsed="true">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAgAAAGEIAAAgAEIYAABgRCEQEIJgAYABAQgQSAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\canvas_widget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::MiniDraw" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAACAAACAAAIAAAAAAAAAAAAEAAAAAQAAAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\minidraw_window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Ellipse" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAACAAAgAEAAAAIAAAAAAAAAAAAAAQAAAAAEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\ellipse.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Freehand" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAgAAAAMAAAAAAAAAAgAAAAAAAACEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\freehand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::FreehandSmooth" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAgAAAAMAAAAAAEEAAgAAAAAABAAECAE=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\freehand_smooth.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Line" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIEAAAAAAAAgAEAAAAIAAAAAAAAAAAAAAAAAAAAFAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\line.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Polygon" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAgAAAAMAAAAAAAAAAgAAAIAAAAQkgCA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\polygon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Rect" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAAAAAgAEAAAAIAAAAAACCAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\rect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Shape" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAABAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\1_MiniDraw\shapes\shape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

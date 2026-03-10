@@ -19,6 +19,7 @@ class Warper
 
     // HW2_TODO: A virtual function warp(...)
     
+    
     // HW2_TODO: other functions or variables if you need
 };
 }  // namespace USTC_CG

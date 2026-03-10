@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\IDW_warper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\RBF_warper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warping_widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warping_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\IDW_warper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\RBF_warper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warping_widget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warping_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4DD09CB7-819C-352D-9874-3AA95363207F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{70609026-600C-3A0B-93EA-623E1B8BB9DE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -30,10 +30,25 @@ namespace USTC_CG{
             //A 取 I2, b取0
             A = MatrixXf::Identity(2,2);
             b = MatrixXf::Zero(2,1);
+            // 初始化alpha为0向量（1对点时没有径向基函数部分）
+            for(size_t i = 0; i < start_points_.size(); i++){
+                alpha[i] = MatrixXf::Zero(2, 1);
+            }
+            cout<<"0 point"<<endl;
+            cout<<"b:"<<b<<"A:"<<A<<endl;
         }else if(start_points_.size() == 1){
             A = MatrixXf::Identity(2,2);
             b(0) = end_points_[0].first - start_points_[0].first;
             b(1) = end_points_[0].second - start_points_[0].second;
+            // 初始化alpha为0向量（1对点时没有径向基函数部分）
+            for(size_t i = 0; i < start_points_.size(); i++){
+                alpha[i] = MatrixXf::Zero(2, 1);
+            }
+            cout<<"1 point"<<endl;
+            cout<<"Start: ("<<start_points_[0].first<<","<<start_points_[0].second<<")"<<endl;
+            cout<<"End: ("<<end_points_[0].first<<","<<end_points_[0].second<<")"<<endl;
+            cout<<"Translation b: ("<<b(0)<<","<<b(1)<<")"<<endl;
+            cout<<"A:"<<A<<"alpha:"<<alpha[0]<<endl;
         }else if(start_points_.size() == 2){//2个点，仿射变换
             //平移加缩放
             float x1 = start_points_[0].first;
@@ -66,6 +81,11 @@ namespace USTC_CG{
             
             b = MatrixXf(2, 1);
             b << X(2, 0), X(2, 1);
+
+            // 初始化alpha为0向量（1对点时没有径向基函数部分）
+            for(size_t i = 0; i < start_points_.size(); i++){
+                alpha[i] = MatrixXf::Zero(2, 1);
+            }
 
         }else{//3个点或更多
 
@@ -106,15 +126,19 @@ namespace USTC_CG{
             MatrixXf residual = Q - P * X;
             // 求解G* alpha = residual
             MatrixXf alpha_matrix = G.colPivHouseholderQr().solve(residual);
-            //提取alpha并存入向量
+            // 提取alpha并存入向量
             for(size_t i = 0; i < start_points_.size(); i++){
-                alpha[i] = alpha_matrix.row(i);
+                alpha[i] = alpha_matrix.row(i).transpose();  // 转置为列向量
             }
         }
         
         //把实际每个点代入计算，处理图片
+        int out_of_bounds_count = 0;
+        int total_pixels = 0;
+        
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
+                total_pixels++;
                 // 计算变换后的坐标
                 auto [new_x, new_y] = function(x, y);
                 
@@ -128,9 +152,17 @@ namespace USTC_CG{
                     dst[dst_index + 1] = src[src_index + 1];
                     dst[dst_index + 2] = src[src_index + 2];
                     dst[dst_index + 3] = src[src_index + 3];
+                } else {
+                    out_of_bounds_count++;
+                    if(out_of_bounds_count % 100 != 0)continue;
+                    //输出变换前后坐标：
+                    cout<<"Start: ("<<x<<","<<y<<")"<<endl;
+                    cout<<"End: ("<<new_x<<","<<new_y<<")"<<endl;
                 }
             }
         }
+        
+        cout<<"Total pixels: "<<total_pixels<<", Out of bounds: "<<out_of_bounds_count<<endl;
 
     };
     MatrixXf RBFWarper::A_p(float x,float y){
@@ -151,7 +183,10 @@ namespace USTC_CG{
     float RBFWarper::g(float x1, float y1, float x2, float y2, int i){//提供两个坐标值
         float d2 = pow(x1 - x2,2) + pow(y1 - y2,2);
         //r_i2: 计算控制点pi到其他所有控制点的最小距离的平方
-        float ri2 = numeric_limits<float>::infinity();
+        float dx = start_points_[i].first;
+        float dy = start_points_[i].second;
+        float ri2 = dx * dx + dy * dy;
+
         for(size_t j = 0; j < start_points_.size(); j++){
             if(j == i) continue;
             float dx = start_points_[i].first - start_points_[j].first;

@@ -15,10 +15,10 @@ namespace USTC_CG
 class Warper
 {
    public:
-    virtual ~Warper() = default;
 
     // HW2_TODO: A virtual function warp(...)
-    
+    //src是 dst 
+    virtual void warp(const unsigned char* src, unsigned char* dst, int width, int height);
     
     // HW2_TODO: other functions or variables if you need
 };

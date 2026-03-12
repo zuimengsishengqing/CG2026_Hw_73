@@ -2,7 +2,10 @@
 
 #include <cmath>
 #include <iostream>
+#include "warper/IDW_warper.h"
+#include "warper/RBF_warper.h"
 
+using namespace std;
 namespace USTC_CG
 {
 using uchar = unsigned char;
@@ -158,14 +161,52 @@ void WarpingWidget::warping()
         {
             // HW2_TODO: Implement the IDW warping
             // use selected points start_points_, end_points_ to construct the map
-            std::cout << "IDW not implemented." << std::endl;
+            std::cout << "IDW implemented." << std::endl;
+            
+            // 转换控制点格式
+            vector<pair<float, float>> start_points, end_points;
+            for(size_t i = 0; i < start_points_.size(); ++i){
+                start_points.emplace_back(start_points_[i].x, start_points_[i].y);
+                end_points.emplace_back(end_points_[i].x, end_points_[i].y);
+            }
+            
+            // 创建IDW warper实例并设置控制点
+            IDWWarper idw_warper;
+            idw_warper.set_control_points(start_points, end_points);
+            
+            // 获取图像数据指针
+            const unsigned char* src_data = data_->data();
+            unsigned char* dst_data = warped_image.data();
+            
+            // 调用warp函数处理整个图像
+            idw_warper.warp(src_data, dst_data, data_->width(), data_->height());
+            
             break;
         }
         case kRBF:
         {
             // HW2_TODO: Implement the RBF warping
             // use selected points start_points_, end_points_ to construct the map
-            std::cout << "RBF not implemented." << std::endl;
+            std::cout << "RBF implemented." << std::endl;
+            
+            // 转换控制点格式
+            vector<pair<float, float>> start_points, end_points;
+            for(size_t i = 0; i < start_points_.size(); ++i){
+                start_points.emplace_back(start_points_[i].x, start_points_[i].y);
+                end_points.emplace_back(end_points_[i].x, end_points_[i].y);
+            }
+            
+            // 创建RBF warper实例并设置控制点
+            RBFWarper rbf_warper;
+            rbf_warper.set_control_points(start_points, end_points);
+            
+            // 获取图像数据指针
+            const unsigned char* src_data = data_->data();
+            unsigned char* dst_data = warped_image.data();
+            
+            // 调用warp函数处理整个图像
+            rbf_warper.warp(src_data, dst_data, data_->width(), data_->height());
+            
             break;
         }
         default: break;

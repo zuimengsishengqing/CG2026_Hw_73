@@ -9,16 +9,12 @@ add_executable(${PROJECT_NAME} ${source})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # HW2_TODO(optional): Add Dlib support to the project
-# 使用 header-only 模式，无需编译安装
-set(DLIB_DIR "${THIRD_PARTY_DIR}/dlib")
-if(EXISTS "${DLIB_DIR}/dlib")
-  message(STATUS "Dlib found at: ${DLIB_DIR}")
-  target_include_directories(${PROJECT_NAME} PRIVATE "${DLIB_DIR}")
-  # 添加 dlib 宏定义
-  target_compile_definitions(${PROJECT_NAME} PRIVATE DLIB_USE_CUDA=0)
+find_package(dlib QUIET)
+if(dlib_FOUND)
+  message(STATUS "Dlib found")
+  target_link_libraries(${PROJECT_NAME} PRIVATE dlib::dlib)
 else()
-  message(STATUS "Dlib not found at: ${DLIB_DIR}")
-  message(STATUS "Please download dlib and extract to: ${DLIB_DIR}")
+  message(STATUS "Dlib not found")
 endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES 

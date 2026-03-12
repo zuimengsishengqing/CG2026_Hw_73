@@ -4,6 +4,7 @@
 #include <iostream>
 #include "warper/IDW_warper.h"
 #include "warper/RBF_warper.h"
+#include "warper/NN_warper.h"
 
 using namespace std;
 namespace USTC_CG
@@ -209,6 +210,36 @@ void WarpingWidget::warping()
             
             break;
         }
+        case kNN:
+        {
+            // Neural Network warping using dlib
+            std::cout << "Neural Network warping started..." << std::endl;
+            
+            // 转换控制点格式
+            vector<pair<float, float>> start_points, end_points;
+            for(size_t i = 0; i < start_points_.size(); ++i){
+                start_points.emplace_back(start_points_[i].x, start_points_[i].y);
+                end_points.emplace_back(end_points_[i].x, end_points_[i].y);
+            }
+            
+            // 创建NN warper实例并设置控制点
+            NNWarper nn_warper;
+            nn_warper.set_control_points(start_points, end_points);
+            
+            // 训练神经网络
+            std::cout << "Training neural network..." << std::endl;
+            nn_warper.train_network(1000, 0.001);
+            
+            // 获取图像数据指针
+            const unsigned char* src_data = data_->data();
+            unsigned char* dst_data = warped_image.data();
+            
+            // 调用warp函数处理整个图像
+            nn_warper.warp(src_data, dst_data, data_->width(), data_->height());
+            
+            std::cout << "Neural Network warping completed." << std::endl;
+            break;
+        }
         default: break;
     }
 
@@ -235,6 +266,10 @@ void WarpingWidget::set_IDW()
 void WarpingWidget::set_RBF()
 {
     warping_type_ = kRBF;
+}
+void WarpingWidget::set_NN()
+{
+    warping_type_ = kNN;
 }
 void WarpingWidget::enable_selecting(bool flag)
 {

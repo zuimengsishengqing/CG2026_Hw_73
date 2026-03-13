@@ -165,7 +165,7 @@ void WarpingWidget::warping()
             std::cout << "IDW implemented." << std::endl;
             
             // 转换控制点格式
-            vector<pair<float, float>> start_points, end_points;
+            std::vector<std::pair<float, float>> start_points, end_points;
             for(size_t i = 0; i < start_points_.size(); ++i){
                 start_points.emplace_back(start_points_[i].x, start_points_[i].y);
                 end_points.emplace_back(end_points_[i].x, end_points_[i].y);
@@ -191,7 +191,7 @@ void WarpingWidget::warping()
             std::cout << "RBF implemented." << std::endl;
             
             // 转换控制点格式
-            vector<pair<float, float>> start_points, end_points;
+            std::vector<std::pair<float, float>> start_points, end_points;
             for(size_t i = 0; i < start_points_.size(); ++i){
                 start_points.emplace_back(start_points_[i].x, start_points_[i].y);
                 end_points.emplace_back(end_points_[i].x, end_points_[i].y);
@@ -216,7 +216,7 @@ void WarpingWidget::warping()
             std::cout << "Neural Network warping started..." << std::endl;
             
             // 转换控制点格式
-            vector<pair<float, float>> start_points, end_points;
+            std::vector<std::pair<float, float>> start_points, end_points;
             for(size_t i = 0; i < start_points_.size(); ++i){
                 start_points.emplace_back(start_points_[i].x, start_points_[i].y);
                 end_points.emplace_back(end_points_[i].x, end_points_[i].y);
@@ -311,17 +311,17 @@ void WarpingWidget::select_points()
     {
         ImVec2 s(
             start_points_[i].x + position_.x, start_points_[i].y + position_.y);
-        ImVec2 e(
+        ImVec2 end_point(
             end_points_[i].x + position_.x, end_points_[i].y + position_.y);
-        draw_list->AddLine(s, e, IM_COL32(255, 0, 0, 255), 2.0f);
+        draw_list->AddLine(s, end_point, IM_COL32(255, 0, 0, 255), 2.0f);
         draw_list->AddCircleFilled(s, 4.0f, IM_COL32(0, 0, 255, 255));
-        draw_list->AddCircleFilled(e, 4.0f, IM_COL32(0, 255, 0, 255));
+        draw_list->AddCircleFilled(end_point, 4.0f, IM_COL32(0, 255, 0, 255));
     }
     if (draw_status_)
     {
         ImVec2 s(start_.x + position_.x, start_.y + position_.y);
-        ImVec2 e(end_.x + position_.x, end_.y + position_.y);
-        draw_list->AddLine(s, e, IM_COL32(255, 0, 0, 255), 2.0f);
+        ImVec2 end_point(end_.x + position_.x, end_.y + position_.y);
+        draw_list->AddLine(s, end_point, IM_COL32(255, 0, 0, 255), 2.0f);
         draw_list->AddCircleFilled(s, 4.0f, IM_COL32(0, 0, 255, 255));
     }
 }

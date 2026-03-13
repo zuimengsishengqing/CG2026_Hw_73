@@ -9,6 +9,7 @@ add_executable(${PROJECT_NAME} ${source})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # HW2_TODO(optional): Add Dlib support to the project
+add_definitions(-D_HAS_STD_BYTE=0)
 find_package(dlib QUIET)
 if(dlib_FOUND)
   message(STATUS "Dlib found")
@@ -24,3 +25,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   ARCHIVE_OUTPUT_DIRECTORY "${LIBRARY_DIR}") 
 target_link_libraries(${PROJECT_NAME} PUBLIC common) 
 target_compile_definitions(${PROJECT_NAME} PRIVATE -DDATA_PATH="${FRAMEWORK2D_DIR}/../Homeworks/2_image_warping/data")
+# 解决 Windows 下 std::byte 与 rpcndr.h 中 byte 的冲突
+target_compile_definitions(${PROJECT_NAME} PRIVATE _HAS_STD_BYTE=0)

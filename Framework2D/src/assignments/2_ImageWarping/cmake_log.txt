@@ -1,0 +1,854 @@
+              DstEvaluatorTypeT=DstEvaluatorType,
+              SrcEvaluatorTypeT=SrcEvaluatorType,
+              Functor=Eigen::internal::assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(572): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::ge
+neric_dense_assignment_kernel<DstEvaluatorTypeT,SrcEvaluatorTypeT,Functor,1>::assignPacketByOuterInner<Eigen::internal::dense_assignment_loop<Kernel,4,0>:: 
+run::requestedAlignment,Eigen::Unaligned,PacketType>(Eigen::Index,Eigen::Index)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignme
+nts\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              DstEvaluatorTypeT=DstEvaluatorType,
+              SrcEvaluatorTypeT=SrcEvaluatorType,
+              Functor=Eigen::internal::assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(540): message : 在编译 类 模板 成员函数“void Eigen::internal::dense_
+assignment_loop<Kernel,4,0>::run(Kernel &)”时 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxpr
+oj]
+          with
+          [
+              Kernel=Kernel
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(910): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::de
+nse_assignment_loop<Kernel,4,0>::run(Kernel &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping
+.vcxproj]
+          with
+          [
+              Kernel=Kernel
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(452,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(452,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(770): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+triangular_product_impl<5,true,const Eigen::Block<Derived,-1,-1,false>,false,Rhs,false>::run<Dest>(Dest &,Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Dest=ActualDstTypeCleaned,
+              Lhs=const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(770): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+triangular_product_impl<5,true,const Eigen::Block<Derived,-1,-1,false>,false,Rhs,false>::run<Dest>(Dest &,Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Dest=ActualDstTypeCleaned,
+              Lhs=const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(361): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl<Lhs,Rhs,Eigen::TriangularShape,Eigen::DenseShape,8>::scaleAndAddTo<Dst>(Dest &,const Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Dst=ActualDstTypeCleaned,
+              Dest=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(361): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl<Lhs,Rhs,Eigen::TriangularShape,Eigen::DenseShape,8>::scaleAndAddTo<Dst>(Dest &,const Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Dst=ActualDstTypeCleaned,
+              Dest=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(357): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::TriangularShape,Eigen::DenseShape,8>>::scaleAndAddTo<Dst>(Dst &,cons 
+t Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj] 
+          with
+          [
+              Lhs=Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(357): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::TriangularShape,Eigen::DenseShape,8>>::scaleAndAddTo<Dst>(Dst &,cons 
+t Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj] 
+          with
+          [
+              Lhs=Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(178): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::TriangularShape,Eigen::DenseShape,8>>::subTo<DstXprType>(Dst &,const 
+ Lhs &,const Rhs &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              DstXprType=ActualDstTypeCleaned,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(178): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::TriangularShape,Eigen::DenseShape,8>>::subTo<DstXprType>(Dst &,const 
+ Lhs &,const Rhs &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,
+              Rhs=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              DstXprType=ActualDstTypeCleaned,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(175): message : 在编译 类 模板 成员函数“void Eigen::internal::Assi
+gnment<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>::run(DstXprType &,const Eigen::Produc 
+t<Eigen::TriangularView<const VectorsType,5>,Derived,0> &,const Eigen::internal::sub_assign_op<DstScalar,ProdScalar> &)”时 [F:\CG2026\homework in winter\UST
+C_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,0>,
+              Func=Eigen::internal::sub_assign_op<float,float>,
+              DstXprType=ActualDstTypeCleaned,
+              VectorsType=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              DstScalar=float,
+              ProdScalar=float
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(890): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::As
+signment<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>::run(DstXprType &,const Eigen::Prod 
+uct<Eigen::TriangularView<const VectorsType,5>,Derived,0> &,const Eigen::internal::sub_assign_op<DstScalar,ProdScalar> &)”的引用 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,0>,
+              Func=Eigen::internal::sub_assign_op<float,float>,
+              DstXprType=ActualDstTypeCleaned,
+              VectorsType=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Derived=Eigen::Matrix<float,-1,-1,0,-1,-1>,
+              DstScalar=float,
+              ProdScalar=float
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(890): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::Assignm
+ent<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,0>,
+              Func=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/NoAlias.h(59): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::call_assign
+ment_no_alias<ExpressionType,Derived,Eigen::internal::sub_assign_op<DstScalar,ProdScalar>>(Dst &,const Src &,const Func &)”的引用 [F:\CG2026\homework in winte
+r\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              ExpressionType=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Derived=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1, 
+  0,-1,-1>,0>,
+              DstScalar=float,
+              ProdScalar=float,
+              Dst=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Src=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,0>,
+              Func=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Householder/BlockHouseholder.h(103): message : 查看对正在编译的函数 模板 实例化“ExpressionType &
+Eigen::NoAlias<ExpressionType,Eigen::MatrixBase>::operator -=<Derived>(const Eigen::MatrixBase<Derived> &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Fra
+mework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              ExpressionType=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Derived=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1, 
+  0,-1,-1>,0>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Householder/BlockHouseholder.h(103): message : 查看对正在编译的函数 模板 实例化“ExpressionType &
+Eigen::NoAlias<ExpressionType,Eigen::MatrixBase>::operator -=<Derived>(const Eigen::MatrixBase<Derived> &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Fra
+mework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              ExpressionType=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Derived=Eigen::Product<Eigen::TriangularView<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,5>,Eigen::Matrix<float,-1,-1, 
+  0,-1,-1>,0>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(459,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(459,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(152,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(152,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(169,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(169,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(183,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(183,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(198,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(198,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(318,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(318,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(194): message : 查看对正在编译的函数 模板  实例化“void Eig
+en::internal::trmv_selector<6,1>::run<Eigen::Transpose<const Derived>,Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<Scalar 
+A,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eige 
+n::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,Eigen::Transpose<Eigen::Block<Eige 
+n::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>>(const Lhs &,const Rhs &,Dest &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,
+              ScalarA=float,
+              ScalarB=float,
+              Lhs=Eigen::Transpose<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>>,
+              Rhs=Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal:: 
+  scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen:: 
+  Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,
+              Dest=Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(194): message : 查看对正在编译的函数 模板  实例化“void Eig
+en::internal::trmv_selector<6,1>::run<Eigen::Transpose<const Derived>,Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<Scalar 
+A,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eige 
+n::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,Eigen::Transpose<Eigen::Block<Eige 
+n::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>>(const Lhs &,const Rhs &,Dest &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,
+              ScalarA=float,
+              ScalarB=float,
+              Lhs=Eigen::Transpose<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>>,
+              Rhs=Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal:: 
+  scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen:: 
+  Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,
+              Dest=Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(783): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+triangular_product_impl<5,false,Lhs,true,const Eigen::Block<const Derived,-1,-1,false>,false>::run<Dest>(Dest &,const Lhs &,Rhs &,const float &)”的引用 [F:\CG
+2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Derived=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Dest=ActualDstTypeCleaned,
+              Rhs=const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(783): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+triangular_product_impl<5,false,Lhs,true,const Eigen::Block<const Derived,-1,-1,false>,false>::run<Dest>(Dest &,const Lhs &,Rhs &,const float &)”的引用 [F:\CG
+2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Derived=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              Dest=ActualDstTypeCleaned,
+              Rhs=const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(361): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl<Lhs,Rhs,Eigen::DenseShape,Eigen::TriangularShape,7>::scaleAndAddTo<Dst>(Dest &,const Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Rhs=Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,
+              Dst=ActualDstTypeCleaned,
+              Dest=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(361): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl<Lhs,Rhs,Eigen::DenseShape,Eigen::TriangularShape,7>::scaleAndAddTo<Dst>(Dest &,const Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Rhs=Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,
+              Dst=ActualDstTypeCleaned,
+              Dest=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(349): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::DenseShape,Eigen::TriangularShape,7>>::scaleAndAddTo<Dst>(Dst &,cons 
+t Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj] 
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Rhs=Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(349): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::DenseShape,Eigen::TriangularShape,7>>::scaleAndAddTo<Dst>(Dst &,cons 
+t Lhs &,const Rhs &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj] 
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Rhs=Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(148): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::DenseShape,Eigen::TriangularShape,7>>::evalTo<DstXprType>(Dst &,cons 
+t Lhs &,const Rhs &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Rhs=Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,
+              DstXprType=ActualDstTypeCleaned,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(148): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::
+generic_product_impl_base<Lhs,Rhs,Eigen::internal::generic_product_impl<Lhs,Rhs,Eigen::DenseShape,Eigen::TriangularShape,7>>::evalTo<DstXprType>(Dst &,cons 
+t Lhs &,const Rhs &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Lhs=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1 
+  ,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,
+              Rhs=Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,
+              DstXprType=ActualDstTypeCleaned,
+              Dst=ActualDstTypeCleaned
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/ProductEvaluators.h(142): message : 在编译 类 模板 成员函数“void Eigen::internal::Assi
+gnment<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>::run(DstXprType &,const Eigen::Produc 
+t<Derived,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,0> &,const Eigen::int 
+ernal::assign_op<float,float> &)”时 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]       
+          with
+          [
+              Src=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_c 
+  onstant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<f 
+  loat,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>, 
+  -1,-1,false>,-1,-1,false>,5>,0>,
+              Func=Eigen::internal::assign_op<float,float>,
+              DstXprType=ActualDstTypeCleaned,
+              Derived=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op< 
+  float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1, 
+  0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(890): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::As
+signment<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>::run(DstXprType &,const Eigen::Prod 
+uct<Derived,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,5>,0> &,const Eigen::i 
+nternal::assign_op<float,float> &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj] 
+          with
+          [
+              Src=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_c 
+  onstant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<f 
+  loat,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>, 
+  -1,-1,false>,-1,-1,false>,5>,0>,
+              Func=Eigen::internal::assign_op<float,float>,
+              DstXprType=ActualDstTypeCleaned,
+              Derived=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op< 
+  float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1, 
+  0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(890): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::Assignm
+ent<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_c 
+  onstant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<f 
+  loat,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>, 
+  -1,-1,false>,-1,-1,false>,5>,0>,
+              Func=Eigen::internal::assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/NoAlias.h(43): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::call_assign
+ment_no_alias<ExpressionType,Derived,Eigen::internal::assign_op<float,float>>(Dst &,const Src &,const Func &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\
+Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              ExpressionType=Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>,
+              Derived=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scal 
+  ar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matr 
+  ix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1, 
+  -1>,-1,-1,false>,-1,-1,false>,5>,0>,
+              Dst=Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>,
+              Src=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_c 
+  onstant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<f 
+  loat,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>, 
+  -1,-1,false>,-1,-1,false>,5>,0>,
+              Func=Eigen::internal::assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Householder/BlockHouseholder.h(64): message : 查看对正在编译的函数 模板 实例化“ExpressionType &E
+igen::NoAlias<ExpressionType,Eigen::MatrixBase>::operator =<Derived>(const Eigen::MatrixBase<Derived> &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Frame
+work2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              ExpressionType=Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>,
+              Derived=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scal 
+  ar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matr 
+  ix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1, 
+  -1>,-1,-1,false>,-1,-1,false>,5>,0>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Householder/BlockHouseholder.h(63): message : 查看对正在编译的函数 模板 实例化“ExpressionType &E
+igen::NoAlias<ExpressionType,Eigen::MatrixBase>::operator =<Derived>(const Eigen::MatrixBase<Derived> &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Frame
+work2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              ExpressionType=Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>,
+              Derived=Eigen::Product<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scal 
+  ar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matr 
+  ix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>,Eigen::TriangularView<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1, 
+  -1>,-1,-1,false>,-1,-1,false>,5>,0>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Householder/BlockHouseholder.h(92): message : 查看对正在编译的函数 模板 实例化“void Eigen::inter
+nal::make_block_householder_triangular_factor<Eigen::Matrix<float,-1,-1,1,-1,-1>,VectorsType,CoeffsType>(TriangularFactorType &,const VectorsType &,const C 
+oeffsType &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              VectorsType=Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,
+              CoeffsType=Eigen::VectorBlock<const Eigen::Matrix<float,-1,1,0,-1,1>,-1>,
+              TriangularFactorType=Eigen::Matrix<float,-1,-1,1,-1,-1>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(138,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(138,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(108): message : 在编译 类 模板 成员函数“void Eigen::
+internal::triangular_matrix_vector_product<Eigen::Index,6,LhsScalar,false,RhsScalar,false,1,0>::run(Index,Index,const LhsScalar *,Index,const RhsScalar *,I 
+ndex,float *,Index,const float &)”时 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]      
+          with
+          [
+              Index=Eigen::Index,
+              LhsScalar=LhsScalar,
+              RhsScalar=RhsScalar
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(332): message : 查看对正在编译的函数 模板  实例化“void Eig
+en::internal::triangular_matrix_vector_product<Eigen::Index,6,LhsScalar,false,RhsScalar,false,1,0>::run(Index,Index,const LhsScalar *,Index,const RhsScalar 
+ *,Index,float *,Index,const float &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Index=Eigen::Index,
+              LhsScalar=LhsScalar,
+              RhsScalar=RhsScalar
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(332): message : 查看对正在编译的 类 模板 实例化“Eigen::i
+nternal::triangular_matrix_vector_product<Eigen::Index,6,LhsScalar,false,RhsScalar,false,1,0>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\buil
+d\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(194): message : 查看对正在编译的函数 模板  实例化“void Eig
+en::internal::trmv_selector<6,1>::run<Eigen::Transpose<const Derived>,Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<Scalar 
+A,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eige 
+n::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,Eigen::Transpose<Eigen::Block<Eige 
+n::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>>(const Lhs &,const Rhs &,Dest &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,
+              ScalarA=float,
+              ScalarB=float,
+              Lhs=Eigen::Transpose<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>>,
+              Rhs=Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal:: 
+  scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen:: 
+  Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,
+              Dest=Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(194): message : 查看对正在编译的函数 模板  实例化“void Eig
+en::internal::trmv_selector<6,1>::run<Eigen::Transpose<const Derived>,Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<Scalar 
+A,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eige 
+n::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,Eigen::Transpose<Eigen::Block<Eige 
+n::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>>(const Lhs &,const Rhs &,Dest &,const float &)”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>,
+              ScalarA=float,
+              ScalarB=float,
+              Lhs=Eigen::Transpose<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,-1,false>>,
+              Rhs=Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal:: 
+  scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen:: 
+  Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,
+              Dest=Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(152,1): warning C4127: 条件表达式是常量 [F:\CG2026
+\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(152,1): message : 考虑改用 "if constexpr"  语句 [
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2296,1): warning C4127: 条件表达式是常量 [F:\CG20
+26\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2296,1): message : 考虑改用 "if constexpr" 语句
+ [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2254): message : 在编译 类 模板 成员函数“void Eigen
+::internal::gemm_pack_lhs<Scalar,Index,LhsMapper,8,4,__m128,1,false,false>::operator ()(Scalar *,const DataMapper &,Index,Index,Index,Index)”时 [F:\CG2026\h
+omework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Scalar=Scalar,
+              Index=Eigen::Index,
+              DataMapper=LhsMapper
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(203): message : 查看对正在编译的函数 模板  实例化“void Eig
+en::internal::gemm_pack_lhs<Scalar,Index,LhsMapper,8,4,__m128,1,false,false>::operator ()(Scalar *,const DataMapper &,Index,Index,Index,Index)”的引用 [F:\CG20
+26\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Scalar=Scalar,
+              Index=Eigen::Index,
+              DataMapper=LhsMapper
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixMatrix.h(158): message : 查看对正在编译的 类 模板 实例化“Eigen::i
+nternal::gemm_pack_lhs<Scalar,Index,LhsMapper,8,4,__m128,1,false,false>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_Im
+ageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Scalar=Scalar,
+              Index=Eigen::Index
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2302,1): warning C4127: 条件表达式是常量 [F:\CG20
+26\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2302,1): message : 考虑改用 "if constexpr" 语句
+ [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2353,1): warning C4127: 条件表达式是常量 [F:\CG20
+26\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/GeneralBlockPanelKernel.h(2353,1): message : 考虑改用 "if constexpr" 语句
+ [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/CoreEvaluators.h(1155,1): warning C4127: 条件表达式是常量 [F:\CG2026\homework in win
+ter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/CoreEvaluators.h(1155,1): message : 考虑改用 "if constexpr" 语句 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/CoreEvaluators.h(791): message : 查看对正在编译的函数 模板 实例化“PacketType Eigen::interna
+l::unary_evaluator<Eigen::Block<const Derived,-1,1,false>,Eigen::internal::IndexBased,float>::packet<0,PacketType>(Eigen::Index) const”的引用 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              PacketType=PacketType,
+              Derived=Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::intern 
+  al::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eig 
+  en::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/CoreEvaluators.h(790): message : 查看对正在编译的函数 模板 实例化“PacketType Eigen::interna
+l::unary_evaluator<Eigen::Block<const Derived,-1,1,false>,Eigen::internal::IndexBased,float>::packet<0,PacketType>(Eigen::Index) const”的引用 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              PacketType=PacketType,
+              Derived=Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::intern 
+  al::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eig 
+  en::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(681): message : 查看对正在编译的函数 模板 实例化“PacketType Eigen::intern
+al::binary_evaluator<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_ 
+op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Derived>,Eigen::internal::IndexBased,Eigen::internal::IndexBased,float,float>::packet<0,PacketType> 
+(Eigen::Index) const”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              PacketType=PacketType,
+              ScalarA=float,
+              ScalarB=float,
+              Derived=Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNull 
+  aryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<con 
+  st Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(681): message : 查看对正在编译的函数 模板 实例化“PacketType Eigen::intern
+al::binary_evaluator<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_ 
+op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Derived>,Eigen::internal::IndexBased,Eigen::internal::IndexBased,float,float>::packet<0,PacketType> 
+(Eigen::Index) const”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              PacketType=PacketType,
+              ScalarA=float,
+              ScalarB=float,
+              Derived=Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNull 
+  aryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen::Block<const Eigen::Block<con 
+  st Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(437): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::ge
+neric_dense_assignment_kernel<DstEvaluatorType,SrcEvaluatorType,Functor,0>::assignPacket<Eigen::internal::dense_assignment_loop<Kernel,3,0>::run::requested 
+Alignment,Eigen::internal::dense_assignment_loop<Kernel,3,0>::run::dstIsAligned,PacketType>(Eigen::Index)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Fram
+ework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Functor=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(437): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::ge
+neric_dense_assignment_kernel<DstEvaluatorType,SrcEvaluatorType,Functor,0>::assignPacket<Eigen::internal::dense_assignment_loop<Kernel,3,0>::run::requested 
+Alignment,Eigen::internal::dense_assignment_loop<Kernel,3,0>::run::dstIsAligned,PacketType>(Eigen::Index)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Fram
+ework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Functor=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(419): message : 在编译 类 模板 成员函数“void Eigen::internal::dense_
+assignment_loop<Kernel,3,0>::run(Kernel &)”时 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxpr
+oj]
+          with
+          [
+              Kernel=Kernel
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(785): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::de
+nse_assignment_loop<Kernel,3,0>::run(Kernel &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping
+.vcxproj]
+          with
+          [
+              Kernel=Kernel
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(785): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::dense_a
+ssignment_loop<Kernel,3,0>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(954): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::ca
+ll_dense_assignment_loop<DstXprType,SrcXprType,Functor>(DstXprType &,const SrcXprType &,const Functor &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Frame
+work2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              DstXprType=ActualDstTypeCleaned,
+              SrcXprType=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_ 
+  op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op 
+  <float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const 
+   Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Functor=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(949): message : 在编译 类 模板 成员函数“void Eigen::internal::Assign
+ment<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>::run(DstXprType &,const SrcXprType &,co 
+nst Functor &)”时 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float, 
+  float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen: 
+  :Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Func=Eigen::internal::sub_assign_op<float,float>,
+              DstXprType=ActualDstTypeCleaned,
+              SrcXprType=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_ 
+  op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op 
+  <float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const 
+   Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Functor=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(890): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::As
+signment<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>::run(DstXprType &,const SrcXprType  
+&,const Functor &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float, 
+  float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen: 
+  :Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Func=Eigen::internal::sub_assign_op<float,float>,
+              DstXprType=ActualDstTypeCleaned,
+              SrcXprType=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_ 
+  op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op 
+  <float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const 
+   Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Functor=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(890): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::Assignm
+ent<ActualDstTypeCleaned,Src,Func,Eigen::internal::AssignmentKind<Eigen::DenseShape,Eigen::DenseShape>::Kind,void>”的引用 [F:\CG2026\homework in winter\USTC_C
+G_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Src=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float, 
+  float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen: 
+  :Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Func=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/AssignEvaluator.h(858): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::ca
+ll_assignment_no_alias<Dst,Src,Func>(Dst &,const Src &,const Func &)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_Image
+Warping\2_ImageWarping.vcxproj]
+          with
+          [
+              Dst=Eigen::Block<Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>,-1,1,false>,
+              Src=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float, 
+  float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen: 
+  :Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Func=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/CwiseBinaryOp.h(164): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::call
+_assignment<Derived,Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_o 
+p<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<Sc 
+alarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const  
+Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,Eigen::internal:: 
+sub_assign_op<DstScalar,ProdScalar>>(Dst &,const Src &,const Func &,void *)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\
+2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>,-1,1,false>,       
+              ScalarA=float,
+              ScalarB=float,
+              DstScalar=float,
+              ProdScalar=float,
+              Dst=Eigen::Block<Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>,-1,1,false>,
+              Src=Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float,float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<floa 
+  t>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<float, 
+  float>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpose<const Eigen: 
+  :Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>,
+              Func=Eigen::internal::sub_assign_op<float,float>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(341): message : 查看对正在编译的函数 模板  实例化“Derived
+&Eigen::MatrixBase<Derived>::operator -=<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::intern 
+al::scalar_constant_op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal: 
+:scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Ei 
+gen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,fals 
+e>>>(const Eigen::MatrixBase<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_c 
+onstant_op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_prod 
+uct_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpo 
+se<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>> &)”的引 用
+[F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>,-1,1,false>,       
+              ScalarA=float,
+              ScalarB=float
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/products/TriangularMatrixVector.h(341): message : 查看对正在编译的函数 模板  实例化“Derived
+&Eigen::MatrixBase<Derived>::operator -=<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::intern 
+al::scalar_constant_op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal: 
+:scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Ei 
+gen::Transpose<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,fals 
+e>>>(const Eigen::MatrixBase<Eigen::CwiseBinaryOp<Eigen::internal::scalar_product_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_c 
+onstant_op<float>,const Eigen::Matrix<float,-1,1,0,-1,1>>,const Eigen::Block<const Eigen::Transpose<const Eigen::CwiseBinaryOp<Eigen::internal::scalar_prod 
+uct_op<ScalarA,ScalarB>,const Eigen::CwiseNullaryOp<Eigen::internal::scalar_constant_op<float>,const Eigen::Matrix<float,1,-1,1,1,-1>>,const Eigen::Transpo 
+se<const Eigen::Block<const Eigen::Block<const Eigen::Block<Eigen::Matrix<float,-1,-1,0,-1,-1>,-1,-1,false>,-1,1,true>,-1,1,false>>>>,-1,1,false>>> &)”的引 用
+[F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Block<Eigen::Transpose<Eigen::Block<Eigen::Block<Eigen::Matrix<float,-1,-1,1,-1,-1>,1,-1,true>,1,-1,false>>,-1,1,false>,       
+              ScalarA=float,
+              ScalarB=float
+          ]
+  warper.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表 示的字符。请将该文件保存为 U
+nicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.cpp(6,84): warning C4100: “height”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.cpp(6,73): warning C4100: “width”: 未引用的形参 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.cpp(6,64): warning C4100: “dst”: 未引用的形参 [F:\CG2026\homewor
+k in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.cpp(6,44): warning C4100: “src”: 未引用的形参 [F:\CG2026\homewor
+k in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+  warping_widget.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warping_widget.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存
+为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper/IDW_warper.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保
+存为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper\warper.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表 示的字符。请将该文件保存为 U
+nicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper/RBF_warper.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保
+存为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/arch/Default/Half.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表 示的字符。请将该文件保存为 U
+nicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/arch/Default/BFloat16.h(1,1): warning C4819: 该文件包含不能在当前代码页(936) 中表示的字符。请将该文件保
+存为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/arch/Default/GenericPacketMathFunctions.h(676,1): warning C4819: 该文件包含不能在当前代
+码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/Matrix.h(46,40): warning C5054: 运算符“&”: 已在不同类型的枚举之间弃用 [F:\CG2026\homework in
+ winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/Array.h(18): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::traits<Eigen::Matr
+ix<_Scalar,1,-1,1,1,-1>>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              _Scalar=Eigen::Index
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/PlainObjectBase.h(98): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::traits<D
+erived>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+          with
+          [
+              Derived=Eigen::Array<Eigen::Index,1,-1,1,1,-1>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/Array.h(47): message : 查看对正在编译的 类 模板 实例化“Eigen::PlainObjectBase<Eigen::Array
+<Eigen::Index,1,-1,1,1,-1>>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]        
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/util/ForwardDeclarations.h(119): message : 查看对正在编译的 类 模板 实例化“Eigen::Array<Ei
+gen::Index,1,-1,1,1,-1>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/SVD/BDCSVD.h(217): message : 查看对正在编译的 类 模板 实例化“Eigen::BDCSVD<_MatrixType>”的引用 [F:
+\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper/NN_warper.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存
+为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/util/Memory.h(444,1): warning C4127: 条件表达式是常量 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/util/Memory.h(444,1): message : 考虑改用 "if constexpr" 语句 [F:\CG2026\homework i
+n winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/DenseStorage.h(465): message : 查看对正在编译的函数 模板 实例化“void Eigen::internal::condi
+tional_aligned_delete_auto<T,true>(T *,size_t)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping
+.vcxproj]
+          with
+          [
+              T=float
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/DenseStorage.h(465): message : 在编译 类 模板 成员函数“Eigen::DenseStorage<float,-1,-1
+,-1,0>::~DenseStorage(void)”时 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/PlainObjectBase.h(995): message : 查看对正在编译的函数 模板 实例化“Eigen::DenseStorage<floa
+t,-1,-1,-1,0>::~DenseStorage(void)”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj] 
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/PlainObjectBase.h(131): message : 查看对正在编译的 类 模板 实例化“Eigen::DenseStorage<floa
+t,-1,-1,-1,0>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/Matrix.h(180): message : 查看对正在编译的 类 模板 实例化“Eigen::PlainObjectBase<Eigen::Mat
+rix<float,-1,-1,0,-1,-1>>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\warper/RBF_warper.h(34): message : 查看对正在编译的 类 模板 实例化“Eigen::Matrix<float
+,-1,-1,0,-1,-1>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+  warping_window.cpp
+  正在生成代码...
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\dlib_install\include\dlib\cuda\tensor.h(539): warning C4702: 无法访问的代码 [F:\CG2026\homework in
+ winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\dlib_install\include\dlib\cuda\tensor.h(541): warning C4702: 无法访问的代码 [F:\CG2026\homework in
+ winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\dlib_install\include\dlib\cuda\tensor.h(540): warning C4702: 无法访问的代码 [F:\CG2026\homework in
+ winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+  2_ImageWarping.vcxproj -> F:\CG2026\homework in winter\USTC_CG_26\Framework2D\bin\Release\2_ImageWarping.exe
+  Building Custom Rule F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/assignments/3_PoissonImageEditing/CMakeLists.txt
+  main.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  poisson_window.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  line.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  rect.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  source_image_widget.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\source_image_widget.cpp(46,14): warning C4189: “io”: 局部变量已初 始化但不引用
+ [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\source_image_widget.cpp(62,21): warning C4189: “draw_list”: 局部变量已
+初始化但不引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  target_image_widget.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  正在生成代码...
+  3_PoissonImageEditing.vcxproj -> F:\CG2026\homework in winter\USTC_CG_26\Framework2D\bin\Release\3_PoissonImageEditing.exe
+  Building Custom Rule F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/demo/CMakeLists.txt
+  demo.cpp
+  demo_window.cpp
+  正在生成代码...
+  demo.vcxproj -> F:\CG2026\homework in winter\USTC_CG_26\Framework2D\bin\Release\demo.exe
+  Building Custom Rule F:/CG2026/homework in winter/USTC_CG_26/Framework2D/src/demo/CMakeLists.txt
+  demo_hello_world.cpp
+  demo_hello_world.vcxproj -> F:\CG2026\homework in winter\USTC_CG_26\Framework2D\bin\Release\demo_hello_world.exe
+  Building Custom Rule F:/CG2026/homework in winter/USTC_CG_26/Framework2D/CMakeLists.txt

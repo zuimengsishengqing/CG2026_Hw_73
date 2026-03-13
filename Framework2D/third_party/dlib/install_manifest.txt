@@ -1,0 +1,8 @@
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib/glfw3.lib
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/include/GLFW/glfw3.h
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/include/GLFW/glfw3native.h
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib/cmake/glfw3/glfw3Config.cmake
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib/cmake/glfw3/glfw3ConfigVersion.cmake
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib/cmake/glfw3/glfw3Targets.cmake
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib/cmake/glfw3/glfw3Targets-release.cmake
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib/pkgconfig/glfw3.pc

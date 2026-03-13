@@ -1,26 +1,34 @@
 #pragma once
 
+#ifndef _HAS_STD_BYTE
+#define _HAS_STD_BYTE 0
+#endif
+
 #include "warper.h"
 #include <vector>
 #include <dlib/dnn.h>
 #include <dlib/data_io.h>
 #include <iostream>
+#include <string>  // 补充引入 string 头文件
+#include <utility> // 补充引入 pair 头文件
 
-using namespace std;
-using namespace dlib;
+// 【删除这里原本的 using namespace std;】
+
+// 不使用 using namespace dlib，避免与标准库的 byte 等类型冲突
+// 使用 dlib:: 前缀显式指定 dlib 的类型和函数
+
+// 定义 dlib::matrix 的完整类型别名
+using dlib_matrix = dlib::matrix<float, 0L, 0L, dlib::default_memory_manager, dlib::row_major_layout>;
 
 namespace USTC_CG
 {
 
 // 定义神经网络结构
-// 输入维度: 2 (x, y 坐标)
-// 输出维度: 2 (变形后的 x', y' 坐标)
-// 隐藏层: 两个 10 维的全连接层，使用 ReLU 激活函数
-using warping_net = loss_mean_squared_multioutput<
-    fc<2,                  // 输出层: 2 维 (x', y')
-    relu<fc<10,            // 隐藏层 2: 10 维 + ReLU 激活
-    relu<fc<10,            // 隐藏层 1: 10 维 + ReLU 激活
-    input<matrix<float>>   // 输入层: 2 维 (x, y)
+using warping_net = dlib::loss_mean_squared_multioutput<    
+    dlib::fc<2,
+    dlib::relu<dlib::fc<10,
+    dlib::relu<dlib::fc<10,
+    dlib::input<dlib_matrix>                                
     >>>>>>;
 
 class NNWarper : public Warper
@@ -31,8 +39,9 @@ public:
 
     void warp(const unsigned char* src, unsigned char* dst, int width, int height);
 
-    void set_control_points(const std::vector<pair<float, float>>& start_points, 
-                           const std::vector<pair<float, float>>& end_points);
+    // 补充 std:: 前缀
+    void set_control_points(const std::vector<std::pair<float, float>>& start_points, 
+                           const std::vector<std::pair<float, float>>& end_points);
 
     // 训练神经网络
     void train_network(int epochs = 1000, double learning_rate = 0.001);
@@ -40,7 +49,7 @@ public:
     // 设置神经网络参数
     void set_network_params(int hidden1_size = 10, int hidden2_size = 10);
 
-    // 保存/加载网络
+    // 保存/加载网络 (补充 std:: 前缀)
     void save_network(const std::string& filename);
     void load_network(const std::string& filename);
 
@@ -49,19 +58,20 @@ public:
     int get_training_epochs() const { return training_epochs_; }
 
 private:
-    std::vector<pair<float, float>> start_points_;
-    std::vector<pair<float, float>> end_points_;
+    // 补充 std:: 前缀
+    std::vector<std::pair<float, float>> start_points_;
+    std::vector<std::pair<float, float>> end_points_;
 
-    warping_net net_;
+    warping_net net_;  
     bool is_trained_;
     int training_epochs_;
 
     // 准备训练数据
-    void prepare_training_data(std::vector<matrix<float>>& inputs, 
-                              std::vector<matrix<float>>& targets);
+    void prepare_training_data(std::vector<dlib_matrix>& inputs, 
+                              std::vector<dlib_matrix>& targets);
 
-    // 计算变形后的坐标
-    pair<float, float> function(float x, float y);
+    // 计算变形后的坐标 (补充 std:: 前缀)
+    std::pair<float, float> function(float x, float y);
 };
 
 }  // namespace USTC_CG

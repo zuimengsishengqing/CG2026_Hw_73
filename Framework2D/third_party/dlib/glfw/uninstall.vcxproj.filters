@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\dlib\CMakeFiles\43e61942d9323577bf46c0fd0daaa86a\uninstall.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\glfw\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\dlib\glfw\CMakeFiles\uninstall" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{BD334ED6-AB18-3D86-B830-317D665591BE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

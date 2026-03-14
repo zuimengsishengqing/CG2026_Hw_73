@@ -37,3 +37,15 @@ target_include_directories(imgui
 )
 target_link_libraries(imgui PUBLIC glfw)
 set_target_properties(imgui PROPERTIES FOLDER "third_party")
+
+# annoy
+set(annoy_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/annoy" CACHE STRING "")
+file(GLOB annoy_source
+    "${annoy_SOURCE_DIR}/src/annoylib.h"
+    "${annoy_SOURCE_DIR}/src/kissrandom.h"
+)
+add_library(annoy INTERFACE)
+target_include_directories(annoy INTERFACE
+    "${annoy_SOURCE_DIR}/src"
+)
+set_target_properties(annoy PROPERTIES FOLDER "third_party")

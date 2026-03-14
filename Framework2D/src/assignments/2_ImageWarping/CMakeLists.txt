@@ -18,6 +18,14 @@ else()
   message(STATUS "Dlib not found")
 endif()
 
+# Add Annoy support (header-only library)
+if(EXISTS "${THIRD_PARTY_DIR}/annoy/src/annoylib.h")
+  message(STATUS "Annoy found")
+  target_include_directories(${PROJECT_NAME} PRIVATE "${THIRD_PARTY_DIR}/annoy/src")
+else()
+  message(STATUS "Annoy not found")
+endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES 
   DEBUG_POSTFIX "_d"
   RUNTIME_OUTPUT_DIRECTORY "${BINARY_DIR}"

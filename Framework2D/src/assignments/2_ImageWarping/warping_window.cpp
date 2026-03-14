@@ -113,7 +113,7 @@ void ImageWarping::draw_toolbar()
             }
             
             // Search radius slider
-            if (ImGui::SliderInt("Search Radius", &hole_search_radius_, 5, 50))
+            if (ImGui::SliderInt("Search Radius", &hole_search_radius_, 0, 10))
             {
                 if (p_image_)
                     p_image_->set_hole_search_radius(hole_search_radius_);
@@ -122,9 +122,9 @@ void ImageWarping::draw_toolbar()
             ImGui::Separator();
             
             // Preset configurations
-            if (ImGui::Button("Fast (Radius 10, IDW)"))
+            if (ImGui::Button("Small (Radius 3, IDW)"))
             {
-                hole_search_radius_ = 10;
+                hole_search_radius_ = 3;
                 hole_filling_method_ = 0;
                 if (p_image_)
                 {
@@ -133,9 +133,9 @@ void ImageWarping::draw_toolbar()
                 }
             }
             ImGui::SameLine();
-            if (ImGui::Button("Balanced (Radius 15, IDW)"))
+            if (ImGui::Button("Medium (Radius 5, IDW)"))
             {
-                hole_search_radius_ = 15;
+                hole_search_radius_ = 5;
                 hole_filling_method_ = 0;
                 if (p_image_)
                 {
@@ -143,9 +143,9 @@ void ImageWarping::draw_toolbar()
                     p_image_->set_hole_filling_method(hole_filling_method_);
                 }
             }
-            if (ImGui::Button("Quality (Radius 25, IDW)"))
+            if (ImGui::Button("Large (Radius 8, IDW)"))
             {
-                hole_search_radius_ = 25;
+                hole_search_radius_ = 8;
                 hole_filling_method_ = 0;
                 if (p_image_)
                 {
@@ -154,9 +154,9 @@ void ImageWarping::draw_toolbar()
                 }
             }
             ImGui::SameLine();
-            if (ImGui::Button("Fastest (Radius 15, NN)"))
+            if (ImGui::Button("Fastest (Radius 5, NN)"))
             {
-                hole_search_radius_ = 15;
+                hole_search_radius_ = 5;
                 hole_filling_method_ = 1;
                 if (p_image_)
                 {

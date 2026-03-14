@@ -262,6 +262,18 @@ void WarpingWidget::warping()
             // 调用warp函数处理整个图像
             nn_warper.warp(src_data, dst_data, data_->width(), data_->height());
             
+            // 应用空洞修复
+            if(enable_hole_filling_){
+                std::cout << "Applying hole filling for NN warping..." << std::endl;
+                std::cout << "Method: " << (hole_filling_method_ == 0 ? "IDW interpolation" : "Nearest Neighbor") << std::endl;
+                std::cout << "Search radius: " << hole_search_radius_ << " pixels" << std::endl;
+                
+                HoleFiller filler;
+                filler.set_search_radius(hole_search_radius_);
+                filler.set_method(hole_filling_method_);
+                filler.fill_holes(dst_data, data_->width(), data_->height(), hole_search_radius_, hole_filling_method_);
+            }
+            
             std::cout << "Neural Network warping completed." << std::endl;
             break;
         }

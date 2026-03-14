@@ -20,6 +20,19 @@ class Warper
     //src是 dst 
     virtual void warp(const unsigned char* src, unsigned char* dst, int width, int height);
     
+    // 空洞填充功能
+    virtual void enable_hole_filling(bool enable = true) { fill_holes_ = enable; }
+    virtual void set_hole_filling_params(int search_radius = 10, int method = 0) 
+    { 
+        hole_search_radius_ = search_radius; 
+        hole_filling_method_ = method; 
+    }
+    
+protected:
+    bool fill_holes_ = false;
+    int hole_search_radius_ = 10;
+    int hole_filling_method_ = 0;
+    
     // HW2_TODO: other functions or variables if you need
 };
 }  // namespace USTC_CG

@@ -92,6 +92,83 @@ void ImageWarping::draw_toolbar()
             p_image_->set_NN();
         // HW2_TODO: You can add more interactions for IDW, RBF, etc.
         ImGui::Separator();
+        
+        // Hole filling options
+        if (ImGui::BeginMenu("Hole Filling"))
+        {
+            if (ImGui::Checkbox("Enable Hole Filling", &enable_hole_filling_))
+            {
+                if (p_image_)
+                    p_image_->enable_hole_filling(enable_hole_filling_);
+            }
+            
+            ImGui::Separator();
+            
+            // Hole filling method selection
+            const char* methods[] = { "IDW Interpolation", "Nearest Neighbor" };
+            if (ImGui::Combo("Method", &hole_filling_method_, methods, 2))
+            {
+                if (p_image_)
+                    p_image_->set_hole_filling_method(hole_filling_method_);
+            }
+            
+            // Search radius slider
+            if (ImGui::SliderInt("Search Radius", &hole_search_radius_, 5, 50))
+            {
+                if (p_image_)
+                    p_image_->set_hole_search_radius(hole_search_radius_);
+            }
+            
+            ImGui::Separator();
+            
+            // Preset configurations
+            if (ImGui::Button("Fast (Radius 10, IDW)"))
+            {
+                hole_search_radius_ = 10;
+                hole_filling_method_ = 0;
+                if (p_image_)
+                {
+                    p_image_->set_hole_search_radius(hole_search_radius_);
+                    p_image_->set_hole_filling_method(hole_filling_method_);
+                }
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Balanced (Radius 15, IDW)"))
+            {
+                hole_search_radius_ = 15;
+                hole_filling_method_ = 0;
+                if (p_image_)
+                {
+                    p_image_->set_hole_search_radius(hole_search_radius_);
+                    p_image_->set_hole_filling_method(hole_filling_method_);
+                }
+            }
+            if (ImGui::Button("Quality (Radius 25, IDW)"))
+            {
+                hole_search_radius_ = 25;
+                hole_filling_method_ = 0;
+                if (p_image_)
+                {
+                    p_image_->set_hole_search_radius(hole_search_radius_);
+                    p_image_->set_hole_filling_method(hole_filling_method_);
+                }
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Fastest (Radius 15, NN)"))
+            {
+                hole_search_radius_ = 15;
+                hole_filling_method_ = 1;
+                if (p_image_)
+                {
+                    p_image_->set_hole_search_radius(hole_search_radius_);
+                    p_image_->set_hole_filling_method(hole_filling_method_);
+                }
+            }
+            
+            ImGui::EndMenu();
+        }
+        
+        ImGui::Separator();
         if (ImGui::MenuItem("Restore") && p_image_)
         {
             p_image_->restore();

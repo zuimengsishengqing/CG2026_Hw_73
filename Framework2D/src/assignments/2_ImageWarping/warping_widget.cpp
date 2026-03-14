@@ -5,6 +5,7 @@
 #include "warper/IDW_warper.h"
 #include "warper/RBF_warper.h"
 #include "warper/NN_warper.h"
+#include "hole_filler.h"
 
 using namespace std;
 namespace USTC_CG
@@ -182,6 +183,18 @@ void WarpingWidget::warping()
             // 调用warp函数处理整个图像
             idw_warper.warp(src_data, dst_data, data_->width(), data_->height());
             
+            // 应用空洞修复
+            if(enable_hole_filling_){
+                std::cout << "Applying hole filling for IDW warping..." << std::endl;
+                std::cout << "Method: " << (hole_filling_method_ == 0 ? "IDW interpolation" : "Nearest Neighbor") << std::endl;
+                std::cout << "Search radius: " << hole_search_radius_ << " pixels" << std::endl;
+                
+                HoleFiller filler;
+                filler.set_search_radius(hole_search_radius_);
+                filler.set_method(hole_filling_method_);
+                filler.fill_holes(dst_data, data_->width(), data_->height(), hole_search_radius_, hole_filling_method_);
+            }
+            
             break;
         }
         case kRBF:
@@ -207,6 +220,18 @@ void WarpingWidget::warping()
             
             // 调用warp函数处理整个图像
             rbf_warper.warp(src_data, dst_data, data_->width(), data_->height());
+            
+            // 应用空洞修复
+            if(enable_hole_filling_){
+                std::cout << "Applying hole filling for RBF warping..." << std::endl;
+                std::cout << "Method: " << (hole_filling_method_ == 0 ? "IDW interpolation" : "Nearest Neighbor") << std::endl;
+                std::cout << "Search radius: " << hole_search_radius_ << " pixels" << std::endl;
+                
+                HoleFiller filler;
+                filler.set_search_radius(hole_search_radius_);
+                filler.set_method(hole_filling_method_);
+                filler.fill_holes(dst_data, data_->width(), data_->height(), hole_search_radius_, hole_filling_method_);
+            }
             
             break;
         }

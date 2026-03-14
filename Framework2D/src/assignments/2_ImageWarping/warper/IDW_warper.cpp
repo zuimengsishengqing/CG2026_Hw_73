@@ -1,4 +1,5 @@
 #include "IDW_warper.h"
+#include "hole_filler.h"
 #include <iostream>
 #include <algorithm>
 #include <cmath>
@@ -39,6 +40,15 @@ namespace USTC_CG
                     dst[dst_index + 3] = src[src_index + 3];
                 }
             }
+        }
+        
+        // 如果启用了空洞填充，则填充空洞
+        if(fill_holes_){
+            cout<<"Starting hole filling..."<<endl;
+            HoleFiller filler;
+            filler.set_search_radius(hole_search_radius_);
+            filler.set_method(hole_filling_method_);
+            filler.fill_holes(dst, width, height, hole_search_radius_, hole_filling_method_);
         }
     }
     

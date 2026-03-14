@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\dlib\CMakeFiles\09792954cf458405128e50e1500f860e\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{BD334ED6-AB18-3D86-B830-317D665591BE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

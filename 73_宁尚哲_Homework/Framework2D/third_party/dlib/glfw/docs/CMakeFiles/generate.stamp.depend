@@ -1,0 +1,5 @@
+# CMake generation dependency list for this directory.
+F:/CG2026/CMake/cmake-3.31.5-windows-x86_64/share/cmake-3.31/Modules/FindDoxygen.cmake
+F:/CG2026/CMake/cmake-3.31.5-windows-x86_64/share/cmake-3.31/Modules/FindPackageHandleStandardArgs.cmake
+F:/CG2026/CMake/cmake-3.31.5-windows-x86_64/share/cmake-3.31/Modules/FindPackageMessage.cmake
+F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/glfw/docs/CMakeLists.txt

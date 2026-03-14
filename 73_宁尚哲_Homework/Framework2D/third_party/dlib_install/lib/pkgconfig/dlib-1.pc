@@ -1,0 +1,8 @@
+libdir=F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/lib
+includedir=F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib_install/include
+
+Name: dlib
+Description: Numerical and networking C++ library
+Version: 19.24.6
+Libs: -L${libdir} -ldlib 
+Cflags: -I${includedir} 

@@ -1,0 +1,10 @@
+^F:\CG2026\HOMEWORK IN WINTER\USTC_CG_26\FRAMEWORK2D\THIRD_PARTY\CMAKELISTS.TXT
+setlocal
+F:\CG2026\CMake\cmake-3.31.5-windows-x86_64\bin\cmake.exe "-SF:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party" "-BF:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib" --check-stamp-file "F:/CG2026/homework in winter/USTC_CG_26/Framework2D/third_party/dlib/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

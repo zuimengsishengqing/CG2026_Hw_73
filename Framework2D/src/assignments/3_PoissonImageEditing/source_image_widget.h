@@ -2,6 +2,7 @@
 
 #include "common/image_widget.h"
 #include "shapes/rect.h"
+#include "shapes/polygon.h"
 
 namespace USTC_CG
 {
@@ -12,7 +13,8 @@ class SourceImageWidget : public ImageWidget
     enum RegionType
     {
         kDefault = 0,
-        kRect = 1
+        kRect = 1,
+        kPolygon = 2
     };
 
     explicit SourceImageWidget(
@@ -25,6 +27,8 @@ class SourceImageWidget : public ImageWidget
     // Region selecting interaction
     void enable_selecting(bool flag);
     void select_region();
+    void set_region_type(RegionType type);
+    RegionType get_region_type() const;
     // Get the selected region in the source image, this would be a binary mask.
     // The **size** of the mask should be the same as the source image.
     // The **value** of the mask should be 0 or 255: 0 for the background and
@@ -48,11 +52,15 @@ class SourceImageWidget : public ImageWidget
     // Fill the selected region by the picking the pixels in the selected shape
     void update_selected_region();
 
+    // For polygon selection: finish drawing when right mouse button is clicked
+    void finish_polygon_drawing();
+
     RegionType region_type_ = kRect;
     // The shape we draw in the source image to select the region.
     // By default, we use a rectangle to select the region.
     // HW3_TODO(optional): You can add more shapes for region selection.
-    std::unique_ptr<Rect> selected_shape_;
+    std::unique_ptr<Shape> selected_shape_;
+    std::vector<std::pair<float, float>> polygon_vertices_;
     // The selected region in the source image, this would be a binary mask.
     // The **size** of the mask should be the same as the source image.
     // The **value** of the mask should be 0 or 255: 0 for the background and

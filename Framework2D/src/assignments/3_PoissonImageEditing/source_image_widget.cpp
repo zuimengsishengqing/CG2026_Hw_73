@@ -31,6 +31,25 @@ void SourceImageWidget::enable_selecting(bool flag)
     flag_enable_selecting_region_ = flag;
 }
 
+void SourceImageWidget::set_region_type(RegionType type)
+{
+    region_type_ = type;
+    draw_status_ = false;
+    selected_shape_.reset();
+    polygon_vertices_.clear();
+    if (selected_region_mask_)
+    {
+        for (int i = 0; i < selected_region_mask_->width(); ++i)
+            for (int j = 0; j < selected_region_mask_->height(); ++j)
+                selected_region_mask_->set_pixel(i, j, { 0 });
+    }
+}
+
+SourceImageWidget::RegionType SourceImageWidget::get_region_type() const
+{
+    return region_type_;
+}
+
 void SourceImageWidget::select_region()
 {
     /// Invisible button over the canvas to capture mouse interactions.
@@ -40,7 +59,7 @@ void SourceImageWidget::select_region()
         ImVec2(
             static_cast<float>(image_width_),
             static_cast<float>(image_height_)),
-        ImGuiButtonFlags_MouseButtonLeft);
+        ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
     // Record the current status of the invisible button
     bool is_hovered_ = ImGui::IsItemHovered();
     ImGuiIO& io = ImGui::GetIO();
@@ -48,6 +67,10 @@ void SourceImageWidget::select_region()
     if (is_hovered_ && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
         mouse_click_event();
+    }
+    if (is_hovered_ && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+    {
+        finish_polygon_drawing();
     }
     mouse_move_event();
     if (!ImGui::IsMouseDown(ImGuiMouseButton_Left))
@@ -98,7 +121,24 @@ void SourceImageWidget::mouse_click_event()
                     std::make_unique<Rect>(start_.x, start_.y, end_.x, end_.y);
                 break;
             }
+            case USTC_CG::SourceImageWidget::kPolygon:
+            {
+                polygon_vertices_.clear();
+                polygon_vertices_.push_back({ start_.x, start_.y });
+                selected_shape_ = std::make_unique<Polygon>(polygon_vertices_);
+                break;
+            }
             default: break;
+        }
+    }
+    else
+    {
+        if (region_type_ == kPolygon && selected_shape_)
+        {
+            ImVec2 pos = mouse_pos_in_canvas();
+            polygon_vertices_.push_back({ pos.x, pos.y });
+            auto* polygon = static_cast<Polygon*>(selected_shape_.get());
+            polygon->add_control_point(pos.x, pos.y);
         }
     }
 }
@@ -117,7 +157,7 @@ void SourceImageWidget::mouse_move_event()
 void SourceImageWidget::mouse_release_event()
 {
     // Finish drawing the region
-    if (draw_status_ && selected_shape_)
+    if (draw_status_ && selected_shape_ && region_type_ == kRect)
     {
         draw_status_ = false;
         // Update the selected region.
@@ -158,6 +198,15 @@ void SourceImageWidget::update_selected_region()
             y < 0 || y >= selected_region_mask_->height())
             continue;
         selected_region_mask_->set_pixel(x, y, { 255 });
+    }
+}
+
+void SourceImageWidget::finish_polygon_drawing()
+{
+    if (region_type_ == kPolygon && draw_status_)
+    {
+        draw_status_ = false;
+        update_selected_region();
     }
 }
 }  // namespace USTC_CG

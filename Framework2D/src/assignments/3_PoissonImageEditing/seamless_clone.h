@@ -20,10 +20,13 @@ class SeamlessClone
     
     // 更新偏移量（用于实时拖动）
     void update_offset(int new_offset_x, int new_offset_y);
+    
+    // 设置混合梯度模式
+    void set_mixed_gradient(bool flag);
 
     // 填写 (x, y) 对应的方程系数
     // fill_triplet: 是否填充三元组列表（预分解时设为false）
-    void fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet = true);
+    void fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet = true, bool is_mixed_gradient = false);
 
 
    private:
@@ -44,6 +47,9 @@ class SeamlessClone
     Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>> solver_; // 预分解的求解器
     bool is_precomputed_; // 是否已经预分解
     int num_pixels_; // 选中像素数量
+    
+    // 混合梯度模式标志
+    bool is_mixed_gradient_; // 是否使用混合梯度
     //定义点类型对应字典：
     enum point_Type{
         IN = 0,//内部点

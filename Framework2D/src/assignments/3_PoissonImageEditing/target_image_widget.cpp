@@ -74,6 +74,14 @@ void TargetImageWidget::set_seamless()
     seamless_clone_.reset();
 }
 
+void TargetImageWidget::set_mixed_seamless()
+{
+    clone_type_ = kMixedSeamless;
+    // 切换到mixed seamless模式时，重置预分解状态
+    is_seamless_precomputed_ = false;
+    seamless_clone_.reset();
+}
+
 void TargetImageWidget::clone()
 {
     // The implementation of different types of cloning
@@ -151,6 +159,9 @@ void TargetImageWidget::clone()
                     origin_y
                 );
                 
+                // 设置混合梯度标志为false
+                seamless_clone_->set_mixed_gradient(false);
+                
                 // 预分解矩阵A
                 seamless_clone_->precompute();
                 is_seamless_precomputed_ = true;
@@ -177,6 +188,63 @@ void TargetImageWidget::clone()
             
             break;
         }
+        case USTC_CG::TargetImageWidget::kMixedSeamless:
+        {
+            restore();
+            
+            // 计算偏移量：选中区域在目标图像中的位置
+            int offset_x = static_cast<int>(mouse_position_.x) - 
+                          static_cast<int>(source_image_->get_position().x);
+            int offset_y = static_cast<int>(mouse_position_.y) - 
+                          static_cast<int>(source_image_->get_position().y);
+            
+            // 计算选中区域在源图像中的位置（左上角）
+            int origin_x = static_cast<int>(source_image_->get_position().x);
+            int origin_y = static_cast<int>(source_image_->get_position().y);
+            
+            // 检查是否需要重新创建SeamlessClone对象
+            if(!seamless_clone_ || !is_seamless_precomputed_){
+                // 创建SeamlessClone对象
+                seamless_clone_ = std::make_shared<SeamlessClone>(
+                    source_image_->get_data(),
+                    data_,
+                    mask,
+                    offset_x,
+                    offset_y,
+                    origin_x,
+                    origin_y
+                );
+                
+                // 设置混合梯度标志为true
+                seamless_clone_->set_mixed_gradient(true);
+                
+                // 预分解矩阵A
+                seamless_clone_->precompute();
+                is_seamless_precomputed_ = true;
+            }
+            
+            // 更新偏移量（混合梯度模式下，每次拖动都需要用最新offset重新计算B）
+            seamless_clone_->update_offset(offset_x, offset_y);
+            
+            // 使用快速求解方法
+            std::shared_ptr<Image> result;
+            if(flag_realtime_updating){
+                // 实时编辑：使用预分解的快速求解
+                // 注意：混合梯度模式下，solve_fast会使用最新offset重新计算B向量
+                result = seamless_clone_->solve_fast();
+            }else{
+                // 非实时编辑：使用普通求解方法
+                result = seamless_clone_->solve();
+            }
+            
+            // 将结果应用到目标图像
+            if (result)
+            {
+                *data_ = *result;
+            }
+            
+            break;
+        }
         default: break;
     }
 
@@ -187,6 +255,13 @@ void TargetImageWidget::mouse_click_event()
 {
     edit_status_ = true;
     mouse_position_ = mouse_pos_in_canvas();
+    
+    // 在新的点击时重置预分解状态，因为用户可能选择了不同的区域
+    if(clone_type_ == kSeamless || clone_type_ == kMixedSeamless){
+        is_seamless_precomputed_ = false;
+        seamless_clone_.reset();
+    }
+    
     clone();
 }
 

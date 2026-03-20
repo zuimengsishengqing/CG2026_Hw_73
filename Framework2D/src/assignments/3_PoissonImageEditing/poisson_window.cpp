@@ -101,6 +101,13 @@ void PoissonWindow::draw_toolbar()
             "Enable seamless clone in the target image, which means that "
             "you can drag the mouse and the cloning would update along the "
             "mouse.");
+        if (ImGui::MenuItem("Mixed Seamless Clone") && p_target_ && p_source_)
+        {
+            p_target_->set_mixed_seamless();
+        }
+        add_tooltips(
+            "Enable mixed gradient seamless clone in the target image, "
+            "which uses the larger gradient between source and target images.");
 
         ImGui::EndMainMenuBar();
     }

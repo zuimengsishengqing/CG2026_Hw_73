@@ -28,9 +28,12 @@ SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Ima
     
     // 初始化coord_to_idx_
     coord_to_idx_ = std::vector<std::vector<int>>(H, std::vector<int>(W, -1));
+    
+    // 初始化混合梯度标志
+    is_mixed_gradient_ = false;
 }
 //填写 (x, y) 对应的方程系数
-void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet){
+void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet, bool is_mixed_gradient){
     int idx = coord_to_idx[y][x];
     
     auto [gx, gy, gz] = g(x, y);
@@ -45,7 +48,42 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     double g_left = (rgb_index == 0) ? gx_left : (rgb_index == 1) ? gy_left : gz_left;
     double g_right = (rgb_index == 0) ? gx_right : (rgb_index == 1) ? gy_right : gz_right;
     
-    double gradient_rhs = 4.0 * g_center - g_up - g_down - g_left - g_right;
+    double gradient_rhs;
+    
+    if(is_mixed_gradient){
+        // 混合梯度模式：比较源图像和目标图像的梯度，选择较大的
+        // 计算源图像的梯度
+        double g_grad_up = g_center - g_up;
+        double g_grad_down = g_center - g_down;
+        double g_grad_left = g_center - g_left;
+        double g_grad_right = g_center - g_right;
+        
+        // 计算目标图像的梯度（使用当前偏移量）
+        int tar_x = x + offset_x_;
+        int tar_y = y + offset_y_;
+        double f_center = f(x, y, rgb_index);
+        double f_up = f(x, y - 1, rgb_index);
+        double f_down = f(x, y + 1, rgb_index);
+        double f_left = f(x - 1, y, rgb_index);
+        double f_right = f(x + 1, y, rgb_index);
+        
+        double f_grad_up = f_center - f_up;
+        double f_grad_down = f_center - f_down;
+        double f_grad_left = f_center - f_left;
+        double f_grad_right = f_center - f_right;
+        
+        // 比较梯度绝对值，选择较大的
+        double v_up = (std::abs(g_grad_up) >= std::abs(f_grad_up)) ? g_grad_up : f_grad_up;
+        double v_down = (std::abs(g_grad_down) >= std::abs(f_grad_down)) ? g_grad_down : f_grad_down;
+        double v_left = (std::abs(g_grad_left) >= std::abs(f_grad_left)) ? g_grad_left : f_grad_left;
+        double v_right = (std::abs(g_grad_right) >= std::abs(f_grad_right)) ? g_grad_right : f_grad_right;
+        
+        // 使用混合梯度计算右侧向量
+        gradient_rhs = v_up + v_down + v_left + v_right;
+    }else{
+        // 普通无缝融合模式：只使用源图像的梯度
+        gradient_rhs = 4.0 * g_center - g_up - g_down - g_left - g_right;
+    }
     
     // 动态邻居检测：检查四个方向是否在选中区域内
     bool has_up = (y - 1 >= 0 && coord_to_idx[y-1][x] >= 0);
@@ -98,6 +136,10 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
         triplet_list.push_back(Eigen::Triplet<double>(idx, idx, diag_coeff));
     }
     B(idx) = gradient_rhs + boundary_term;
+}
+
+void SeamlessClone::set_mixed_gradient(bool flag){
+    is_mixed_gradient_ = flag;
 }
 //根据像素位置判断是否为内部点，以及点的类型（左边界、右边界、上边界、下边界、内部点，左上角，右上，左下，右下）
 SeamlessClone::point_Type SeamlessClone::point_type(int x,int y){ //类中定义变量名称
@@ -213,7 +255,7 @@ void SeamlessClone::precompute() {
     for(const auto& pixel : selected_pixels_){
         int x = pixel.first;
         int y = pixel.second;
-        fill_coefficient(x, y, 0, coord_to_idx_);
+        fill_coefficient(x, y, 0, coord_to_idx_, true, is_mixed_gradient_);
     }
     
     // 三元组构建稀疏方程
@@ -252,8 +294,8 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
             int x = pixel.first;
             int y = pixel.second;
             
-            // 重新计算B向量（因为offset可能改变）
-            fill_coefficient(x, y, rgb_index, coord_to_idx_);
+            // 重新计算B向量（因为offset可能改变），混合梯度模式下必须使用最新offset
+            fill_coefficient(x, y, rgb_index, coord_to_idx_, false, is_mixed_gradient_);
         }
         
         // 使用预分解的求解器快速求解
@@ -332,7 +374,7 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         for(const auto& pixel : selected_pixels){
             int x = pixel.first;
             int y = pixel.second;
-            fill_coefficient(x, y, rgb_index, coord_to_idx, true);
+            fill_coefficient(x, y, rgb_index, coord_to_idx, true, is_mixed_gradient_);
         }
         
         // 三元组构建稀疏方程

@@ -61,11 +61,17 @@ void TargetImageWidget::restore()
 void TargetImageWidget::set_paste()
 {
     clone_type_ = kPaste;
+    // 切换到paste模式时，重置预分解状态
+    is_seamless_precomputed_ = false;
+    seamless_clone_.reset();
 }
 
 void TargetImageWidget::set_seamless()
 {
     clone_type_ = kSeamless;
+    // 切换到seamless模式时，重置预分解状态
+    is_seamless_precomputed_ = false;
+    seamless_clone_.reset();
 }
 
 void TargetImageWidget::clone()
@@ -132,19 +138,36 @@ void TargetImageWidget::clone()
             int origin_x = static_cast<int>(source_image_->get_position().x);
             int origin_y = static_cast<int>(source_image_->get_position().y);
             
-            // 创建SeamlessClone对象并求解
-            SeamlessClone seamless_clone(
-                source_image_->get_data(),
-                data_,
-                mask,
-                offset_x,
-                offset_y,
-                origin_x,
-                origin_y
-            );
+            // 检查是否需要重新创建SeamlessClone对象
+            if(!seamless_clone_ || !is_seamless_precomputed_){
+                // 创建SeamlessClone对象
+                seamless_clone_ = std::make_shared<SeamlessClone>(
+                    source_image_->get_data(),
+                    data_,
+                    mask,
+                    offset_x,
+                    offset_y,
+                    origin_x,
+                    origin_y
+                );
+                
+                // 预分解矩阵A
+                seamless_clone_->precompute();
+                is_seamless_precomputed_ = true;
+            }
             
-            // 求解Poisson方程并获取结果图像
-            std::shared_ptr<Image> result = seamless_clone.solve();
+            // 更新偏移量
+            seamless_clone_->update_offset(offset_x, offset_y);
+            
+            // 使用快速求解方法
+            std::shared_ptr<Image> result;
+            if(flag_realtime_updating){
+                // 实时编辑：使用预分解的快速求解
+                result = seamless_clone_->solve_fast();
+            }else{
+                // 非实时编辑：使用普通求解方法
+                result = seamless_clone_->solve();
+            }
             
             // 将结果应用到目标图像
             if (result)

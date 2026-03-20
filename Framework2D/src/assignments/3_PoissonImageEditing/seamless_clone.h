@@ -12,8 +12,18 @@ class SeamlessClone
     //其中src_img为源图像，tar_img为目标图像，src_selected_mask为选择区域，offset_x,offset_y为选择区域在目标图像中的位置（一般取左上角）
     std::shared_ptr<Image> solve(); // 给外部调用的接口，求解 Poisson 方程组，返回一个 Seamless Clone 的结果图像（和背景图像一样大，替换了选中区域）
 
+    // 预分解矩阵A，用于实时编辑
+    void precompute();
+    
+    // 快速求解方法，使用预分解的矩阵
+    std::shared_ptr<Image> solve_fast();
+    
+    // 更新偏移量（用于实时拖动）
+    void update_offset(int new_offset_x, int new_offset_y);
+
     // 填写 (x, y) 对应的方程系数
-    void fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx);
+    // fill_triplet: 是否填充三元组列表（预分解时设为false）
+    void fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet = true);
 
 
    private:
@@ -27,6 +37,13 @@ class SeamlessClone
     int W,H; //图像宽、高在类内存储
     Eigen::SparseMatrix<double> A; // 稀疏矩阵 A,系数矩阵
     Eigen::VectorXd B; // 向量 B,右侧向量
+    
+    // 预分解相关成员变量
+    std::vector<std::pair<int, int>> selected_pixels_; // 选中像素列表
+    std::vector<std::vector<int>> coord_to_idx_; // 坐标到索引的映射
+    Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>> solver_; // 预分解的求解器
+    bool is_precomputed_; // 是否已经预分解
+    int num_pixels_; // 选中像素数量
     //定义点类型对应字典：
     enum point_Type{
         IN = 0,//内部点

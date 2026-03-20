@@ -21,9 +21,16 @@ SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Ima
     A = Eigen::SparseMatrix<double>(W * H, W * H); // 稀疏矩阵 A,系数矩阵（成员变量）
     B = Eigen::VectorXd(W * H); // 向量 B,右侧向量（成员变量）
     triplet_list.clear(); // 清空三元组列表
+    
+    // 初始化预分解相关变量
+    is_precomputed_ = false;
+    num_pixels_ = 0;
+    
+    // 初始化coord_to_idx_
+    coord_to_idx_ = std::vector<std::vector<int>>(H, std::vector<int>(W, -1));
 }
 //填写 (x, y) 对应的方程系数
-void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx){
+void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet){
     int idx = coord_to_idx[y][x];
     
     auto [gx, gy, gz] = g(x, y);
@@ -52,38 +59,44 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     
     // 上邻居
     if(has_up){
-        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y-1][x], -1.0));
-        //diag_coeff += 1.0;
+        if(fill_triplet){
+            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y-1][x], -1.0));
+        }
     }else{
         boundary_term += f(x, y - 1, rgb_index);
     }
     
     // 下邻居
     if(has_down){
-        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y+1][x], -1.0));
-        //diag_coeff += 1.0;
+        if(fill_triplet){
+            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y+1][x], -1.0));
+        }
     }else{
         boundary_term += f(x, y + 1, rgb_index);
     }
     
     // 左邻居
     if(has_left){
-        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x-1], -1.0));
-        //diag_coeff += 1.0;
+        if(fill_triplet){
+            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x-1], -1.0));
+        }
     }else{
         boundary_term += f(x - 1, y, rgb_index);
     }
     
     // 右邻居
     if(has_right){
-        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x+1], -1.0));
-        //diag_coeff += 1.0;
+        if(fill_triplet){
+            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x+1], -1.0));
+        }
     }else{
         boundary_term += f(x + 1, y, rgb_index);
     }
     
     // 设置对角线元素和右侧向量
-    triplet_list.push_back(Eigen::Triplet<double>(idx, idx, diag_coeff));
+    if(fill_triplet){
+        triplet_list.push_back(Eigen::Triplet<double>(idx, idx, diag_coeff));
+    }
     B(idx) = gradient_rhs + boundary_term;
 }
 //根据像素位置判断是否为内部点，以及点的类型（左边界、右边界、上边界、下边界、内部点，左上角，右上，左下，右下）
@@ -171,6 +184,119 @@ double SeamlessClone::f(int x, int y, int rgb_index){
     return 0.0;
 }
 
+void SeamlessClone::precompute() {
+    // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
+    selected_pixels_.clear();
+    coord_to_idx_ = std::vector<std::vector<int>>(H, std::vector<int>(W, -1));
+    
+    for(int y = 0; y < H; ++y){
+        for(int x = 0; x < W; ++x){
+            int mask_idx = (y * W + x) * src_selected_mask_->channels();
+            if(src_selected_mask_->data()[mask_idx] > 0){
+                coord_to_idx_[y][x] = selected_pixels_.size();
+                selected_pixels_.push_back({x, y});
+            }
+        }
+    }
+    
+    num_pixels_ = selected_pixels_.size();
+    if(num_pixels_ == 0){
+        is_precomputed_ = false;
+        return;
+    }
+    
+    // 重新设置矩阵A的维度
+    A = Eigen::SparseMatrix<double>(num_pixels_, num_pixels_);
+    
+    // 只为第一个RGB通道构建系数矩阵A（三个通道的A矩阵相同）
+    triplet_list.clear();
+    for(const auto& pixel : selected_pixels_){
+        int x = pixel.first;
+        int y = pixel.second;
+        fill_coefficient(x, y, 0, coord_to_idx_);
+    }
+    
+    // 三元组构建稀疏方程
+    A.setFromTriplets(triplet_list.begin(), triplet_list.end());
+    
+    // 预分解矩阵A
+    solver_.compute(A);
+    
+    if(solver_.info() != Eigen::Success){
+        std::cerr << "Precomputation failed! Matrix may be singular." << std::endl;
+        is_precomputed_ = false;
+    }else{
+        is_precomputed_ = true;
+    }
+}
+
+void SeamlessClone::update_offset(int new_offset_x, int new_offset_y) {
+    offset_x_ = new_offset_x;
+    offset_y_ = new_offset_y;
+}
+
+std::shared_ptr<Image> SeamlessClone::solve_fast() {
+    if(!is_precomputed_ || num_pixels_ == 0){
+        return tar_img_;
+    }
+    
+    // 为每个RGB通道求解方程组
+    Eigen::VectorXd solutions[3];
+    
+    for(int rgb_index = 0; rgb_index < 3; rgb_index++){
+        // 重新设置向量B的维度
+        B = Eigen::VectorXd(num_pixels_);
+        
+        // 只构建右侧向量B（矩阵A已经预分解）
+        for(const auto& pixel : selected_pixels_){
+            int x = pixel.first;
+            int y = pixel.second;
+            
+            // 重新计算B向量（因为offset可能改变）
+            fill_coefficient(x, y, rgb_index, coord_to_idx_);
+        }
+        
+        // 使用预分解的求解器快速求解
+        solutions[rgb_index] = solver_.solve(B);
+        
+        if(solver_.info() != Eigen::Success){
+            std::cerr << "Fast solve failed!" << std::endl;
+            return tar_img_;
+        }
+    }
+    
+    // 将解应用到目标图像的选中区域
+    for(const auto& pixel : selected_pixels_){
+        int x = pixel.first;
+        int y = pixel.second;
+        
+        // 计算在目标图像中的实际位置
+        int tar_x = x + offset_x_;
+        int tar_y = y + offset_y_;
+        
+        // 边界检查
+        if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){
+            continue;
+        }
+        
+        // 获取三个通道的解
+        int idx = coord_to_idx_[y][x];
+        double r_val = solutions[0][idx];
+        double g_val = solutions[1][idx];
+        double b_val = solutions[2][idx];
+        
+        // 裁剪到[0, 255]范围
+        unsigned char r = static_cast<unsigned char>(std::clamp(r_val, 0.0, 255.0));
+        unsigned char g = static_cast<unsigned char>(std::clamp(g_val, 0.0, 255.0));
+        unsigned char b = static_cast<unsigned char>(std::clamp(b_val, 0.0, 255.0));
+        
+        // 设置像素值
+        tar_img_->set_pixel(tar_x, tar_y, {r, g, b});
+    }
+    
+    return tar_img_;
+}
+
 std::shared_ptr<Image> SeamlessClone::solve() {
     // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
     std::vector<std::pair<int, int>> selected_pixels;
@@ -206,7 +332,7 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         for(const auto& pixel : selected_pixels){
             int x = pixel.first;
             int y = pixel.second;
-            fill_coefficient(x, y, rgb_index, coord_to_idx);
+            fill_coefficient(x, y, rgb_index, coord_to_idx, true);
         }
         
         // 三元组构建稀疏方程

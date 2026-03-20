@@ -1,5 +1,5 @@
 #include "target_image_widget.h"
-
+#include "seamless_clone.h"
 #include <cmath>
 
 namespace USTC_CG
@@ -86,7 +86,8 @@ void TargetImageWidget::clone()
     // The **size** of the mask should be the same as the source image.
     // The **value** of the mask should be 0 or 255: 0 for the background and
     // 255 for the selected region.
-    std::shared_ptr<Image> mask = source_image_->get_region_mask();
+    std::shared_ptr<Image> mask = source_image_->get_region_mask();  //SourceImageWidget::selected_region_mask_存储了一张与源图像一样尺寸的黑白图像
+    //，用 source_image_->get_region_mask() 获取，它的每一个像素只可能有两个值（0 or 255），标记为 255 的像素表示选中的区域；
 
     switch (clone_type_)
     {
@@ -101,7 +102,7 @@ void TargetImageWidget::clone()
                 {
                     int tar_x =
                         static_cast<int>(mouse_position_.x) + x -
-                        static_cast<int>(source_image_->get_position().x);
+                        static_cast<int>(source_image_->get_position().x); //记录了在源图像中，选定区域的相对位置（例如矩形的左上角）；
                     int tar_y =
                         static_cast<int>(mouse_position_.y) + y -
                         static_cast<int>(source_image_->get_position().y);
@@ -119,11 +120,38 @@ void TargetImageWidget::clone()
         }
         case USTC_CG::TargetImageWidget::kSeamless:
         {
-            // HW3_TODO: You should implement your own seamless cloning. For
-            // each pixel in the selected region, calculate the final RGB color
-            // by solving Poisson Equations.
             restore();
-
+            
+            // 计算偏移量：选中区域在目标图像中的位置
+            int offset_x = static_cast<int>(mouse_position_.x) - 
+                          static_cast<int>(source_image_->get_position().x);
+            int offset_y = static_cast<int>(mouse_position_.y) - 
+                          static_cast<int>(source_image_->get_position().y);
+            
+            // 计算选中区域在源图像中的位置（左上角）
+            int origin_x = static_cast<int>(source_image_->get_position().x);
+            int origin_y = static_cast<int>(source_image_->get_position().y);
+            
+            // 创建SeamlessClone对象并求解
+            SeamlessClone seamless_clone(
+                source_image_->get_data(),
+                data_,
+                mask,
+                offset_x,
+                offset_y,
+                origin_x,
+                origin_y
+            );
+            
+            // 求解Poisson方程并获取结果图像
+            std::shared_ptr<Image> result = seamless_clone.solve();
+            
+            // 将结果应用到目标图像
+            if (result)
+            {
+                *data_ = *result;
+            }
+            
             break;
         }
         default: break;

@@ -23,13 +23,8 @@ SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Ima
     triplet_list.clear(); // 清空三元组列表
 }
 //填写 (x, y) 对应的方程系数
-void SeamlessClone::fill_coefficient(int x,int y,int rgb_index){
-    int idx = y * W + x;
-    
-    int mask_idx = (y * W + x) * src_selected_mask_->channels();
-    if(src_selected_mask_->data()[mask_idx] == 0){
-        return;
-    }
+void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx){
+    int idx = coord_to_idx[y][x];
     
     auto [gx, gy, gz] = g(x, y);
     auto [gx_up, gy_up, gz_up] = g(x, y - 1);
@@ -45,107 +40,82 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index){
     
     double gradient_rhs = 4.0 * g_center - g_up - g_down - g_left - g_right;
     
-    switch(point_type(x,y)){
-        case IN:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 4.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y - 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y + 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x - 1), -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x + 1), -1.0));
-            B(idx) = gradient_rhs;
-            break;
-        }
-        case L:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 3.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y - 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y + 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x + 1), -1.0));
-            B(idx) = gradient_rhs + f(x - 1, y, rgb_index);
-            break;
-        }
-        case R:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 3.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y - 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y + 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x - 1), -1.0));
-            B(idx) = gradient_rhs + f(x + 1, y, rgb_index);
-            break;
-        }
-        case U:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 3.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y + 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x - 1), -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x + 1), -1.0));
-            B(idx) = gradient_rhs + f(x, y - 1, rgb_index);
-            break;
-        }
-        case D:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 3.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y - 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x - 1), -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x + 1), -1.0));
-            B(idx) = gradient_rhs + f(x, y + 1, rgb_index);
-            break;
-        }
-        case LU:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 2.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y + 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x + 1), -1.0));
-            B(idx) = gradient_rhs + f(x - 1, y, rgb_index) + f(x, y - 1, rgb_index);
-            break;
-        }
-        case RU:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 2.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y + 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x - 1), -1.0));
-            B(idx) = gradient_rhs + f(x + 1, y, rgb_index) + f(x, y - 1, rgb_index);
-            break;
-        }
-        case LD:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 2.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y - 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x + 1), -1.0));
-            B(idx) = gradient_rhs + f(x - 1, y, rgb_index) + f(x, y + 1, rgb_index);
-            break;
-        }
-        case RD:
-        {
-            triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 2.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, (y - 1) * W + x, -1.0));
-            triplet_list.push_back(Eigen::Triplet<double>(idx, y * W + (x - 1), -1.0));
-            B(idx) = gradient_rhs + f(x + 1, y, rgb_index) + f(x, y + 1, rgb_index);
-            break;
-        }
+    // 动态邻居检测：检查四个方向是否在选中区域内
+    bool has_up = (y - 1 >= 0 && coord_to_idx[y-1][x] >= 0);
+    bool has_down = (y + 1 < H && coord_to_idx[y+1][x] >= 0);
+    bool has_left = (x - 1 >= 0 && coord_to_idx[y][x-1] >= 0);
+    bool has_right = (x + 1 < W && coord_to_idx[y][x+1] >= 0);
+    
+    // 计算对角线系数
+    double diag_coeff = 0.0;
+    double boundary_term = 0.0;
+    
+    // 上邻居
+    if(has_up){
+        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y-1][x], -1.0));
+        diag_coeff += 1.0;
+    }else{
+        boundary_term += f(x, y - 1, rgb_index);
     }
+    
+    // 下邻居
+    if(has_down){
+        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y+1][x], -1.0));
+        diag_coeff += 1.0;
+    }else{
+        boundary_term += f(x, y + 1, rgb_index);
+    }
+    
+    // 左邻居
+    if(has_left){
+        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x-1], -1.0));
+        diag_coeff += 1.0;
+    }else{
+        boundary_term += f(x - 1, y, rgb_index);
+    }
+    
+    // 右邻居
+    if(has_right){
+        triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x+1], -1.0));
+        diag_coeff += 1.0;
+    }else{
+        boundary_term += f(x + 1, y, rgb_index);
+    }
+    
+    // 设置对角线元素和右侧向量
+    triplet_list.push_back(Eigen::Triplet<double>(idx, idx, diag_coeff));
+    B(idx) = gradient_rhs + boundary_term;
 }
 //根据像素位置判断是否为内部点，以及点的类型（左边界、右边界、上边界、下边界、内部点，左上角，右上，左下，右下）
 SeamlessClone::point_Type SeamlessClone::point_type(int x,int y){ //类中定义变量名称
+    // 边界检查：确保坐标在有效范围内
+    if(x < 0 || x >= W || y < 0 || y >= H){
+        return IN; // 超出范围，默认返回内部点（在fill_coefficient中会进一步检查）
+    }
+    
+    // 四个角点
     if(x == 0 && y == 0){
         return LU;
-    }else if(x == 0 && y > 0 && y < H - 1){
-        return L;
-    }else if(x == 0 && y == H - 1){
-        return LD;
-    }else if(x > 0 && x < W - 1 && y == 0){
-        return U;
     }else if(x == W - 1 && y == 0){
         return RU;
-    }else if(x > 0 && x < W - 1 && y > 0 && y < H - 1){
-        return IN;
-    }else if(x == W - 1 && y > 0 && y < H - 1){
-        return R;
-    }else if(x > 0 && x < W - 1 && y == H - 1){
-        return D;
+    }else if(x == 0 && y == H - 1){
+        return LD;
     }else if(x == W - 1 && y == H - 1){
         return RD;
+    }
+    // 四条边（非角点）
+    else if(x == 0){
+        return L;
+    }else if(x == W - 1){
+        return R;
+    }else if(y == 0){
+        return U;
+    }else if(y == H - 1){
+        return D;
+    }
+    // 内部点
+    else{
+        return IN;
     }
 }
 
@@ -202,6 +172,25 @@ double SeamlessClone::f(int x, int y, int rgb_index){
 }
 
 std::shared_ptr<Image> SeamlessClone::solve() {
+    // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
+    std::vector<std::pair<int, int>> selected_pixels;
+    std::vector<std::vector<int>> coord_to_idx(H, std::vector<int>(W, -1));
+    
+    for(int y = 0; y < H; ++y){
+        for(int x = 0; x < W; ++x){
+            int mask_idx = (y * W + x) * src_selected_mask_->channels();
+            if(src_selected_mask_->data()[mask_idx] > 0){
+                coord_to_idx[y][x] = selected_pixels.size();
+                selected_pixels.push_back({x, y});
+            }
+        }
+    }
+    
+    int num_pixels = selected_pixels.size();
+    if(num_pixels == 0){
+        return tar_img_;
+    }
+    
     // 为每个RGB通道求解方程组
     Eigen::VectorXd solutions[3];
     
@@ -209,11 +198,15 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         // 清空三元组列表
         triplet_list.clear();
         
+        // 重新设置矩阵A和向量B的维度
+        A = Eigen::SparseMatrix<double>(num_pixels, num_pixels);
+        B = Eigen::VectorXd(num_pixels);
+        
         // 构建稀疏矩阵A和向量B
-        for(int y = 0; y < H; ++y){
-            for(int x = 0; x < W; ++x){
-                fill_coefficient(x, y, rgb_index);
-            }
+        for(const auto& pixel : selected_pixels){
+            int x = pixel.first;
+            int y = pixel.second;
+            fill_coefficient(x, y, rgb_index, coord_to_idx);
         }
         
         // 三元组构建稀疏方程
@@ -224,7 +217,7 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         solver.compute(A);
         
         if(solver.info() != Eigen::Success){
-            std::cerr << "Solver failed!" << std::endl;
+            std::cerr << "Solver failed! Matrix may be singular." << std::endl;
             return tar_img_;
         }
         
@@ -232,37 +225,32 @@ std::shared_ptr<Image> SeamlessClone::solve() {
     }
     
     // 将解应用到目标图像的选中区域
-    for(int y = 0; y < H; ++y){
-        for(int x = 0; x < W; ++x){
-            // 计算在目标图像中的实际位置
-            int tar_x = x + offset_x_;
-            int tar_y = y + offset_y_;
-            
-            // 边界检查
-            if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){
-                continue;
-            }
-            
-            //获取mask值，只处理选中区域
-            int mask_idx = (y * W + x) * src_selected_mask_->channels();
-            if(src_selected_mask_->data()[mask_idx] == 0){
-                continue;
-            }
-            
-            // 获取三个通道的解
-            int idx = y * W + x;
-            double r_val = solutions[0][idx];
-            double g_val = solutions[1][idx];
-            double b_val = solutions[2][idx];
-            
-            // 裁剪到[0, 255]范围
-            unsigned char r = static_cast<unsigned char>(std::clamp(r_val, 0.0, 255.0));
-            unsigned char g = static_cast<unsigned char>(std::clamp(g_val, 0.0, 255.0));
-            unsigned char b = static_cast<unsigned char>(std::clamp(b_val, 0.0, 255.0));
-            
-            // 设置像素值
-            tar_img_->set_pixel(tar_x, tar_y, {r, g, b});
+    for(const auto& pixel : selected_pixels){
+        int x = pixel.first;
+        int y = pixel.second;
+        
+        // 计算在目标图像中的实际位置
+        int tar_x = x + offset_x_;
+        int tar_y = y + offset_y_;
+        
+        // 边界检查
+        if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){
+            continue;
         }
+        
+        // 获取三个通道的解
+        int idx = coord_to_idx[y][x];
+        double r_val = solutions[0][idx];
+        double g_val = solutions[1][idx];
+        double b_val = solutions[2][idx];
+        
+        // 裁剪到[0, 255]范围
+        unsigned char r = static_cast<unsigned char>(std::clamp(r_val, 0.0, 255.0));
+        unsigned char g = static_cast<unsigned char>(std::clamp(g_val, 0.0, 255.0));
+        unsigned char b = static_cast<unsigned char>(std::clamp(b_val, 0.0, 255.0));
+        
+        // 设置像素值
+        tar_img_->set_pixel(tar_x, tar_y, {r, g, b});
     }
     
     return tar_img_;

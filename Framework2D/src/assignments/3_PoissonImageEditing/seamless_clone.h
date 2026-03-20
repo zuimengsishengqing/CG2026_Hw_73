@@ -13,7 +13,7 @@ class SeamlessClone
     std::shared_ptr<Image> solve(); // 给外部调用的接口，求解 Poisson 方程组，返回一个 Seamless Clone 的结果图像（和背景图像一样大，替换了选中区域）
 
     // 填写 (x, y) 对应的方程系数
-    void fill_coefficient(int x,int y,int rgb_index);
+    void fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx);
 
 
    private:

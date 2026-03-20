@@ -47,13 +47,13 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     bool has_right = (x + 1 < W && coord_to_idx[y][x+1] >= 0);
     
     // 计算对角线系数
-    double diag_coeff = 0.0;
+    double diag_coeff = 4.0;
     double boundary_term = 0.0;
     
     // 上邻居
     if(has_up){
         triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y-1][x], -1.0));
-        diag_coeff += 1.0;
+        //diag_coeff += 1.0;
     }else{
         boundary_term += f(x, y - 1, rgb_index);
     }
@@ -61,7 +61,7 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     // 下邻居
     if(has_down){
         triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y+1][x], -1.0));
-        diag_coeff += 1.0;
+        //diag_coeff += 1.0;
     }else{
         boundary_term += f(x, y + 1, rgb_index);
     }
@@ -69,7 +69,7 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     // 左邻居
     if(has_left){
         triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x-1], -1.0));
-        diag_coeff += 1.0;
+        //diag_coeff += 1.0;
     }else{
         boundary_term += f(x - 1, y, rgb_index);
     }
@@ -77,7 +77,7 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     // 右邻居
     if(has_right){
         triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x+1], -1.0));
-        diag_coeff += 1.0;
+        //diag_coeff += 1.0;
     }else{
         boundary_term += f(x + 1, y, rgb_index);
     }
@@ -124,8 +124,8 @@ SeamlessClone::point_Type SeamlessClone::point_type(int x,int y){ //类中定义
 // 返回源图像在该位置的RGB三元组
 std::tuple<double, double, double> SeamlessClone::g(int x, int y){
     // 内部处理，把(x,y)对应源图像的坐标：
-    int src_x = x + origin_x_;
-    int src_y = y + origin_y_;
+    int src_x = x;
+    int src_y = y;
     
     // 边界检查
     if(src_x < 0 || src_x >= src_img_->width() || src_y < 0 || src_y >= src_img_->height()){

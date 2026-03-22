@@ -25,6 +25,9 @@ class SeamlessClone
     void set_mixed_gradient(bool flag);
 
     // 填写 (x, y) 对应的方程系数
+    // 对于不规则区域，使用统一的方程法：
+    // - 内部点（4个邻居都在掩码内）：A(i,i)=4, A(i,index(q))=-1, B(i)=sum(v_pq)
+    // - 边界点（至少有一个邻居在掩码外）：A(i,i)=1, 其他为0, B(i)=f*_p
     // fill_triplet: 是否填充三元组列表（预分解时设为false）
     void fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet = true, bool is_mixed_gradient = false);
 
@@ -42,6 +45,10 @@ class SeamlessClone
     Eigen::VectorXd B; // 向量 B,右侧向量
     
     // 预分解相关成员变量
+    // 对于不规则区域，使用索引映射机制：
+    // - selected_pixels_: 存储所有选中像素的坐标 (x, y)，按顺序编号 0, 1, 2, ..., N-1
+    // - coord_to_idx_: 二维坐标到一维索引的映射，coord_to_idx_[y][x] 返回像素 (x,y) 的索引，未选中区域为 -1
+    // 这样可以将不规则区域映射为连续的索引，便于矩阵运算
     std::vector<std::pair<int, int>> selected_pixels_; // 选中像素列表
     std::vector<std::vector<int>> coord_to_idx_; // 坐标到索引的映射
     Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>> solver_; // 预分解的求解器

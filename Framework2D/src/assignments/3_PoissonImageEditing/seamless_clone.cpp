@@ -32,9 +32,19 @@ SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Ima
     // 初始化混合梯度标志
     is_mixed_gradient_ = false;
 }
-//填写 (x, y) 对应的方程系数
+// 填写 (x, y) 对应的方程系数
 void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet, bool is_mixed_gradient){
     int idx = coord_to_idx[y][x];
+    
+    // 动态邻居检测：检查四个方向是否在选中区域内
+    bool has_up = (y - 1 >= 0 && coord_to_idx[y-1][x] >= 0);
+    bool has_down = (y + 1 < H && coord_to_idx[y+1][x] >= 0);
+    bool has_left = (x - 1 >= 0 && coord_to_idx[y][x-1] >= 0);
+    bool has_right = (x + 1 < W && coord_to_idx[y][x+1] >= 0);
+    
+    // 注意：不再将内部边缘点强行截断为 Dirichlet 边界。
+    // 所有传入此函数的点（均在 mask 内）都使用 Poisson 方程。
+    // 对于落在 mask 外的邻居，将其作为已知边界，取目标图像对应的像素值移到等式右侧 B 向量中。
     
     auto [gx, gy, gz] = g(x, y);
     auto [gx_up, gy_up, gz_up] = g(x, y - 1);
@@ -48,7 +58,7 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
     double g_left = (rgb_index == 0) ? gx_left : (rgb_index == 1) ? gy_left : gz_left;
     double g_right = (rgb_index == 0) ? gx_right : (rgb_index == 1) ? gy_right : gz_right;
     
-    double gradient_rhs;
+    double gradient_rhs = 0.0;
     
     if(is_mixed_gradient){
         // 混合梯度模式：比较源图像和目标图像的梯度，选择较大的
@@ -59,8 +69,6 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
         double g_grad_right = g_center - g_right;
         
         // 计算目标图像的梯度（使用当前偏移量）
-        int tar_x = x + offset_x_;
-        int tar_y = y + offset_y_;
         double f_center = f(x, y, rgb_index);
         double f_up = f(x, y - 1, rgb_index);
         double f_down = f(x, y + 1, rgb_index);
@@ -78,64 +86,52 @@ void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vecto
         double v_left = (std::abs(g_grad_left) >= std::abs(f_grad_left)) ? g_grad_left : f_grad_left;
         double v_right = (std::abs(g_grad_right) >= std::abs(f_grad_right)) ? g_grad_right : f_grad_right;
         
-        // 使用混合梯度计算右侧向量
+        // 使用混合梯度计算引导场散度
         gradient_rhs = v_up + v_down + v_left + v_right;
     }else{
         // 普通无缝融合模式：只使用源图像的梯度
         gradient_rhs = 4.0 * g_center - g_up - g_down - g_left - g_right;
     }
     
-    // 动态邻居检测：检查四个方向是否在选中区域内
-    bool has_up = (y - 1 >= 0 && coord_to_idx[y-1][x] >= 0);
-    bool has_down = (y + 1 < H && coord_to_idx[y+1][x] >= 0);
-    bool has_left = (x - 1 >= 0 && coord_to_idx[y][x-1] >= 0);
-    bool has_right = (x + 1 < W && coord_to_idx[y][x+1] >= 0);
-    
-    // 计算对角线系数
-    double diag_coeff = 4.0;
-    double boundary_term = 0.0;
-    
-    // 上邻居
-    if(has_up){
-        if(fill_triplet){
-            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y-1][x], -1.0));
-        }
-    }else{
-        boundary_term += f(x, y - 1, rgb_index);
-    }
-    
-    // 下邻居
-    if(has_down){
-        if(fill_triplet){
-            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y+1][x], -1.0));
-        }
-    }else{
-        boundary_term += f(x, y + 1, rgb_index);
-    }
-    
-    // 左邻居
-    if(has_left){
-        if(fill_triplet){
-            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x-1], -1.0));
-        }
-    }else{
-        boundary_term += f(x - 1, y, rgb_index);
-    }
-    
-    // 右邻居
-    if(has_right){
-        if(fill_triplet){
-            triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x+1], -1.0));
-        }
-    }else{
-        boundary_term += f(x + 1, y, rgb_index);
-    }
-    
-    // 设置对角线元素和右侧向量
+    // 设置中心点对角线元素（未知数）系数始终为 4
     if(fill_triplet){
-        triplet_list.push_back(Eigen::Triplet<double>(idx, idx, diag_coeff));
+        triplet_list.push_back(Eigen::Triplet<double>(idx, idx, 4.0));
     }
-    B(idx) = gradient_rhs + boundary_term;
+    
+    // 处理四个方向的邻居判定：
+    // 如果邻居在 mask 内，向稀疏矩阵填入 -1.0
+    // 如果邻居在 mask 外，去目标图像取色并累加到右侧向量
+    
+    // 上
+    if(has_up){
+        if(fill_triplet) triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y-1][x], -1.0));
+    } else {
+        gradient_rhs += f(x, y - 1, rgb_index);
+    }
+    
+    // 下
+    if(has_down){
+        if(fill_triplet) triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y+1][x], -1.0));
+    } else {
+        gradient_rhs += f(x, y + 1, rgb_index);
+    }
+    
+    // 左
+    if(has_left){
+        if(fill_triplet) triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x-1], -1.0));
+    } else {
+        gradient_rhs += f(x - 1, y, rgb_index);
+    }
+    
+    // 右
+    if(has_right){
+        if(fill_triplet) triplet_list.push_back(Eigen::Triplet<double>(idx, coord_to_idx[y][x+1], -1.0));
+    } else {
+        gradient_rhs += f(x + 1, y, rgb_index);
+    }
+    
+    // 设置右侧向量 B
+    B(idx) = gradient_rhs;
 }
 
 void SeamlessClone::set_mixed_gradient(bool flag){
@@ -228,6 +224,10 @@ double SeamlessClone::f(int x, int y, int rgb_index){
 
 void SeamlessClone::precompute() {
     // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
+    // 这是不规则区域处理的核心：
+    // - selected_pixels_: 存储所有选中像素的坐标 (x, y)
+    // - coord_to_idx_: 建立二维坐标到一维索引的映射，未选中区域标记为 -1
+    // 这样可以将不规则区域映射为连续的索引，便于矩阵运算
     selected_pixels_.clear();
     coord_to_idx_ = std::vector<std::vector<int>>(H, std::vector<int>(W, -1));
     
@@ -251,6 +251,9 @@ void SeamlessClone::precompute() {
     A = Eigen::SparseMatrix<double>(num_pixels_, num_pixels_);
     
     // 只为第一个RGB通道构建系数矩阵A（三个通道的A矩阵相同）
+    // 注意：对于不规则区域，矩阵A的结构由区域的形状决定
+    // - 内部点：对角线为4，邻居为-1
+    // - 边界点：对角线为1，其他为0（Dirichlet边界条件）
     triplet_list.clear();
     for(const auto& pixel : selected_pixels_){
         int x = pixel.first;
@@ -262,6 +265,8 @@ void SeamlessClone::precompute() {
     A.setFromTriplets(triplet_list.begin(), triplet_list.end());
     
     // 预分解矩阵A
+    // 对于不规则区域，矩阵A的结构一旦确定就不会改变（除非区域形状改变）
+    // 因此可以预分解，在实时编辑时只需更新右侧向量B
     solver_.compute(A);
     
     if(solver_.info() != Eigen::Success){
@@ -283,6 +288,8 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
     }
     
     // 为每个RGB通道求解方程组
+    // 注意：对于不规则区域，矩阵A已经预分解，只需要更新右侧向量B
+    // 右侧向量B依赖于目标图像的像素值，会随offset改变而改变
     Eigen::VectorXd solutions[3];
     
     for(int rgb_index = 0; rgb_index < 3; rgb_index++){
@@ -290,6 +297,9 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
         B = Eigen::VectorXd(num_pixels_);
         
         // 只构建右侧向量B（矩阵A已经预分解）
+        // 对于不规则区域：
+        // - 内部点：B = sum(v_pq)，其中 v_pq 是引导梯度（源图像梯度或混合梯度）
+        // - 边界点：B = f*_p（目标图像在该位置的像素值）
         for(const auto& pixel : selected_pixels_){
             int x = pixel.first;
             int y = pixel.second;
@@ -299,6 +309,7 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
         }
         
         // 使用预分解的求解器快速求解
+        // 由于矩阵A已经预分解，这里只需要执行前代和后代，速度非常快
         solutions[rgb_index] = solver_.solve(B);
         
         if(solver_.info() != Eigen::Success){
@@ -308,6 +319,7 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
     }
     
     // 将解应用到目标图像的选中区域
+    // 对于不规则区域，只更新掩码内的像素
     for(const auto& pixel : selected_pixels_){
         int x = pixel.first;
         int y = pixel.second;
@@ -341,6 +353,9 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
 
 std::shared_ptr<Image> SeamlessClone::solve() {
     // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
+    // 这是不规则区域处理的核心：
+    // - selected_pixels: 存储所有选中像素的坐标 (x, y)
+    // - coord_to_idx: 建立二维坐标到一维索引的映射，未选中区域标记为 -1
     std::vector<std::pair<int, int>> selected_pixels;
     std::vector<std::vector<int>> coord_to_idx(H, std::vector<int>(W, -1));
     
@@ -371,6 +386,9 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         B = Eigen::VectorXd(num_pixels);
         
         // 构建稀疏矩阵A和向量B
+        // 对于不规则区域：
+        // - 内部点：A的对角线为4，邻居为-1；B = sum(v_pq)
+        // - 边界点：A的对角线为1，其他为0；B = f*_p
         for(const auto& pixel : selected_pixels){
             int x = pixel.first;
             int y = pixel.second;
@@ -381,6 +399,7 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         A.setFromTriplets(triplet_list.begin(), triplet_list.end());
         
         // 使用SimplicialLDLT求解器求解线性方程组
+        // SimplicialLDLT 适用于对称正定矩阵，Poisson方程的系数矩阵满足这个条件
         Eigen::SimplicialLDLT<Eigen::SparseMatrix<double>> solver;
         solver.compute(A);
         
@@ -393,6 +412,7 @@ std::shared_ptr<Image> SeamlessClone::solve() {
     }
     
     // 将解应用到目标图像的选中区域
+    // 对于不规则区域，只更新掩码内的像素
     for(const auto& pixel : selected_pixels){
         int x = pixel.first;
         int y = pixel.second;

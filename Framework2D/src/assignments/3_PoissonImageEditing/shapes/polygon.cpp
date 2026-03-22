@@ -56,6 +56,9 @@ std::vector<std::pair<int, int>> Polygon::get_interior_pixels() const
         max_y = std::max(max_y, y);
     }
 
+    int estimated_pixels = (max_y - min_y + 1) * (max_y - min_y + 1);
+    interior_pixels.reserve(estimated_pixels / 4);
+
     std::map<int, std::vector<Edge>> edge_table;
 
     for (size_t i = 0; i < vertices_.size(); ++i)
@@ -84,6 +87,13 @@ std::vector<std::pair<int, int>> Polygon::get_interior_pixels() const
         edge.inv_k = inv_k;
 
         edge_table[y_min].push_back(edge);
+    }
+
+    for (auto& [y, edges] : edge_table)
+    {
+        std::sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b) {
+            return a.x_curr < b.x_curr;
+        });
     }
 
     std::vector<Edge> aet;
@@ -116,10 +126,19 @@ std::vector<std::pair<int, int>> Polygon::get_interior_pixels() const
             int x_start = static_cast<int>(std::ceil(aet[i].x_curr));
             int x_end = static_cast<int>(std::floor(aet[i + 1].x_curr));
 
-            for (int x = x_start; x <= x_end; ++x)
+            if (x_start <= x_end)
             {
-                interior_pixels.push_back({ x, y });
+                for (int x = x_start; x <= x_end; ++x)
+                {
+                    interior_pixels.push_back({ x, y });
+                }
             }
+        }
+
+        if (aet.size() % 2 != 0)
+        {
+            int x = static_cast<int>(std::round(aet.back().x_curr));
+            interior_pixels.push_back({ x, y });
         }
 
         for (auto& edge : aet)

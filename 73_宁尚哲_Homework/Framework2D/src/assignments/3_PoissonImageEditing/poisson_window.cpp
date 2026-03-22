@@ -69,10 +69,29 @@ void PoissonWindow::draw_toolbar()
         static bool selectable = false;
         ImGui::Checkbox("Select", &selectable);
         add_tooltips(
-            "On: Enable region selection in the source image. Drag left mouse "
-            "to select rectangle (default) in the source.");
+            "On: Enable region selection in the source image. "
+            "Rectangle: Drag left mouse to select. "
+            "Polygon: Click to add vertices, right-click to finish. "
+            "Freehand: Drag left mouse to draw continuously, right-click to finish.");
         if (p_source_)
             p_source_->enable_selecting(selectable);
+
+        ImGui::SameLine();
+        static int region_type_current = 0;
+        const char* region_type_items[] = { "Rectangle", "Polygon", "Freehand" };
+        ImGui::SetNextItemWidth(120);
+        if (ImGui::Combo(
+                "##RegionType", &region_type_current, region_type_items, 3))
+        {
+            if (p_source_)
+            {
+                p_source_->set_region_type(
+                    static_cast<SourceImageWidget::RegionType>(
+                        region_type_current + 1));
+            }
+        }
+        add_tooltips(
+            "Choose the region selection type: Rectangle, Polygon, or Freehand.");
         static bool realtime = false;
         ImGui::Checkbox("Realtime", &realtime);
         add_tooltips(
@@ -93,6 +112,21 @@ void PoissonWindow::draw_toolbar()
             "clone the selected region to the target image.");
         // HW3_TODO: You may add more items in the menu for the different types
         // of Poisson editing.
+        if (ImGui::MenuItem("Seamless Clone") && p_target_ && p_source_)
+        {
+            p_target_->set_seamless();
+        }
+        add_tooltips(
+            "Enable seamless clone in the target image, which means that "
+            "you can drag the mouse and the cloning would update along the "
+            "mouse.");
+        if (ImGui::MenuItem("Mixed Seamless Clone") && p_target_ && p_source_)
+        {
+            p_target_->set_mixed_seamless();
+        }
+        add_tooltips(
+            "Enable mixed gradient seamless clone in the target image, "
+            "which uses the larger gradient between source and target images.");
 
         ImGui::EndMainMenuBar();
     }

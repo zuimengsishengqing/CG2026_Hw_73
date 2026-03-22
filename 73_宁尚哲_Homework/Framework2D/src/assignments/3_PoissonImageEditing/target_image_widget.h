@@ -2,6 +2,8 @@
 
 #include "source_image_widget.h"
 #include "common/image_widget.h"
+#include "seamless_clone.h"
+#include <memory>
 
 namespace USTC_CG
 {
@@ -14,7 +16,8 @@ class TargetImageWidget : public ImageWidget
     {
         kDefault = 0,
         kPaste = 1,
-        kSeamless = 2
+        kSeamless = 2,
+        kMixedSeamless = 3
     };
 
     explicit TargetImageWidget(
@@ -33,6 +36,7 @@ class TargetImageWidget : public ImageWidget
     // type, you can implement seamless cloning, mix-gradient cloning, etc.
     void set_paste();
     void set_seamless();
+    void set_mixed_seamless();
 
     // The clone function
     void clone();
@@ -55,5 +59,9 @@ class TargetImageWidget : public ImageWidget
     ImVec2 mouse_position_;
     bool edit_status_ = false;
     bool flag_realtime_updating = false;
+    
+    // SeamlessClone对象用于实时编辑（预分解）
+    std::shared_ptr<SeamlessClone> seamless_clone_;
+    bool is_seamless_precomputed_ = false;
 };
 }  // namespace USTC_CG

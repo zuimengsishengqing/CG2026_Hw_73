@@ -181,6 +181,13 @@ void SourceImageWidget::mouse_click_event()
                 selected_shape_ = std::make_unique<Polygon>(polygon_vertices_);
                 break;
             }
+            case USTC_CG::SourceImageWidget::kFreehand:
+            {
+                polygon_vertices_.clear();
+                polygon_vertices_.push_back({ start_.x, start_.y });
+                selected_shape_ = std::make_unique<Freehand>(polygon_vertices_);
+                break;
+            }
             default: break;
         }
     }
@@ -203,18 +210,34 @@ void SourceImageWidget::mouse_move_event()
     {
         end_ = mouse_pos_in_canvas();
         if (selected_shape_)
-            selected_shape_->update(end_.x, end_.y);
+        {
+            if (region_type_ == kFreehand)
+            {
+                // Freehand模式：连续添加顶点
+                polygon_vertices_.push_back({ end_.x, end_.y });
+                auto* freehand = static_cast<Freehand*>(selected_shape_.get());
+                freehand->add_control_point(end_.x, end_.y);
+            }
+            else
+            {
+                selected_shape_->update(end_.x, end_.y);
+            }
+        }
     }
 }
 
 void SourceImageWidget::mouse_release_event()
 {
     // Finish drawing the region
-    if (draw_status_ && selected_shape_ && region_type_ == kRect)
+    if (draw_status_ && selected_shape_)
     {
-        draw_status_ = false;
-        // Update the selected region.
-        update_selected_region();
+        if (region_type_ == kRect)
+        {
+            draw_status_ = false;
+            // Update the selected region.
+            update_selected_region();
+        }
+        // kFreehand 和 kPolygon 模式不在这里结束，而是在右键点击时结束
     }
 }
 
@@ -256,7 +279,7 @@ void SourceImageWidget::update_selected_region()
 
 void SourceImageWidget::finish_polygon_drawing()
 {
-    if (region_type_ == kPolygon && draw_status_)
+    if ((region_type_ == kPolygon || region_type_ == kFreehand) && draw_status_)
     {
         draw_status_ = false;
         update_selected_region();

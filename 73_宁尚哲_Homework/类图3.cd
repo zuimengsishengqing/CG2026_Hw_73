@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="USTC_CG::PoissonWindow">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAAAAAAAgAAAAAiApIAAAAAAAAAARAAgABAACBAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\poisson_window.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::SeamlessClone">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="USTC_CG::SeamlessClone::point_Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABAgAAAAAQIAohAgAAGBgsAAAAqAA4AIAQJEcIAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Freehand">
+    <Position X="3.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAACEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\freehand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Line">
+    <Position X="1" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIEAAAAAAAAgAEAAAAIAAAAAAAAAAAAAAAAAAAAFAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\line.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Polygon" Collapsed="true">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAgAAAAIAQAAAAgAQAAAAAAAAAAAEACA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\polygon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Rect">
+    <Position X="6.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAEAAAAAAAAgAEAAAAIAQAAAACCAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\rect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::Shape">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="USTC_CG::Shape::Config" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAQAABAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::SourceImageWidget">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="USTC_CG::SourceImageWidget::RegionType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\source_image_widget.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAEQABSAhAAICIAAAAAAAAwBAISAADgAACCI=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\source_image_widget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="USTC_CG::TargetImageWidget">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="USTC_CG::TargetImageWidget::CloneType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\target_image_widget.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AYACAAgAAkAAQAIAAAIAAICAAQAACQBAASAAEABACQA=</HashCode>
+      <FileName>F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\target_image_widget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

@@ -3,6 +3,7 @@
 #include "common/image_widget.h"
 #include "shapes/rect.h"
 #include "shapes/polygon.h"
+#include "shapes/freehand.h"
 
 namespace USTC_CG
 {
@@ -14,7 +15,8 @@ class SourceImageWidget : public ImageWidget
     {
         kDefault = 0,
         kRect = 1,
-        kPolygon = 2
+        kPolygon = 2,
+        kFreehand = 3
     };
 
     explicit SourceImageWidget(

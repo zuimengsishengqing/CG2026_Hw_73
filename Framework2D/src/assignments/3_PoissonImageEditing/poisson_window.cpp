@@ -71,16 +71,17 @@ void PoissonWindow::draw_toolbar()
         add_tooltips(
             "On: Enable region selection in the source image. "
             "Rectangle: Drag left mouse to select. "
-            "Polygon: Click to add vertices, right-click to finish.");
+            "Polygon: Click to add vertices, right-click to finish. "
+            "Freehand: Drag left mouse to draw continuously, right-click to finish.");
         if (p_source_)
             p_source_->enable_selecting(selectable);
 
         ImGui::SameLine();
         static int region_type_current = 0;
-        const char* region_type_items[] = { "Rectangle", "Polygon" };
+        const char* region_type_items[] = { "Rectangle", "Polygon", "Freehand" };
         ImGui::SetNextItemWidth(120);
         if (ImGui::Combo(
-                "##RegionType", &region_type_current, region_type_items, 2))
+                "##RegionType", &region_type_current, region_type_items, 3))
         {
             if (p_source_)
             {
@@ -90,7 +91,7 @@ void PoissonWindow::draw_toolbar()
             }
         }
         add_tooltips(
-            "Choose the region selection type: Rectangle or Polygon.");
+            "Choose the region selection type: Rectangle, Polygon, or Freehand.");
         static bool realtime = false;
         ImGui::Checkbox("Realtime", &realtime);
         add_tooltips(

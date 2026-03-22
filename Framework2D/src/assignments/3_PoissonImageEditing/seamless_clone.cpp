@@ -380,9 +380,11 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
         int y = pixel.second;
         
         // 计算在目标图像中的实际位置
-        // x, y 是相对于边界框的坐标，需要加上偏移量和边界框偏移
-        int tar_x = x + offset_x_ + bbox_min_x_;
-        int tar_y = y + offset_y_ + bbox_min_y_;
+        // x, y 是相对于边界框的坐标
+        // offset_x_ 已经包含了从 bbox_min_x 到鼠标位置的偏移
+        // 因此直接加上 offset_x_ 即可，不需要再加 bbox_min_x_
+        int tar_x = x + offset_x_;
+        int tar_y = y + offset_y_;
         
         // 边界检查
         if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){
@@ -485,9 +487,11 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         int y = pixel.second;
         
         // 计算在目标图像中的实际位置
-        // x, y 是相对于边界框的坐标，需要加上偏移量和边界框偏移
-        int tar_x = x + offset_x_ + bbox_min_x_;
-        int tar_y = y + offset_y_ + bbox_min_y_;
+        // x, y 是相对于边界框的坐标
+        // offset_x_ 已经包含了从 bbox_min_x 到鼠标位置的偏移
+        // 因此直接加上 offset_x_ 即可，不需要再加 bbox_min_x_
+        int tar_x = x + offset_x_;
+        int tar_y = y + offset_y_;
         
         // 边界检查
         if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){

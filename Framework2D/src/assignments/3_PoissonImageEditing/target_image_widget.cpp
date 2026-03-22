@@ -136,19 +136,22 @@ void TargetImageWidget::clone()
         {
             restore();
             
-            // 计算偏移量：选中区域在目标图像中的位置
-            int offset_x = static_cast<int>(mouse_position_.x) - 
-                          static_cast<int>(source_image_->get_position().x);
-            int offset_y = static_cast<int>(mouse_position_.y) - 
-                          static_cast<int>(source_image_->get_position().y);
+            // 获取选中区域的边界框（对于多边形，这是顶点的边界框）
+            auto [bbox_min_x, bbox_min_y, bbox_max_x, bbox_max_y] = 
+                source_image_->get_bounding_box();
             
-            // 计算选中区域在源图像中的位置（左上角）
-            int origin_x = static_cast<int>(source_image_->get_position().x);
-            int origin_y = static_cast<int>(source_image_->get_position().y);
+            // 计算偏移量：选中区域在目标图像中的位置
+            // 使用边界框的左上角作为参考点
+            int offset_x = static_cast<int>(mouse_position_.x) - bbox_min_x;
+            int offset_y = static_cast<int>(mouse_position_.y) - bbox_min_y;
+            
+            // 计算选中区域在源图像中的位置（边界框的左上角）
+            int origin_x = bbox_min_x;
+            int origin_y = bbox_min_y;
             
             // 检查是否需要重新创建SeamlessClone对象
             if(!seamless_clone_ || !is_seamless_precomputed_){
-                // 创建SeamlessClone对象
+                // 创建SeamlessClone对象，传入边界框参数
                 seamless_clone_ = std::make_shared<SeamlessClone>(
                     source_image_->get_data(),
                     data_,
@@ -156,7 +159,11 @@ void TargetImageWidget::clone()
                     offset_x,
                     offset_y,
                     origin_x,
-                    origin_y
+                    origin_y,
+                    bbox_min_x,
+                    bbox_min_y,
+                    bbox_max_x,
+                    bbox_max_y
                 );
                 
                 // 设置混合梯度标志为false
@@ -192,19 +199,22 @@ void TargetImageWidget::clone()
         {
             restore();
             
-            // 计算偏移量：选中区域在目标图像中的位置
-            int offset_x = static_cast<int>(mouse_position_.x) - 
-                          static_cast<int>(source_image_->get_position().x);
-            int offset_y = static_cast<int>(mouse_position_.y) - 
-                          static_cast<int>(source_image_->get_position().y);
+            // 获取选中区域的边界框（对于多边形，这是顶点的边界框）
+            auto [bbox_min_x, bbox_min_y, bbox_max_x, bbox_max_y] = 
+                source_image_->get_bounding_box();
             
-            // 计算选中区域在源图像中的位置（左上角）
-            int origin_x = static_cast<int>(source_image_->get_position().x);
-            int origin_y = static_cast<int>(source_image_->get_position().y);
+            // 计算偏移量：选中区域在目标图像中的位置
+            // 使用边界框的左上角作为参考点
+            int offset_x = static_cast<int>(mouse_position_.x) - bbox_min_x;
+            int offset_y = static_cast<int>(mouse_position_.y) - bbox_min_y;
+            
+            // 计算选中区域在源图像中的位置（边界框的左上角）
+            int origin_x = bbox_min_x;
+            int origin_y = bbox_min_y;
             
             // 检查是否需要重新创建SeamlessClone对象
             if(!seamless_clone_ || !is_seamless_precomputed_){
-                // 创建SeamlessClone对象
+                // 创建SeamlessClone对象，传入边界框参数
                 seamless_clone_ = std::make_shared<SeamlessClone>(
                     source_image_->get_data(),
                     data_,
@@ -212,7 +222,11 @@ void TargetImageWidget::clone()
                     offset_x,
                     offset_y,
                     origin_x,
-                    origin_y
+                    origin_y,
+                    bbox_min_x,
+                    bbox_min_y,
+                    bbox_max_x,
+                    bbox_max_y
                 );
                 
                 // 设置混合梯度标志为true

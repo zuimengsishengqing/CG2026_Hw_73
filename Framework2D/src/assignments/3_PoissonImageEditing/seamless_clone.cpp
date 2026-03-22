@@ -5,7 +5,13 @@
 
 namespace USTC_CG{
 //构造函数
-SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Image> tar_img, std::shared_ptr<Image> src_selected_mask, int offset_x, int offset_y,int origin_x, int origin_y){
+SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Image> tar_img, std::shared_ptr<Image> src_selected_mask, int offset_x, int offset_y,int origin_x, int origin_y, int bbox_min_x, int bbox_min_y, int bbox_max_x, int bbox_max_y){
+    std::cout << "[SeamlessClone] Constructor called" << std::endl;
+    std::cout << "[SeamlessClone] src_img size: " << src_img->width() << "x" << src_img->height() << std::endl;
+    std::cout << "[SeamlessClone] tar_img size: " << tar_img->width() << "x" << tar_img->height() << std::endl;
+    std::cout << "[SeamlessClone] mask size: " << src_selected_mask->width() << "x" << src_selected_mask->height() << std::endl;
+    std::cout << "[SeamlessClone] Bounding box: (" << bbox_min_x << ", " << bbox_min_y << ") to (" << bbox_max_x << ", " << bbox_max_y << ")" << std::endl;
+    
     // 保存参数到成员变量
     src_img_ = src_img;
     tar_img_ = tar_img;
@@ -14,9 +20,31 @@ SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Ima
     offset_y_ = offset_y;
     origin_x_ = origin_x;
     origin_y_ = origin_y;
-    //求解区域大小：应该是src_selected_mask
-    W = src_selected_mask->width(); //移动图像，源图像和目标图像块的大小相同？
-    H = src_selected_mask->height();
+    
+    // 如果提供了边界框，使用边界框尺寸；否则使用整个掩码尺寸
+    if (bbox_max_x > bbox_min_x && bbox_max_y > bbox_min_y)
+    {
+        W = bbox_max_x - bbox_min_x + 1;
+        H = bbox_max_y - bbox_min_y + 1;
+        // 保存边界框信息，用于后续坐标转换
+        bbox_min_x_ = bbox_min_x;
+        bbox_min_y_ = bbox_min_y;
+        bbox_max_x_ = bbox_max_x;
+        bbox_max_y_ = bbox_max_y;
+        std::cout << "[SeamlessClone] Using bounding box size: " << W << "x" << H << std::endl;
+    }
+    else
+    {
+        // 矩形模式：使用整个掩码尺寸
+        W = src_selected_mask->width();
+        H = src_selected_mask->height();
+        bbox_min_x_ = 0;
+        bbox_min_y_ = 0;
+        bbox_max_x_ = W - 1;
+        bbox_max_y_ = H - 1;
+        std::cout << "[SeamlessClone] Using full mask size: " << W << "x" << H << std::endl;
+    }
+    
     //A* x = B,矩阵维度是图像所有像素点
     A = Eigen::SparseMatrix<double>(W * H, W * H); // 稀疏矩阵 A,系数矩阵（成员变量）
     B = Eigen::VectorXd(W * H); // 向量 B,右侧向量（成员变量）
@@ -31,6 +59,8 @@ SeamlessClone::SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Ima
     
     // 初始化混合梯度标志
     is_mixed_gradient_ = false;
+    
+    std::cout << "[SeamlessClone] Constructor completed" << std::endl;
 }
 // 填写 (x, y) 对应的方程系数
 void SeamlessClone::fill_coefficient(int x,int y,int rgb_index, const std::vector<std::vector<int>>& coord_to_idx, bool fill_triplet, bool is_mixed_gradient){
@@ -171,12 +201,12 @@ SeamlessClone::point_Type SeamlessClone::point_type(int x,int y){ //类中定义
 }
 
 // g(x,y)函数：从源图像src_img_中取值
-// 输入(x,y)是目标图像中的坐标，需要转换为源图像坐标：(x - offset_x_, y - offset_y_)
+// 输入(x,y)是相对于边界框的坐标，需要转换为源图像坐标：(x + bbox_min_x_, y + bbox_min_y_)
 // 返回源图像在该位置的RGB三元组
 std::tuple<double, double, double> SeamlessClone::g(int x, int y){
     // 内部处理，把(x,y)对应源图像的坐标：
-    int src_x = x;
-    int src_y = y;
+    int src_x = x + bbox_min_x_;
+    int src_y = y + bbox_min_y_;
     
     // 边界检查
     if(src_x < 0 || src_x >= src_img_->width() || src_y < 0 || src_y >= src_img_->height()){
@@ -223,32 +253,57 @@ double SeamlessClone::f(int x, int y, int rgb_index){
 }
 
 void SeamlessClone::precompute() {
+    std::cout << "[SeamlessClone] precompute() called" << std::endl;
+    std::cout << "[SeamlessClone] W=" << W << ", H=" << H << std::endl;
+    std::cout << "[SeamlessClone] Bounding box: (" << bbox_min_x_ << ", " << bbox_min_y_ 
+              << ") to (" << bbox_max_x_ << ", " << bbox_max_y_ << ")" << std::endl;
+    
     // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
     // 这是不规则区域处理的核心：
-    // - selected_pixels_: 存储所有选中像素的坐标 (x, y)
+    // - selected_pixels_: 存储所有选中像素的坐标 (x, y)（相对于边界框）
     // - coord_to_idx_: 建立二维坐标到一维索引的映射，未选中区域标记为 -1
     // 这样可以将不规则区域映射为连续的索引，便于矩阵运算
     selected_pixels_.clear();
     coord_to_idx_ = std::vector<std::vector<int>>(H, std::vector<int>(W, -1));
     
+    int mask_pixel_count = 0;
+    // 遍历边界框内的像素（而不是整个掩码图像）
     for(int y = 0; y < H; ++y){
         for(int x = 0; x < W; ++x){
-            int mask_idx = (y * W + x) * src_selected_mask_->channels();
+            // 计算在源图像中的实际坐标
+            int src_x = x + bbox_min_x_;
+            int src_y = y + bbox_min_y_;
+            
+            // 检查坐标是否在源图像范围内
+            if(src_x < 0 || src_x >= src_selected_mask_->width() || 
+               src_y < 0 || src_y >= src_selected_mask_->height()){
+                continue;
+            }
+            
+            int mask_idx = (src_y * src_selected_mask_->width() + src_x) * src_selected_mask_->channels();
             if(src_selected_mask_->data()[mask_idx] > 0){
                 coord_to_idx_[y][x] = selected_pixels_.size();
                 selected_pixels_.push_back({x, y});
+                mask_pixel_count++;
             }
         }
     }
     
+    std::cout << "[SeamlessClone] Found " << mask_pixel_count << " selected pixels in mask" << std::endl;
+    std::cout << "[SeamlessClone] selected_pixels_ size: " << selected_pixels_.size() << std::endl;
+    
     num_pixels_ = selected_pixels_.size();
     if(num_pixels_ == 0){
+        std::cout << "[SeamlessClone] WARNING: No selected pixels found!" << std::endl;
         is_precomputed_ = false;
         return;
     }
     
+    std::cout << "[SeamlessClone] num_pixels_: " << num_pixels_ << std::endl;
+    
     // 重新设置矩阵A的维度
     A = Eigen::SparseMatrix<double>(num_pixels_, num_pixels_);
+    std::cout << "[SeamlessClone] Matrix A size: " << num_pixels_ << "x" << num_pixels_ << std::endl;
     
     // 只为第一个RGB通道构建系数矩阵A（三个通道的A矩阵相同）
     // 注意：对于不规则区域，矩阵A的结构由区域的形状决定
@@ -325,8 +380,9 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
         int y = pixel.second;
         
         // 计算在目标图像中的实际位置
-        int tar_x = x + offset_x_;
-        int tar_y = y + offset_y_;
+        // x, y 是相对于边界框的坐标，需要加上偏移量和边界框偏移
+        int tar_x = x + offset_x_ + bbox_min_x_;
+        int tar_y = y + offset_y_ + bbox_min_y_;
         
         // 边界检查
         if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){
@@ -354,14 +410,25 @@ std::shared_ptr<Image> SeamlessClone::solve_fast() {
 std::shared_ptr<Image> SeamlessClone::solve() {
     // 第一步：统计选中区域内像素数量，建立坐标到矩阵索引的映射
     // 这是不规则区域处理的核心：
-    // - selected_pixels: 存储所有选中像素的坐标 (x, y)
+    // - selected_pixels: 存储所有选中像素的坐标 (x, y)（相对于边界框）
     // - coord_to_idx: 建立二维坐标到一维索引的映射，未选中区域标记为 -1
     std::vector<std::pair<int, int>> selected_pixels;
     std::vector<std::vector<int>> coord_to_idx(H, std::vector<int>(W, -1));
     
+    // 遍历边界框内的像素（而不是整个掩码图像）
     for(int y = 0; y < H; ++y){
         for(int x = 0; x < W; ++x){
-            int mask_idx = (y * W + x) * src_selected_mask_->channels();
+            // 计算在源图像中的实际坐标
+            int src_x = x + bbox_min_x_;
+            int src_y = y + bbox_min_y_;
+            
+            // 检查坐标是否在源图像范围内
+            if(src_x < 0 || src_x >= src_selected_mask_->width() || 
+               src_y < 0 || src_y >= src_selected_mask_->height()){
+                continue;
+            }
+            
+            int mask_idx = (src_y * src_selected_mask_->width() + src_x) * src_selected_mask_->channels();
             if(src_selected_mask_->data()[mask_idx] > 0){
                 coord_to_idx[y][x] = selected_pixels.size();
                 selected_pixels.push_back({x, y});
@@ -418,8 +485,9 @@ std::shared_ptr<Image> SeamlessClone::solve() {
         int y = pixel.second;
         
         // 计算在目标图像中的实际位置
-        int tar_x = x + offset_x_;
-        int tar_y = y + offset_y_;
+        // x, y 是相对于边界框的坐标，需要加上偏移量和边界框偏移
+        int tar_x = x + offset_x_ + bbox_min_x_;
+        int tar_y = y + offset_y_ + bbox_min_y_;
         
         // 边界检查
         if(tar_x < 0 || tar_x >= tar_img_->width() || tar_y < 0 || tar_y >= tar_img_->height()){

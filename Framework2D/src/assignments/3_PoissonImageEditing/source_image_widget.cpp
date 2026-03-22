@@ -102,6 +102,59 @@ ImVec2 SourceImageWidget::get_position() const
     return start_;
 }
 
+std::tuple<int, int, int, int> SourceImageWidget::get_bounding_box() const
+{
+    int min_x = 0, min_y = 0, max_x = 0, max_y = 0;
+    
+    if (region_type_ == kRect && selected_shape_)
+    {
+        // 矩形模式：使用矩形的边界
+        min_x = static_cast<int>(std::min(start_.x, end_.x));
+        min_y = static_cast<int>(std::min(start_.y, end_.y));
+        max_x = static_cast<int>(std::max(start_.x, end_.x));
+        max_y = static_cast<int>(std::max(start_.y, end_.y));
+    }
+    else if (region_type_ == kPolygon && selected_shape_)
+    {
+        // 多边形模式：计算顶点的边界框
+        if (polygon_vertices_.empty())
+        {
+            return std::make_tuple(0, 0, 0, 0);
+        }
+        
+        min_x = static_cast<int>(std::floor(polygon_vertices_[0].first));
+        min_y = static_cast<int>(std::floor(polygon_vertices_[0].second));
+        max_x = static_cast<int>(std::ceil(polygon_vertices_[0].first));
+        max_y = static_cast<int>(std::ceil(polygon_vertices_[0].second));
+        
+        for (const auto& vertex : polygon_vertices_)
+        {
+            int x = static_cast<int>(std::floor(vertex.first));
+            int y = static_cast<int>(std::floor(vertex.second));
+            min_x = std::min(min_x, x);
+            min_y = std::min(min_y, y);
+            max_x = std::max(max_x, x);
+            max_y = std::max(max_y, y);
+        }
+    }
+    else
+    {
+        // 默认情况：整个图像
+        min_x = 0;
+        min_y = 0;
+        max_x = image_width_ - 1;
+        max_y = image_height_ - 1;
+    }
+    
+    // 确保边界在图像范围内
+    min_x = std::max(0, min_x);
+    min_y = std::max(0, min_y);
+    max_x = std::min(image_width_ - 1, max_x);
+    max_y = std::min(image_height_ - 1, max_y);
+    
+    return std::make_tuple(min_x, min_y, max_x, max_y);
+}
+
 void SourceImageWidget::mouse_click_event()
 {
     // Start drawing the region 

@@ -8,8 +8,9 @@ class SeamlessClone
 {
    public:
     // 构造函数
-    SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Image> tar_img, std::shared_ptr<Image> src_selected_mask, int offset_x, int offset_y, int origin_x, int origin_y);
+    SeamlessClone(std::shared_ptr<Image> src_img, std::shared_ptr<Image> tar_img, std::shared_ptr<Image> src_selected_mask, int offset_x, int offset_y, int origin_x, int origin_y, int bbox_min_x = 0, int bbox_min_y = 0, int bbox_max_x = 0, int bbox_max_y = 0);
     //其中src_img为源图像，tar_img为目标图像，src_selected_mask为选择区域，offset_x,offset_y为选择区域在目标图像中的位置（一般取左上角）
+    // bbox_min_x, bbox_min_y, bbox_max_x, bbox_max_y 为选中区域的边界框（用于不规则形状）
     std::shared_ptr<Image> solve(); // 给外部调用的接口，求解 Poisson 方程组，返回一个 Seamless Clone 的结果图像（和背景图像一样大，替换了选中区域）
 
     // 预分解矩阵A，用于实时编辑
@@ -39,6 +40,10 @@ class SeamlessClone
     std::shared_ptr<Image> src_selected_mask_; // 选中区域（矩形情形可以无视）
     int offset_x_, offset_y_;        // 矩形区域在目标(target)图像中的位置（例如，左上角的坐标）
     int origin_x_, origin_y_;        // 矩形区域在源图像位置，左上角坐标；
+    
+    // 边界框信息（用于不规则形状）
+    int bbox_min_x_, bbox_min_y_;    // 边界框左上角
+    int bbox_max_x_, bbox_max_y_;    // 边界框右下角
     std::vector<Eigen::Triplet<double>> triplet_list; // 使用三元组 vector 来存储非零元素,(行,列,value)
     int W,H; //图像宽、高在类内存储
     Eigen::SparseMatrix<double> A; // 稀疏矩阵 A,系数矩阵

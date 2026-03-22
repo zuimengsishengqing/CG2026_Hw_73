@@ -39,6 +39,11 @@ class SourceImageWidget : public ImageWidget
     // Get the position to locate the region in the target image.
     // We return the start point of the selected region as default.
     ImVec2 get_position() const;
+    
+    // Get the bounding box of the selected region.
+    // Returns (min_x, min_y, max_x, max_y) of the selected region.
+    // For irregular shapes (polygon), this returns the bounding box.
+    std::tuple<int, int, int, int> get_bounding_box() const;
 
    private:
     // Event handlers for mouse interactions.

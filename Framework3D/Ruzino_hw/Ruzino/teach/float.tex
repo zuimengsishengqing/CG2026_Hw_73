@@ -1,0 +1,522 @@
+\documentclass{ctexart}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% 定理环境定义
+\newtheorem{definition}{定义}
+\newtheorem{proposition}{命题}
+\newtheorem{corollary}{推论}
+\theoremstyle{proof}
+\newenvironment{proof}{\noindent\textbf{证明.}}{\hfill$\square$\par}
+
+\begin{document}
+
+\title{曲面三角剖分的参数化与光滑逼近}
+\author{Michael S. Floater \\ 西班牙萨拉戈萨大学 应用数学系}
+\date{1995年12月投稿，1996年6月修订}
+\maketitle
+
+\begin{abstract}
+本文基于图论方法，研究了一种为曲面三角剖分构建全局参数化的方法，核心用于光滑曲面拟合。这类参数化的结果为平面三角剖分，其解基于凸组合构建的线性方程组得到。本文提出了一种被称为\textbf{保形参数化}的特殊方法，实验证明该方法能得到视觉效果更光滑的曲面逼近结果。
+\end{abstract}
+
+\section{引言}
+对于给定点序列 $x_{i}=(x_{i}, y_{i}, z_{i}) \in \mathbb{R}^{3}$（$i=1, ..., N$），拟合光滑参数曲线 $c(t)$ 的标准方法是先完成参数化，即生成一组递增的参数值 $t_{i}$。通过求解满足 $x(t_{i})=x_{i}$、$y(t_{i})=y_{i}$、$z(t_{i})=z_{i}$ 的光滑函数 $x, y, z:[t_{1}, t_{N}] \to \mathbb{R}$，即可得到插值曲线 $c(t)=(x(t), y(t), z(t))$。
+
+最常用的两种参数化方法是均匀参数化与弦长参数化，其定义分别为：
+\[
+\left(t_{i+1}-t_{i}\right) /\left(t_{i}-t_{i-1}\right)=1,
+\]
+与
+\[
+\left(t_{i+1}-t_{i}\right) /\left(t_{i}-t_{i-1}\right)=\left\| x_{i+1}-x_{i}\right\| /\left\| x_{i}-x_{i-1}\right\| , \tag{2}
+\]
+相关研究可参考文献\cite{deboor1978,farin1988}。
+
+本文基于Tutte\cite{tutte1963}提出的平面图直线绘制方法，研究了带边界的曲面三角剖分的参数化构建方法。我们将曲面 $S$ 的顶点 $x_{i} \in \mathbb{R}^{3}$ 映射到平面凸区域 $D \subset \mathbb{R}^{2}$ 中的点 $u_{i}=(u_{i}, v_{i})$，使得映射后的结果 $P$ 是与原曲面拓扑同构的平面三角剖分。
+
+方法的核心思想是：令每个内部顶点为其邻域顶点的凸组合。通过选择不同的凸组合权重，我们提出了三种参数化方法：**均匀参数化**、**加权最小二乘参数化**与**保形参数化**。其中均匀参数化是曲线均匀参数化在曲面场景的推广，后两种则是弦长参数化的推广。我们将该方法命名为“保形参数化”，是因为它具备命题6中证明的几何重构特性。
+
+基于得到的参数化结果，我们可以通过合适的散点数据拟合方法\cite{franke1986}，独立构建满足下式的光滑函数 $x, y, z: D \to \mathbb{R}$：
+\[
+x(u_{i})=x_{i}, y(u_{i})=y_{i}, z(u_{i})=z_{i}. \tag{3}
+\]
+最终通过下式得到参数化曲面：
+\[
+s(u)=(x(u),y(u),z(u)), u\in D. \tag{4}
+\]
+
+\footnote{本研究部分受欧盟项目CHRX-CT94-0522资助}
+尽管很多曲面三角剖分无法在无显著形变的前提下映射到平面，但实验表明，基于保形参数化得到的插值曲面具有更优的视觉光滑性。此外，若选择单位正方形作为参数域 $D$，结合散点数据逼近的两阶段方法\cite{franke1986}，我们可以用单一的张量积样条曲面完成对整个三角网格的光滑逼近，这也是工业界广泛应用的曲面表示形式。
+
+现有绝大多数曲面三角剖分逼近方法，都是为每个三角面片拟合分片多项式面片，以保证整体的 $G^k$ 几何连续性，相关综述可参考文献\cite{lounsberry1992}。但当三角面片数量极大时，这类方法会产生海量数据。若三角网格是单一曲面片，更优的选择是用单一参数曲面完成逼近，例如张量积样条曲面。Milroy等人\cite{milroy1995}已通过非线性最小化方法实现了这类直接逼近。
+
+关于三角网格的映射与变换，Maillot等人\cite{maillot1993}提出了基于弹性理论的能量泛函最小化方法，Li等人\cite{li1992}则提出了基于椭圆方程有限差分/有限元的数值逼近方法。
+
+\section{图与三角剖分}
+本节给出图论相关的标准定义，可参考文献\cite{marshall1971}。
+
+\begin{definition}
+简单图 $G=G(V, E)$ 由节点集合 $V={i: i=1, ..., N}$ 与边集合 $E$ 组成，其中 $E$ 是无序节点对 $(i, j)$（$i≠j$）的子集。若 $(i, j) \in E$，则称节点 $j$ 是节点 $i$ 的邻域节点；节点 $i$ 的度 $d_i$ 定义为其邻域节点的数量。若图 $H$ 的所有节点与边都属于图 $G$，则称 $H$ 是 $G$ 的子图。
+\end{definition}
+
+若一个图可以嵌入到平面中，满足：
+(a) 每个节点 $i$ 被映射到 $\mathbb{R}^2$ 中的一个点；
+(b) 每条边 $(i, j) \in E$ 被映射到一条以 $i,j$ 为端点的连续曲线；
+(c) 任意两条曲线的交点仅能是其公共端点；
+
+则称该图是**平面图**。平面图的嵌入结果被称为**平面嵌入图**，它将平面划分为若干连通区域，称为**面**；其中无界的面被称为**外表面**。平面图的不同嵌入方式会得到不同的面划分，这也是我们区分“平面图”与“平面嵌入图”的原因。
+
+针对本文的应用场景，我们给出如下定义：设 $G$ 为平面嵌入图，定义 $\partial G$ 为外表面关联的所有节点与边组成的子图。若 $\partial G$ 是一条简单闭合平面曲线，则称 $G$ 是**单连通**的，$\partial G$ 称为 $G$ 的**边界**。
+
+若一个平面嵌入图的所有有界面都是三角形（即由3条边围成），则称该图是**三角化**的（对外表面无此要求）。
+
+本文中，我们始终假设 $G$ 是单连通、三角化的平面嵌入图，且节点数 $N ≥3$，相关示例见图1。尽管本文讨论的方法可以推广到包含非三角面的更广泛图类中，但这会使阐述变得复杂，且三角化图具备一些特殊的优良性质（见命题4）。
+
+现在我们给出本文核心研究的三角剖分定义：
+
+\begin{definition}
+平面三角剖分 $P$ 是边为直线段的单连通、三角化平面嵌入图。
+\end{definition}
+
+设 $F$ 为 $G$ 的有界（三角）面集合，我们记 $G=G(V, E, F)$。
+
+\begin{definition}
+曲面三角剖分 $S=S(G, X)$ 是单连通、三角化的平面嵌入图 $G(V, E, F)$ 在 $\mathbb{R}^3$ 中的嵌入，其中节点集合为 $X={x_{i} \in \mathbb{R}^{3}: i=1, ..., N}$，边为直线段，面为三角面片。
+\end{definition}
+
+相关示例见图1。需要说明的是，本文定义的曲面三角剖分，比Schumaker\cite{schumaker1993}中讨论的任意拓扑三角剖分更具约束性。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{图、曲面三角剖分与参数化示例}
+    \label{fig:1}
+\end{figure}
+
+\section{参数化}
+由于单连通平面嵌入图 $G$ 的边界 $\partial G$ 是简单闭合平面曲线，因此它具备良定义的方向，本文中我们默认取逆时针方向。
+
+\begin{definition}
+两个单连通、三角化的平面嵌入图 $G_1$ 与 $G_2$ 是同构的，当且仅当它们的节点、边、面之间存在一一对应关系，满足：对应边连接对应节点；对应面由对应边和节点围成；且 $\partial G_1$ 与 $\partial G_2$ 中的逆时针节点序列一一对应。
+\end{definition}
+
+现在我们给出曲面三角剖分参数化的核心定义，见图1：
+
+\begin{definition}
+曲面三角剖分 $S(G, X)$ 的参数化，是指任意与 $G$ 同构的平面三角剖分 $P$。
+\end{definition}
+
+本文中，我们的核心目标是为给定的曲面三角剖分 $S$ 寻找合适的参数化 $P$，以实现光滑曲面拟合。从定义4可以看出，参数化 $P$ 理论上可以不依赖于原曲面 $S$ 的几何信息；但数值实验表明，为了得到高质量的光滑曲面逼近结果，参数化 $P$ 的局部几何应当尽可能拟合原曲面 $S$ 的局部几何。
+
+\begin{example}
+设 $u_{1}, ..., u_{N}$（$N ≥3$）是 $\mathbb{R}^2$ 中两两不同、不共线的任意点，$z_{1}, ..., z_{N} \in \mathbb{R}$ 是任意实数。对 $u_i$ 做任意三角剖分（例如Delaunay三角剖分\cite{preparata1985,schumaker1987}）得到 $P$，令 $x_{i}=(u_{i}, v_{i}, z_{i})$（其中 $u_i=(u_i,v_i)$），则 $P$ 是曲面三角剖分 $S(P, X)$ 的一个参数化。
+\end{example}
+
+在例1中，我们得到了曲面逼近的天然参数化 $P$。若 $z_i=f(u_i,v_i)$ 由某个未知的 $C^1$ 函数 $f: \mathbb{R}^2 \to \mathbb{R}$ 生成，通常我们会用样条函数 $g$ 来逼近 $f$。但当 $f$ 存在陡峭梯度时，通过参数曲面 $s: \mathbb{R}^2 \to \mathbb{R}^3$ 来逼近原曲面，会得到更优的结果，这也正是我们研究不同参数化方法的核心原因。
+
+\begin{example}
+设 $s:[0,1] \times[0,1] \to \mathbb{R}^{3}$ 是光滑曲面，$u_{1}, ..., u_{N}$（$N ≥3$）是 $[0,1] \times[0,1]$ 中两两不同、不共线的任意点。对 $u_i$ 做任意三角剖分得到 $P$，令 $x_i=s(u_i)$，$X={x_i: i=1,...,N}$，则 $S(P,X)$ 是一个曲面三角剖分，且 $P$ 是它的一个参数化。
+\end{example}
+
+需要说明的是，例2中的曲面 $S$ 不一定能像例1一样可投影到平面上。
+
+曲面三角剖分也广泛来源于截面数据重建\cite{schumaker1990,floater1995}、三维物体稠密点云采样\cite{hoppe1992}等场景，这类场景通常不存在天然的参数化，因此构建合理的参数化方法尤为重要。
+
+\section{参数化方法}
+为给定的曲面三角剖分 $S$ 寻找参数化 $P$，等价于为给定的三角化平面嵌入图 $G$ 构建同构的直线边平面三角剖分，也就是图论中的“平面图直线绘制”问题。Fáry\cite{fary1948}最早通过归纳法证明了所有简单平面图都存在直线绘制。
+
+后续，Tutte\cite{tutte1960,tutte1963}提出了一种被称为**重心映射**的构造性证明方法：将图的边界节点映射到任意凸多边形的边界上，令每个内部节点为其邻域节点的重心（质心），即可得到平面图的直线绘制，相关示例见图2。关于平面图直线绘制的更多方法，可参考文献\cite{chiba1985,nishizeki1990}。
+
+Tutte的重心映射是本文所有方法的起点。接下来我们将从两个方面对其进行推广：
+(i) 首先，重心映射可以推广到更一般的形式：令每个内部节点为其邻域节点的任意严格凸组合；
+(ii) 其次，我们将给出一种凸组合权重的选择方法，使得参数化 $P$ 能够局部保持原曲面 $S$ 的几何形状。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{重心映射示意图}
+    \label{fig:2}
+\end{figure}
+
+设 $S(G, X)$ 是曲面三角剖分，其中 $G=G(V, E, F)$，节点集合 $X={x_{i}=(x_i,y_i,z_i), 1≤i≤N}$。通过重编号，我们假设 $x_1,...,x_n$ 是内部节点，$x_{n+1},...,x_N$ 是边界节点，且按边界的逆时针顺序排列。记 $K=N-n$，我们给出如下定义：
+
+(1) 选择
+\[
+u_{n+1}, ..., u_{N}, \tag{5}
+\]
+作为 $K$ 边凸多边形 $D \subset \mathbb{R}^2$ 的顶点，按逆时针顺序排列。
+
+(2) 对每个 $i \in \{1,...,n\}$，选择一组实数 $\lambda_{i,j}$（$j=1,...,N$），满足：
+\[
+\lambda_{i, j}=0, \quad(i, j) \notin E, \lambda_{i, j}>0, \quad(i, j) \in E, \sum_{j=1}^{N} \lambda_{i, j}=1, \tag{6}
+\]
+并定义内部节点 $u_1,...,u_n$ 为如下线性方程组的解：
+\[
+u_{i}=\sum_{j=1}^{N} \lambda_{i, j} u_{j}, i=1, ..., n . \tag{7}
+\]
+
+最终，我们得到图 $G(V,E,F)$ 在 $\mathbb{R}^2$ 中的嵌入：
+\[
+\mathcal {P}=\mathcal {P}(\mathcal {G},U_{b},\Lambda ),
+\]
+其中 $U_{b}=\{ u_{n+1},... ,u_{N}\}$，$\Lambda =(\lambda _{i,j})_{i=1,... ,n, j=1,... ,N}$。该嵌入的节点为 $u_1,...,u_n$，边为直线段，面为三角面片。
+
+注意，式(7)要求每个内部节点 $u_i$ 必须是其邻域节点的**严格凸组合**。
+
+接下来我们证明，上述构造得到的 $P$ 是原曲面的合法参数化。根据定义3和定义4，只要 $P$ 是良定义的，且节点两两不同、边除端点外无交点，那么它就是与 $G$ 同构的平面三角剖分，即原曲面的参数化。
+
+Tutte\cite{tutte1963}研究了特殊情况：对所有 $(i,j) \in E$，取 $\lambda_{i,j}=1/d_i$（即 $u_i$ 是邻域节点的重心）。他证明了这种情况下方程组存在唯一解，且得到的 $P$ 是合法的直线绘制（节点两两不同、边无交叉）。在本文的设定下，$G$ 是单连通、三角化的平面嵌入图，因此当 $\lambda_{i,j}=1/d_i$ 时，$P$ 必然是 $S(G,X)$ 的合法参数化。
+
+现在我们考虑式(6)定义的一般权重情况，核心是证明式(7)存在唯一解。首先将式(7)改写为：
+\[
+u_{i}-\sum_{j=1}^{n} \lambda_{i, j} u_{j}=\sum_{j=n+1}^{N} \lambda_{i, j} u_{j}, i=1, ..., n . \tag{8}
+\]
+
+将 $u_i$ 的两个分量 $u_i, v_i$ 分离，可得到两个独立的矩阵方程：
+\[
+A u=b_{1}, A v=b_{2} . \tag{9}
+\]
+
+其中 $u=(u_1,...,u_n)^T$、$v=(v_1,...,v_n)^T$ 是列向量，$n \times n$ 矩阵 $A$ 的元素定义为：
+\[
+a_{i,i}=1, a_{i,j}=-\lambda _{i,j}, j\neq i. \tag{10}
+\]
+
+因此，式(7)解的存在唯一性，等价于矩阵 $A$ 的非奇异性。我们通过如下命题证明这一点，其证明思路来源于文献\cite{atkinson1989}中泊松方程有限差分矩阵可逆性的证明。
+
+\begin{proposition}
+矩阵 $A$ 是非奇异的。
+\end{proposition}
+
+\begin{proof}
+矩阵 $A$ 非奇异，等价于方程 $Aw=0$ 只有零解 $w=0$\cite{atkinson1989}。根据式(7)，方程 $Aw=0$ 可写为：
+\[
+w_{i}=\sum_{j=1}^{N} \lambda_{i, j} w_{j}, i=1, ..., n,
+\]
+其中边界节点满足 $w_{n+1}=\cdots=w_{N}=0$。
+
+设 $w_{max}$ 是 $w_1,...,w_n$ 中的最大值，且 $w_{max}=w_k$。考虑节点 $k$ 的任意邻域节点 $j$，由于 $w_k=w_{max}$，且权重满足式(6)的严格正性与和为1的约束，上述等式成立的唯一可能是 $w_j=w_{max}$。
+
+同理，节点 $k$ 的邻域的邻域节点也必须满足 $w_j=w_{max}$，以此类推。由于图 $G$ 是连通的，最终必然会遍历到某个边界节点 $j \in \{n+1,...,N\}$，从而得到 $w_j=w_{max}$。而边界节点的 $w_j=0$，因此 $w_{max}=0$。
+
+同理可证 $w_{min}=0$，因此 $w=0$，矩阵 $A$ 非奇异。
+\end{proof}
+
+接下来我们证明，上述构造得到的 $P$ 是合法的平面三角剖分。Tutte\cite{tutte1963}中关于重心映射的证明，仅依赖于重心的一个基本性质：若点 $w \in \mathbb{R}^2$ 是点集 $w_1,...,w_d \in \mathbb{R}^2$ 的重心，且直线 $l$ 穿过 $w$，则要么所有 $w_i$ 都在 $l$ 上，要么 $l$ 两侧都存在 $w_i$。
+
+显然，这一性质对任意严格凸组合都成立，因此Tutte的定理可以直接推广到式(6)定义的一般权重情况，我们得到如下推论：
+
+\begin{corollary}
+设 $S(G,X)$ 是曲面三角剖分，$P=P(G,U_b,\Lambda)$ 是按式(8)构造的平面嵌入，则 $P$ 是 $S$ 的合法参数化。
+\end{corollary}
+
+Tutte的原始证明涉及大量图论内容，这里我们给出一个简单的证明：所有内部节点 $u_i$ 都属于凸域 $D$，这一结论也是推论2的直接结果，同时它也凸显了凸域 $D$ 的重要性。
+
+\begin{proposition}
+$P$ 的所有内部节点 $u_i$（$i \in \{1,...,n\}$）都属于凸域 $D$。
+\end{proposition}
+
+\begin{proof}
+由命题1可知，$u_1,...,u_n$ 是良定义的。
+
+我们用反证法证明：假设存在至少一个内部节点不属于 $D$，设 $u_i$ 是其中到 $D$ 的最短距离最大的节点。由于 $D$ 是凸集，存在唯一的点 $w \in \partial D$ 是 $u_i$ 在 $D$ 上的最近点，$w$ 可以是 $D$ 的顶点或边上的点，见图3。
+
+过 $u_i$ 作直线 $l$ 与向量 $u_i-w$ 垂直，$l$ 将 $\mathbb{R}^2$ 划分为两个开半空间，其中不包含 $w$ 的半空间记为 $S$，则所有 $u_j$ 都不属于 $S$。
+
+由于 $u_i$ 是其邻域节点的严格凸组合，且所有邻域节点都不属于 $S$，因此它们必须全部落在直线 $l$ 上。同理，邻域节点的邻域节点也必须全部落在 $l$ 上，以此类推。由于图 $G$ 是连通的，最终必然会得到某个边界节点（属于 $\partial D$）也落在 $l$ 上，这与凸域的性质矛盾。因此所有内部节点都属于 $D$。
+\end{proof}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{内部节点域外分布的反证示意图}
+    \label{fig:3}
+\end{figure}
+
+需要说明的是，凸域 $D$ 也是所有内部节点都落在 $D$ 内的必要条件。如图4所示，即使内部节点是邻域节点的凸组合，若边界不是凸的，内部节点也可能落在域外（尽管不会落在边界的凸包外）。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{非凸边界下内部节点域外分布示例}
+    \label{fig:4}
+\end{figure}
+
+接下来的命题刻画了本文构造的参数化的集合性质：
+
+\begin{proposition}
+设 $P(S)$ 是曲面三角剖分 $S$ 的所有参数化构成的集合，$T(S) \subset P(S)$ 是本文式(8)构造的参数化集合，$C(S) \subset P(S)$ 是边界节点按逆时针顺序映射为凸多边形顶点的参数化集合，则 $T(S)=C(S)$。
+\end{proposition}
+
+\begin{proof}
+由式(5)和推论2，显然 $T(S) \subset C(S)$。反之，若 $P \in C(S)$，由于 $P$ 是平面三角剖分，每个内部节点都严格落在其邻域节点的凸包内（否则该节点关联的某个面将不是凸多边形，无法构成三角形）。因此每个内部节点都可以表示为其邻域节点的严格凸组合，即满足式(7)的形式。同时由于边界是凸多边形，因此 $P \in T(S)$。
+\end{proof}
+
+式(5)要求边界节点满足：对所有 $i=n+1,...,N$，有 $(u_{i+1}-u_i) \times (u_{i+2}-u_{i+1})>0$，其中二维叉乘定义为 $(a_1,a_2) \times (b_1,b_2)=a_1b_2-a_2b_1$，且 $u_{N+k}=u_{n+k}$（$k=1,2$）。在数值实验中，我们将该条件放宽为 $(u_{i+1}-u_i) \times (u_{i+2}-u_{i+1})≥0$，这样就可以将 $D$ 取为单位正方形，允许多个边界节点落在正方形的同一条边上。实践表明，这种放宽不会带来任何问题。
+
+\section{具体参数化方法}
+Tutte的重心映射（对所有 $(i,j) \in E$，取 $\lambda_{i,j}=1/d_i$）可以看作是曲线均匀参数化在曲面场景的推广。本节我们将讨论几种具体的参数化方法，首先回顾曲线参数化的相关结论。
+
+设 $X={x_1,...,x_N}$ 是 $\mathbb{R}^3$ 中的点序列，任意递增序列 $T={t_1<t_2<\cdots<t_N}$ 称为 $X$ 的一个参数化。通常我们会任意选择 $t_1$，取一组正数 $L_1,...,L_{N-1}$ 和常数 $\mu>0$，通过递归 $t_{i+1}=t_i+\mu L_i$ 定义参数序列。例如，当 $L_i$ 为常数时，得到均匀参数化；当 $L_i=\|x_{i+1}-x_i\|$ 时，得到弦长参数化\cite{farin1988}。
+
+众所周知，当数据点分布不均匀时，弦长参数化比均匀参数化能得到更光滑的曲线拟合结果，相关研究可参考文献\cite{foley1992}。因此，我们希望找到弦长参数化在曲面场景的推广形式。首先我们给出如下命题，它揭示了曲线参数化的等价性质：
+
+\begin{proposition}
+设 $t_1<t_2<\cdots<t_N$，$t_i \in \mathbb{R}$，$L_1,...,L_{N-1}>0$，则以下命题等价：
+\begin{enumerate}
+    \item 存在 $\mu>0$，使得对所有 $i=1,...,N-1$，有 $t_{i+1}=t_i+\mu L_i$；
+    \item 若固定 $s_1=t_1$、$s_N=t_N$，则 $t_2,...,t_{N-1}$ 是泛函 $F(s_2,...,s_{N-1})=\sum_{i=1}^{N-1} w_i(s_{i+1}-s_i)^2$ 的最小值，其中 $w_i=1/L_i$；
+    \item 对所有 $i=2,...,N-1$，有 $t_i=\lambda_{i,1}t_{i-1}+\lambda_{i,2}t_{i+1}$，其中 $\lambda_{i,1}=L_i/(L_{i-1}+L_i)$，$\lambda_{i,2}=L_{i-1}/(L_{i-1}+L_i)$。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+首先证明(ii)与(iii)等价：由于 $F$ 是凸泛函，其最小值等价于偏导数 $\partial F/\partial s_i=0$，而偏导数为零的条件正是(iii)中的等式。由于最小值唯一，因此(ii)与(iii)等价。
+
+再证明(i)与(iii)等价：只需将(i)中的表达式代入(iii)，即可验证两者是同一等式的不同变形。
+\end{proof}
+
+由命题5可知，当 $L_i$ 为常数时，$t_i=(t_{i-1}+t_{i+1})/2$，即 $t_i$ 是其邻域节点的重心，这也正是我们将 $\lambda_{i,j}=1/d_i$ 的情况称为均匀参数化的原因。当 $L_i=\|x_{i+1}-x_i\|$ 时，命题5给出了弦长参数化向曲面推广的两种思路：一是通过最小化边长平方和泛函，二是直接按(iii)的形式定义权重。本节我们先简要介绍第一种思路，下一节将详细讨论效果更优的第二种思路。
+
+设边界节点 $u_{n+1},...,u_N$ 已固定，我们可以通过最小化如下泛函来求解内部节点：
+\[
+F\left(u_{1}, u_{2}, ..., u_{n}\right)=\sum_{(i, j) \in E} w_{i, j}\left\| u_{i}-u_{j}\right\| ^{2},
+\]
+其中 $w_{i,j}=w_{j,i}>0$ 对所有 $(i,j) \in E$ 成立。由于 $F: \mathbb{R}^{2n} \to \mathbb{R}$ 是凸泛函，其全局最小值在偏导数为零时取得。由于 $\|u_i-u_j\|^2=(u_i-u_j)^2+(v_i-v_j)^2$，我们有：
+\[
+\frac{\partial F}{\partial u_{i}}=2 \sum_{j:(i, j) \in E} w_{i, j}\left(u_{i}-u_{j}\right), \frac{\partial F}{\partial v_{i}}=2 \sum_{j:(i, j) \in E} w_{i, j}\left(v_{i}-v_{j}\right),
+\]
+因此最小值满足：
+\[
+u_{i}=\sum_{j:(i, j) \in E} w_{i, j} u_{j} / \sum_{j:(i, j) \in E} w_{i, j}.
+\]
+这等价于在式(7)中取 $\lambda_{i,j}=w_{i,j}/\sum_{k:(i,k) \in E} w_{i,k}$。特别地，当 $w_{i,j}$ 为常数时，$\lambda_{i,j}=1/d_i$，即Tutte重心映射。因此，固定边界的均匀参数化，等价于最小化参数化结果中边的长度平方和。
+
+我们通过取 $w_{i,j}=1/\|x_i-x_j\|^q$（包括 $q=1$）进行了数值实验，尽管得到的曲面比均匀参数化更光滑，但仍存在不必要的震荡，这可能是由于权重必须满足 $w_{i,j}=w_{j,i}$ 的对称性约束导致的。
+
+\section{保形参数化}
+曲线的弦长参数化具备如下性质：若所有点 $x_i$ 落在一条直线上，则存在仿射映射 $\phi: \mathbb{R}^3 \to \mathbb{R}^3$，使得 $t_i=\phi(x_i)$（这里将 $t_i$ 等同于点 $(t_i,0,0)$）。我们希望在曲面参数化中保留这一性质，本节将介绍保形参数化方法。
+
+设 $S(G,X)$ 是曲面三角剖分，且每个三角面片都是非退化的（顶点仿射无关）。对每个节点 $i$，设 $G_i$ 是 $G$ 的子图，其节点为 $i$ 及其邻域节点，边为 $E$ 中连接这些节点的边。设 $x_{j_1},...,x_{j_{d_i}}$ 是 $x_i$ 的邻域节点，按相对于 $G$ 的逆时针顺序排列，定义 $X_i={x_i,x_{j_1},...,x_{j_{d_i}}}$，见图5。我们的核心思路分为两步：
+(i) 为局部曲面三角剖分 $S_i=S_i(G_i,X_i)$ 找到一个局部保形参数化 $P_i$，将 $x_i$ 映射到 $p \in \mathbb{R}^2$，将 $x_{j_1},...,x_{j_{d_i}}$ 映射到 $p_1,...,p_{d_i} \in \mathbb{R}^2$；
+(ii) 选择权重 $\lambda_{i,j}>0$（$j:(i,j) \in E$），满足：
+\[
+p=\sum_{k=1}^{d_{i}} \lambda_{i, j_{k}} p_{k}, \sum_{k=1}^{d_{i}} \lambda_{i, j_{k}}=1 . \tag{11}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \caption{局部子三角剖分 $S_i(G_i,X_i)$ 与局部参数化 $P_i$ 示意图}
+    \label{fig:5}
+\end{figure}
+
+### 步骤(i)：局部参数化构建
+将局部曲面 $S_i$ 映射到平面有多种方法，最直接的是将其投影到过 $x_i$ 及其邻域节点的最小二乘平面，或是投影到以 $S_i$ 中三角面片法向的平均为法向的平面上。但当 $S_i$ 中的三角面片之间存在大角度时，这两种方法都会出现数值不稳定。
+
+因此我们采用Welch和Witkin\cite{welch1994}提出的方法，该方法模拟了微分几何中的**测地极坐标映射**，能够在每个径向方向上保持弧长，且仅要求三角面片非退化。
+
+我们用 $ang(a,b,c)$ 表示向量 $a-b$ 与 $c-b$ 的夹角（在 $\mathbb{R}^2$ 中为有向角）。Welch和Witkin\cite{welch1994}选择任意 $p \in \mathbb{R}^2$ 和 $p_1,...,p_{d_i} \in \mathbb{R}^2$，满足对所有 $k=1,...,d_i$：
+\[
+\left\| p_{k}-p\right\| =\left\| x_{j_{k}}-x_{i}\right\| , ang\left(p_{k}, p, p_{k+1}\right)=2 \pi ang\left(x_{j_{k}}, x_{i}, x_{j_{k+1}}\right) / \theta_{i}, \tag{12}
+\]
+其中 $\theta_{i}=\sum_{k=1}^{d_{i}} ang(x_{j_{k}}, x_{i}, x_{j_{k+1}})$，且 $x_{j_{d_i+1}}=x_{j_1}$，$p_{d_i+1}=p_1$。
+
+可以看出，$p$ 和 $p_1,...,p_{d_i}$ 在平移和旋转意义下是唯一的。在实现中，我们令 $p=0$，$p_1=(\|x_{j_1}-x_i\|,0)$，以此确定平移和旋转自由度，再依次计算 $p_2,...,p_{d_i}$。
+
+### 步骤(ii)：凸组合权重计算
+步骤(i)得到的点 $p_1,...,p_{d_i}$ 构成了一个星形多边形，且 $p$ 位于其核内。现在我们需要找到满足式(11)的权重 $\lambda_{i,j_k}$。
+
+当 $d_i=3$ 时，$\lambda_{i,j_k}$ 是 $p$ 关于 $\triangle p_1p_2p_3$ 的唯一重心坐标：
+\[
+\lambda_{i, j_{1}}=\frac{area\left(p, p_{2}, p_{3}\right)}{area\left(p_{1}, p_{2}, p_{3}\right)}, \lambda_{i, j_{2}}=\frac{area\left(p_{1}, p, p_{3}\right)}{area\left(p_{1}, p_{2}, p_{3}\right)}, \lambda_{i, j_{3}}=\frac{area\left(p_{1}, p_{2}, p\right)}{area\left(p_{1}, p_{2}, p_{3}\right)} . \tag{13}
+\]
+
+当 $d_i>3$ 时，权重的选择存在一定自由度。本文采用如下定义，数值实验表明该定义能得到优异的结果：
+
+对每个 $l \in \{1,...,d_i\}$，过 $p_l$ 和 $p$ 的直线与星形多边形交于唯一的第二个点，该点要么是顶点 $p_{r(l)}$，要么落在边 $p_{r(l)}p_{r(l)+1}$ 上。无论哪种情况，都存在唯一的 $r(l) \in \{1,...,d_i\}$ 和唯一的 $\delta_1,\delta_2,\delta_3$，满足 $\delta_1>0$，$\delta_2>0$，$\delta_3≥0$，$\delta_1+\delta_2+\delta_3=1$，且：
+\[
+p=\delta_{1} p_{l}+\delta_{2} p_{r(l)}+\delta_{3} p_{r(l)+1} .
+\]
+
+我们定义 $\mu_{k,l}$（$k=1,...,d_i$）：$\mu_{l,l}=\delta_1$，$\mu_{r(l),l}=\delta_2$，$\mu_{r(l)+1,l}=\delta_3$，其余情况 $\mu_{k,l}=0$。则对每个 $l$，有：
+\[
+p=\sum _{k=1}^{d_{i}}\mu _{k,l}p_{k}, \sum _{k=1}^{d_{i}}\mu _{k,l}=1, \mu _{k,l}\geq 0.
+\]
+
+最终我们定义权重：
+\[
+\lambda_{i, j_{k}}=\frac{1}{d_{i}} \sum_{l=1}^{d_{i}} \mu_{k, l}, k=1, ..., d_{i} . \tag{14}
+\]
+
+由于对每个 $l$，$\mu_{l,l}$ 和 $\mu_{r(l),l}$ 都严格为正，因此所有 $\lambda_{i,j_k}>0$。同时可以验证：
+\[
+p=\frac {1}{d_{i}}\sum _{l=1}^{d_{i}}p=\frac {1}{d_{i}}\sum _{l=1}^{d_{i}}\sum _{k=1}^{d_{i}}\mu _{k,l}p_{k}=\sum _{k=1}^{d_{i}}\frac {1}{d_{i}}\sum _{l=1}^{d_{i}}\mu _{k,l}p_{k}=\sum _{k=1}^{d_{i}}\lambda _{i,j_{k}}p_{k},
+\]
+且
+\[
+\sum_{k=1}^{d_{i}} \lambda_{i, j_{k}}=\sum_{k=1}^{d_{i}} \frac{1}{d_{i}} \sum_{l=1}^{d_{i}} \mu_{k, l}=\frac{1}{d_{i}} \sum_{l=1}^{d_{i}} \sum_{k=1}^{d_{i}} \mu_{k, l}=\frac{1}{d_{i}} \sum_{l=1}^{d_{i}} 1=1 .
+\]
+
+需要说明的是，当 $d_i=3$ 时，$r(l)=l+1$，此时 $\lambda_{i,j_k}=\mu_{k,1}=\mu_{k,2}=\mu_{k,3}$，与式(13)的重心坐标完全一致。此外，由于仿射组合在平移和旋转下不变，$\mu_{k,l}$ 与 $\lambda_{i,j_k}$ 由 $X_i$ 唯一确定，且连续依赖于 $x_i$ 和其邻域节点。
+
+上述权重选择具备如下重构性质，我们将点 $u=(u,v) \in \mathbb{R}^2$ 等同于 $\mathbb{R}^3$ 中的点 $(u,v,0)$：
+
+\begin{proposition}
+设 $S$ 是平面曲面，其边界节点 $x_1,...,x_N$ 构成所在平面内的凸多边形。令 $P(G,U_b,\Lambda)$ 是按式(14)的权重构建的参数化，且边界节点 $x_{n+1},...,x_N$ 被仿射映射到 $u_{n+1},...,u_N \in U_b$，则参数化 $P$ 是 $S$ 的仿射映射。
+\end{proposition}
+
+\begin{proof}
+设仿射映射 $\phi: \mathbb{R}^3 \to \mathbb{R}^3$ 满足对所有边界节点 $i=n+1,...,N$，有 $u_i=\phi(x_i)$。我们需要证明该式对所有内部节点 $i=1,...,n$ 也成立。
+
+仿射映射可表示为 $\phi(x)=Mx+b$，其中 $M$ 是3×3非奇异矩阵，$b$ 是向量，且对 $S$ 所在平面内的所有 $x$，$\phi(x)$ 的第三分量为0。
+
+由于 $S$ 是平面曲面，每个局部子曲面 $S_i$ 都是平面的，因此步骤(i)的局部参数化是原局部曲面的仿射映射。由式(14)的权重定义，权重满足：
+\[
+x_{i}-\sum _{j=1}^{N}\lambda _{i, j} x_{j}=0, i=1, ..., n .
+\]
+
+因此：
+\[
+\phi\left(x_{i}\right)-\sum_{j=1}^{N} \lambda_{i, j} \phi\left(x_{j}\right)=M x_{i}+b-\sum_{j=1}^{N} \lambda_{i, j}\left(M x_{j}+b\right)=M\left(x_{i}-\sum_{j=1}^{N} \lambda_{i, j} x_{j}\right)=0 .
+\]
+
+由于式(7)的解是唯一的，因此对所有内部节点 $i=1,...,n$，有 $\phi(x_i)=u_i$，命题得证。
+\end{proof}
+
+参数域 $\partial D$ 的选择应取决于应用场景和逼近需求。若需要张量积样条逼近，最自然的选择是单位正方形；若需要三角面片或径向基函数逼近，则可以选择单位圆。数值实验表明，在构建保形参数化时，边界节点 $u_{n+1},...,u_N$ 按弦长分布在 $\partial D$ 上，能得到最优的结果。
+
+\section{数值实验}
+经过大量实验，我们发现当内部节点数 $n$ 不超过500时，式(9)的矩阵方程可以通过LU分解\cite{golub1989}高效求解。当 $n$ 更大时，矩阵 $A$ 的稀疏结构更适合用迭代方法求解。
+
+矩阵 $A$ 是对角占优的（尽管当节点的所有邻域都是内部节点时，行不满足严格对角占优），且是稀疏矩阵，但通常无法形成带状结构。这类矩阵在微分方程数值解中非常常见，我们发现Bi-CGSTAB迭代法\cite{vandervorst1992}（一种针对非对称矩阵的共轭梯度法变体）具有极高的求解效率。
+
+我们使用Bi-CGSTAB方法求解了内部节点数 $n$ 达到25000的方程，初始猜测取所有内部节点为 $D$ 的中心点，仅需几百次迭代即可收敛，且未出现任何数值不稳定。关于三角剖分的高效存储结构，可参考文献\cite{cline1984}。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{平面点集的Delaunay三角剖分}
+    \label{fig:6}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{均匀参数化到单位圆盘}
+    \label{fig:7}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{均匀参数化到单位正方形}
+    \label{fig:8}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{保形参数化到单位正方形}
+    \label{fig:9}
+\end{figure}
+
+图6展示了平面上27个散点的Delaunay三角剖分。图7将8个边界节点均匀分布在单位圆盘上，通过均匀参数化得到了平面嵌入结果。图8将4个选定的角点映射到单位正方形的顶点，其余边界节点均匀分布在四条边上，通过均匀参数化得到了嵌入结果。图9则使用保形参数化，边界节点按弦长分布在正方形边上，得到了更均匀的三角剖分结果。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{盐丘模型的曲面三角剖分（1000个采样点）}
+    \label{fig:10}
+\end{figure}
+
+图10展示了从盐丘地质模型（包含悬垂结构）中采样1000个点得到的曲面三角剖分。我们分别用三种方法将其参数化到单位正方形：(i) 均匀参数化、(ii) 加权最小二乘参数化（取 $w_{i,j}=1/\|x_i-x_j\|$）、(iii) 保形参数化，结果分别见图11、13、15。所有方法都将4个角点映射到正方形顶点，均匀参数化的边界节点均匀分布，后两种方法的边界节点按弦长分布。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{均匀参数化结果}
+    \label{fig:11}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{基于均匀参数化的曲面逼近结果}
+    \label{fig:12}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{加权最小二乘参数化结果}
+    \label{fig:13}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{基于加权最小二乘参数化的曲面逼近结果}
+    \label{fig:14}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{保形参数化结果}
+    \label{fig:15}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{基于保形参数化的曲面逼近结果}
+    \label{fig:16}
+\end{figure}
+
+对每种参数化结果，我们通过Clough-Tocher分裂\cite{farin1986,franke1986}构建了满足式(3)的 $C^1$ 分片三次插值函数 $x,y,z$，再在40×40的正方形网格上采样，拟合得到 $C^2$ 三次张量积样条曲面 $s'(u,v)$，结果分别见图12、14、16。可以清晰地看到，基于保形参数化得到的曲面，视觉光滑性远优于前两种方法。
+
+\begin{figure}[htbp]
+    \centering
+    \caption{保形参数化结果的Delaunay重三角剖分}
+    \label{fig:17}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{基于重三角剖分的曲面逼近结果}
+    \label{fig:18}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \caption{重三角剖分对应的三维曲面}
+    \label{fig:19}
+\end{figure}
+
+最后，我们对图15的参数化节点 $u_i$ 进行了Delaunay重三角剖分（最大化三角形的最小内角），得到了新的平面三角剖分 $\hat{P}$，见图17。基于 $\hat{P}$ 得到的张量积曲面逼近结果见图18，相比图16，曲面光滑性有进一步提升，这得益于更均匀的三角形形状。重三角剖分对应的三维曲面见图19，相比原曲面（图10），细长三角形的数量显著减少。需要说明的是，重三角剖分的结果高度依赖于边界的选择。
+
+\section{总结与展望}
+本文提出了一种曲面三角剖分的保形参数化方法，并将其用于光滑曲面插值与逼近。本文中我们假设图 $G$ 是三角化的，而Tutte的重心映射方法可以推广到包含非三角面的更广泛图类（例如矩形网格），同理，本文的保形参数化方法也可以推广到更一般的点集网络中。
+
+\section{参考文献}
+\begin{thebibliography}{99}
+    \bibitem{atkinson1989} Atkinson K. E. An introduction to numerical analysis[M]. Wiley, New York, 1989.
+    \bibitem{deboor1978} de Boor C. A Practical Guide to Splines[M]. Springer-Verlag, New York, 1978.
+    \bibitem{chiba1985} Chiba N., Onoguchi K., Nishizeki T. Drawing plane graphs nicely[J]. Acta Informatica, 1985, 22: 187–201.
+    \bibitem{cline1984} Cline A. K., Renka R. L. A storage-efficient method for construction of a Thiessen triangulation[J]. Rocky Mount. J. Math., 1984, 14: 119–139.
+    \bibitem{dyn1990} Dyn N., Levin D., Rippa S. Data dependent triangulations for piecewise linear interpolation[J]. IMA J. Numer. Anal., 1990, 10: 137–154.
+    \bibitem{farin1988} Farin G. Curves and surfaces for computer aided geometric design[M]. Academic Press, San Diego, 1988.
+    \bibitem{farin1986} Farin G. Triangular Bernstein-Bézier patches[J]. Comp. Aided Geom. Design, 1986, 3: 83–128.
+    \bibitem{fary1948} Fáry I. On straight line representatation of planar graphs[J]. Acta Sci. Math. Szeged, 1948, 11: 229–233.
+    \bibitem{floater1995} Floater M., Westgaard G. Smooth surface reconstruction from cross-sections using implicit methods[R]. preprint, SINTEF, Oslo, 1995.
+    \bibitem{foley1992} Foley T., Nielson G. Knot selection for parametric spline interpolation[C]//Mathematical Methods in Computer Aided Geometric Design II. Academic Press, New York, 1992: 261–271.
+    \bibitem{franke1986} Franke R., Schumaker L. L. A bibliography of multivariate approximation[C]//Topics in Multivariate Approximation. Academic Press, New York, 1986: 275–335.
+    \bibitem{golub1989} Golub G. H., Van Loan C. F. Matrix Computations[M]. John Hopkins Univ. Press, 1989.
+    \bibitem{hoppe1992} Hoppe H., DeRose T., DuChamp T., et al. Surface reconstruction from unorganized points[J]. Computer Graphics, 1992, 26: 71–78.
+    \bibitem{li1992} Li Z., Suen C., Bui T., et al. Harmonic models of shape transformations in digital images and patterns[J]. CVGIP: Graph. Models and Imag. Proc., 1992, 54: 198–209.
+    \bibitem{lounsberry1992} Lounsberry M., Mann S., DeRose T. Parametric surface interpolation[J]. IEEE Comp. Graph. and App., 1992: 45–52.
+    \bibitem{maillot1993} Maillot J., Yahia H., Verroust A. Interactive texture mapping[C]//SIGGRAPH Comp. Graph. Proc., 1993: 27–34.
+    \bibitem{marshall1971} Marshall C. W. Applied Graph Theory[M]. Wiley, New York, 1971.
+    \bibitem{milroy1995} Milroy M., Bradley C., Vickers G., et al. G1 continuity of B-spline surface patches in reverse engineering[J]. Comp. Aided Design, 1995, 27: 471–478.
+    \bibitem{nishizeki1990} Nishizeki T. Planar graph problems[J]. Computing Supplementum, 1990, 7: 53–68.
+    \bibitem{preparata1985} Preparata F. P., Shamos M. I. Computational geometry[M]. Springer-Verlag, New York, 1985.
+    \bibitem{schumaker1987} Schumaker L. L. Triangulation methods[C]//Topics in Multivariate Approximation. Academic Press, New York, 1987: 219–232.
+    \bibitem{schumaker1990} Schumaker L. L. Reconstructing 3D objects from cross-sections[C]//Computation of Curves and Surfaces. Kluwer, Dordrecht, 1990: 275–309.
+    \bibitem{schumaker1993} Schumaker L. L. Triangulations in CAGD[J]. IEEE Computer Graphics and Applications, 1993: 47–52.
+    \bibitem{tutte1960} Tutte W. T. Convex representations of graphs[J]. Proc. London Math. Soc., 1960, 10: 304–320.
+    \bibitem{tutte1963} Tutte W. T. How to draw a graph[J]. Proc. London Math. Soc., 1963, 13: 743–768.
+    \bibitem{vandervorst1992} van der Vorst H. A. Bi-CGSTAB: A fast and smoothly converging variant of Bi-CG for the solution of nonsymmetric linear systems[J]. SIAM J. Sci. Comput., 1992, 13: 631–644.
+    \bibitem{welch1994} Welch W., Witkin A. Free-form shape design using triangulated surfaces[C]//Computer Graphics, SIGGRAPH 94, 1994: 247–256.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,81 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- 极简中文支持（pdfLaTeX 直接兼容，无需切换编译器）---
+\usepackage{CJKutf8} % pdfLaTeX 下最稳定的中文支持，无需 XeLaTeX
+
+% --- 基础宏包（清理冗余，确保无冲突）---
+\usepackage{amsmath, amsfonts, amssymb} % 数学公式（移除重复的 amsmath）
+\usepackage{graphicx} % 插图（已注释调用）
+\usepackage{geometry} % 页面布局
+\usepackage{listings} % 代码块
+\usepackage{xcolor} % 颜色
+\usepackage{hyperref} % 超链接
+\usepackage{booktabs} % 表格
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption} % 子图支持
+\usepackage{multirow} % 表格多行
+\usepackage{algorithm} % 算法环境
+\usepackage{algorithmic} % 算法伪代码
+
+% 页面设置
+\geometry{left=2.5cm, right=2.5cm, top=3cm, bottom=3cm}
+
+% 代码风格设置
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    frame=single,
+    breaklines=true,
+    captionpos=b
+}
+
+% 标题信息
+\title{ruzino曲面参数化实验报告}
+\author{宁尚哲 \quad PB24000099}
+\date{\today}
+
+\begin{document}
+% 开启中文环境（整个文档生效）
+\begin{CJK*}{UTF8}{gbsn}
+
+\maketitle
+
+% =============================================================================
+% 摘要
+% =============================================================================
+
+% =============================================================================
+% 1. 引言
+% =============================================================================
+
+%实现方案 
+\section{数学原理}
+%1. 固定边界求解极小曲面
+%2. 修改边界条件得到平面参数化
+%3. 尝试比较不同的权重
+
+\section{代码实现}  
+%代码实现，分两部分：
+%需要合适位置讲解半边、3D网络结构数据结构的实现
+%param实现
+%1. 固定边界求解极小曲面
+%pic：节点连接图、balls效果图
+%3. 尝试比较不同的权重具体的实现
+
+%boundary map实现
+%需要讲解圆形、方形平面映射
+%2. 修改边界条件得到平面参数化
+%pic：圆形、方形参数化图
+
+\section{纹理可视化样例}
+%section4纹理可视化部分
+%pic：5个实例模型的可视化
+%pic：同模型使用不同权重参数化贴图可视化
+
+
+
+\end{CJK*} 
+\end{document}

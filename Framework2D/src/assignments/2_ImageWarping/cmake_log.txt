@@ -1,0 +1,108 @@
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,12): error C2976: “Annoy::AnnoyIndex'”: 模板 参数太少 [F:\C
+G2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(927,9):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2641: 无法推导“Annoy::AnnoyIndex”的模板参 数 [F:\CG
+2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“S”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\
+2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“T”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\
+2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“Distance”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageW
+arping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“Random”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWar
+ping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“ThreadedBuildPolicy”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignmen
+ts\2_ImageWarping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(68,74): error C2784: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy> Annoy::AnnoyIndex(Annoy::AnnoyIndex<S,T,Distance,Random,ThreadedBuildPolicy>)”: 无法从“int”推导出“Annoy::AnnoyIndex<S,T,Distance,Random,
+ThreadedBuildPolicy>”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(927,9):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(74,14): error C2670: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy>::add_item”: 函数模板不能将参数 2 由类型“float [2]”转换 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping
+\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(74,14):
+  尝试匹配参数列表“(int, float [2])”时
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(83,10): error C2670: “Annoy::AnnoyIndex<S,T,Distance,Ran 
+dom,ThreadedBuildPolicy>::get_nns_by_vector”: 函数模板不能将参数 1 由类型“float [2]”转换 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_Ima
+geWarping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(83,10):
+  尝试匹配参数列表“(float [2], int, int, std::vector<int,std::allocator<int>> *, std::vector<float,std::allocator<float>> *)”时
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,12): error C2976: “Annoy::AnnoyIndex'”: 模板 参数太少 [F:\
+CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(927,9):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2641: 无法推导“Annoy::AnnoyIndex”的模板参数 [F:\C
+G2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“S”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping
+\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“T”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping
+\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“Distance”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_Image
+Warping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“Random”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWa
+rping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2783: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy> Annoy::AnnoyIndex(int)”: 无法推导“ThreadedBuildPolicy”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignme
+nts\2_ImageWarping\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(967,4):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(176,74): error C2784: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy> Annoy::AnnoyIndex(Annoy::AnnoyIndex<S,T,Distance,Random,ThreadedBuildPolicy>)”: 无法从“int”推导出“Annoy::AnnoyIndex<S,T,Distance,Random
+,ThreadedBuildPolicy>”的 模板 参数 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarping\2_ImageWarping.vcxproj]        
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\annoy\src\annoylib.h(927,9):
+  参见“Annoy::AnnoyIndex”的声明
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(180,18): error C2670: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy>::add_item”: 函数模板不能将参数 2 由类型“float [2]”转换 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_ImageWarpin
+g\2_ImageWarping.vcxproj]
+  F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(180,18):
+  尝试匹配参数列表“(int, float [2])”时
+
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\2_ImageWarping\hole_filler.cpp(196,14): error C2670: “Annoy::AnnoyIndex<S,T,Distance,Ra 
+ndom,ThreadedBuildPolicy>::get_nns_by_vector”: 函数模板不能将参数 1 由类型“float [2]”转换 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\2_Im
+ageWarping\2_ImageWarping.vcxproj]

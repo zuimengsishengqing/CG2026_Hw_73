@@ -1,0 +1,236 @@
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,17): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in
+winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,32): error C2062: 意外的类型“double” [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,38): error C2059: 语法错误:“>” [F:\CG2026\homework in winter\USTC
+_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,53): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework in win
+ter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,34): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,21): error C3646: “B”: 未知重写说明符 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,22): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支 持默认 int [F:\CG2
+026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/arch/Default/Half.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该 文件保存为 Unicode 格式以防止数据丢失
+ [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/arch/Default/BFloat16.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请 将该文件保存为 Unicode 格式以防止
+数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/arch/Default/GenericPacketMathFunctions.h(676,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将
+该文件保存为 Unicode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(21,5): error C2065: “A”: 未声明的标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(22,5): error C2065: “B”: 未声明的标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/Matrix.h(46,40): warning C5054: 运算符“&”: 已在不同类型的枚举之间弃用 [F:\CG2026\homework in winter\USTC_CG_
+26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/PlainObjectBase.h(98): message : 查看对正在编译的 类 模板 实例化“Eigen::internal::traits<Derived>”的引用 [F:\
+CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\third_party\Eigen\src/Core/Matrix.h(180): message : 查看对正在编译的 类 模板 实例化“Eigen::PlainObjectBase<Eigen::Matrix<double,-1,1,
+0,-1,1>>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(22): message : 查看对正在编译的 类 模板 实例化“Eigen::Matrix<double,-1,1,0,-
+1,1>”的引用 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(23,5): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewor
+k in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(46,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(47,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(48,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(49,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(50,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(51,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(56,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(57,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(58,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(59,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(60,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(65,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(66,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(67,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(68,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(69,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(74,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(75,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(76,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(77,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(78,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(83,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(84,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(85,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(86,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(87,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(92,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(93,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(94,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(95,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(100,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(101,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(102,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(103,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winte
+r\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(108,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(109,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(110,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(111,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winte
+r\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(116,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(117,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(118,13): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(119,13): error C3861: “B”: 找不到标识符 [F:\CG2026\homework in winte
+r\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(205,9): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homewo
+rk in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(215,9): error C2065: “A”: 未声明的标识符 [F:\CG2026\homework in winte
+r\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(215,27): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(215,49): error C2065: “triplet_list”: 未声明的标识符 [F:\CG2026\homew
+ork in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(219,24): error C2065: “A”: 未声明的标识符 [F:\CG2026\homework in wint
+er\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.cpp(226,45): error C2065: “B”: 未声明的标识符 [F:\CG2026\homework in wint
+er\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  line.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  rect.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  source_image_widget.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\source_image_widget.cpp(46,14): warning C4189: “io”: 局部变量已初始化但不引用 [F:\CG2026\home
+work in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\source_image_widget.cpp(62,21): warning C4189: “draw_list”: 局部变量已初始化但不引用 [F:\CG20
+26\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+  target_image_widget.cpp
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\target_image_widget.cpp(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Un
+icode 格式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,51): warning C4100: “y”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\shapes\shape.h(49,42): warning C4100: “x”: 未引用的形参 [F:\CG2026\homework in winter\U
+STC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符 。请将该文件保存为 Unicode 格
+式以防止数据丢失 [F:\CG2026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,17): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in
+winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,32): error C2062: 意外的类型“double” [F:\CG2026\homework in winter
+\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,38): error C2059: 语法错误:“>” [F:\CG2026\homework in winter\USTC
+_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,53): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework in\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,38): error C2059: 语法错误:“>” [F:\CG2026\homework in winter\USTC
+_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,53): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework inSTC
+_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,53): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework in_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(24,53): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework inF:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework inF:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,12): error C7568: 假定的函数模板“SparseMatrix”后面缺少参数列表 [F:\CG2026\ho
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework in win
+mework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26): error C2062: 意外的类型“unknown-type” [F:\CG2026\homework in win
+ter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+ win
+ter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,34): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,34): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(26,34): error C2238: 意外的标记位于“;”之前 [F:\CG2026\homework in winter\
+ winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homeF:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,5): error C2653: “Eigen”: 不是类或命名空间名称 [F:\CG2026\homework in w
+work in w
+inter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,21): error C3646: “B”: 未知重写说明符 [F:\CG2026\homework in winter\
+USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]
+F:\CG2026\homework in winter\USTC_CG_26\Framework2D\src\assignments\3_PoissonImageEditing\seamless_clone.h(27,22): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支 持默认 int [F:\CG2
+026\homework in winter\USTC_CG_26\Framework2D\build\src\assignments\3_PoissonImageEditing\3_PoissonImageEditing.vcxproj]

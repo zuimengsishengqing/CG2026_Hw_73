@@ -1,0 +1,199 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+% --- 极简中文支持（pdfLaTeX 直接兼容，无需切换编译器）---
+\usepackage{CJKutf8} % pdfLaTeX 下最可靠的中文支持
+
+% --- 基础宏包（清理冗余，确保无冲突）---
+\usepackage{amsmath, amsfonts, amssymb} % 数学公式
+\usepackage{graphicx} % 插图
+\usepackage{geometry} % 页面布局
+\usepackage{listings} % 代码块
+\usepackage{xcolor} % 颜色
+\usepackage{hyperref} % 超链接
+\usepackage{booktabs} % 表格
+\usepackage{caption}
+\usepackage{float}
+\usepackage{subcaption} % 子图支持
+\usepackage{multirow} % 表格多行
+\usepackage{algorithm} % 算法环境
+\usepackage{algorithmic} % 算法伪代码
+
+% 数学符号宏定义
+\newcommand{\fro}[1]{\left\|#1\right\|_F}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\R}{\mathbb{R}}
+
+\title{网格参数化的局部-全局方法}
+\author{
+刘利刚$^1$ \quad 张磊$^1$ \quad 徐寅$^1$ \quad Craig Gotsman$^2$ \quad Steven J. Gortler$^3$ \\
+$^1$ 浙江大学，中国 \quad $^2$ 以色列理工学院 \quad $^3$ 哈佛大学，美国 \\
+\textit{ligangliu@zju.edu.cn,\ gotsman@cs.technion.ac.il,\ sjg@harvard.edu}
+}
+\date{}
+
+\begin{document}
+
+\begin{CJK*}{UTF8}{gbsn}
+\maketitle
+
+\begin{abstract}
+本文提出一种保形的圆盘拓扑网格平面参数化方法，核心为**局部-全局算法**：将每个3D三角面片通过受限变换映射至平面（局部阶段），再通过稀疏线性系统拼接所有面片保证拓扑一致性（全局阶段）。
+局部变换支持**相似变换（ASAP）**与**旋转变换（ARAP）**：ASAP等价于最小二乘共形映射（LSCM）；ARAP实现近等距参数化，保形性最优。
+本文还提出单参数混合模型，实现保角与保面积的连续权衡；算法支持并行加速与矩阵预分解，效率优异。实验证明，该方法优于同期主流参数化算法。
+\end{abstract}
+
+\section{引言}
+3D网格曲面参数化是计算机图形学核心技术，广泛应用于纹理映射、模型压缩、形状融合等任务。非可展曲面平面展开必然产生度量畸变，参数化的核心目标是**最小化角度、面积、长度畸变**，同时保证映射双射无重叠。
+受网格ARAP变形算法启发，本文将参数化建模为**局部面片畸变最小化+全局网格一致性**的优化问题，首次将刚性变形思想迁移至网格参数化。
+
+\section{相关工作}
+主流参数化方法分为三类：
+1. \textbf{线性重心坐标法}：基于Tutte定理，余切权重实现简单，但固定边界易产生畸变；自由边界LSCM实现共形映射，但存在三角面片翻转问题；
+2. \textbf{非线性畸变优化}：MIPS、ABF++最小化角度/拉伸畸变，精度高但计算量大；
+3. \textbf{曲率驱动共形映射}：将曲率集中于锥奇点，仅保角但面积控制能力弱。
+
+\section{核心贡献}
+1. 证明**ASAP参数化与LSCM算法数学等价**；
+2. 提出ARAP参数化的局部-全局迭代算法，近等距保形，求解高效；
+3. 设计单参数混合能量模型，连续权衡保角（ASAP）与保面积（ARAP）；
+4. 局部阶段可GPU并行，全局阶段稀疏矩阵一次预分解复用，极致提速。
+
+\section{局部-全局通用方法}
+\subsection{能量函数定义}
+设3D网格共$T$个三角面片，第$t$个面片面积为$A_t$，3D顶点坐标$\boldsymbol{x}_t$，2D参数域坐标$\boldsymbol{u}_t$，面片雅克比矩阵$J_t(\boldsymbol{u})$，局部变换矩阵$L_t$。
+定义**弗罗贝尼乌斯范数畸变能量**：
+\begin{equation}
+E(\boldsymbol{u}, L)=\sum_{t=1}^{T} A_t \fro{J_t(\boldsymbol{u}) - L_t}
+\end{equation}
+展开为网格顶点坐标形式（余切权重）：
+\begin{equation}
+E = \frac{1}{2}\sum_{t=1}^T\sum_{i=0}^2 \cot\theta_t^i \left\| (\boldsymbol{u}_t^i-\boldsymbol{u}_t^{i+1}) - L_t(\boldsymbol{x}_t^i-\boldsymbol{x}_t^{i+1}) \right\|^2
+\end{equation}
+优化目标：
+\begin{equation}
+(\boldsymbol{u}, L) = \argmin_{\boldsymbol{u},L} E(\boldsymbol{u},L) \quad \text{s.t.} \ L_t \in M
+\end{equation}
+其中$M$为允许的变换集合，$L_t$为辅助变量，最终仅需求解2D坐标$\boldsymbol{u}$。
+
+\subsection{最优变换矩阵求解（Procrustes分析）}
+对雅克比矩阵做**带符号奇异值分解（SVD）**：
+$$ J = U\Sigma V^T, \quad \Sigma=\begin{pmatrix}\sigma_1&0\\0&\sigma_2\end{pmatrix} $$
+约束$\det(UV^T)>0$避免方向反转，最优变换：
+1. 旋转矩阵（ARAP）：$L=UV^T$（奇异值置1）；
+2. 相似矩阵（ASAP）：$L=\frac{\sigma_1+\sigma_2}{2}UV^T$（奇异值取均值）。
+
+\subsection{ASAP（尽可能相似）参数化}
+限定变换为**相似矩阵**（保角）：
+$$ M=\left\{ \begin{pmatrix}a&b\\-b&a\end{pmatrix} \mid a,b\in\R \right\} $$
+最小化共形能量，**严格等价于LSCM**：
+\begin{equation}
+E(\boldsymbol{u}) = \sum_{t=1}^T A_t (\sigma_{1,t}-\sigma_{2,t})^2
+\end{equation}
+固定网格最远两点避免平凡解（全顶点坍缩）。
+
+\subsection{ARAP（尽可能刚性）参数化}
+限定变换为**纯旋转矩阵**（保面积/长度）：
+$$ M=\left\{ \begin{pmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{pmatrix} \mid \theta\in[0,2\pi) \right\} $$
+最小化等距畸变能量：
+\begin{equation}
+E(\boldsymbol{u}) = \sum_{t=1}^T A_t \left[ (\sigma_{1,t}-1)^2 + (\sigma_{2,t}-1)^2 \right]
+\end{equation}
+该能量非线性，需迭代求解。
+
+\subsection{局部-全局迭代算法}
+\subsubsection{局部阶段}
+固定2D坐标$\boldsymbol{u}$，对每个面片做SVD分解，求解最优旋转矩阵$L_t$，**面片间独立可并行**。
+\subsubsection{全局阶段}
+固定$L_t$，能量对$\boldsymbol{u}$二次凸，梯度置零构建**稀疏线性系统**：
+$$ \sum_{(i,j)\in he} \cot\theta_{ij} \left[ (\boldsymbol{u}_i-\boldsymbol{u}_j) - L_{t(i,j)}(\boldsymbol{x}_i-\boldsymbol{x}_j) \right] = 0 $$
+矩阵仅依赖3D网格拓扑，**一次Cholesky预分解，全迭代复用**。
+\subsubsection{后处理}
+采用凸虚拟边界算法修复少量三角面片翻转问题。
+
+\subsection{初始化策略}
+单边界网格用Floater保形参数化，多边界网格用LSCM初始化；算法对初始值不敏感，快速稳定收敛。
+
+\section{混合参数化模型}
+引入权重$\lambda\in[0,+\infty)$，统一ASAP与ARAP，能量函数：
+\begin{equation}
+E = \frac{1}{2}\sum_{t=1}^T\left[ \sum_{i=0}^2 \cot\theta_t^i \fro{\nabla e_t^i} + \lambda(a_t^2+b_t^2-1)^2 \right]
+\end{equation}
+其中：
+$$ \nabla e_t^i = (\boldsymbol{u}_t^i-\boldsymbol{u}_t^{i+1}) - \begin{pmatrix}a_t&b_t\\-b_t&a_t\end{pmatrix}(\boldsymbol{x}_t^i-\boldsymbol{x}_t^{i+1}) $$
+- $\lambda=0$：纯ASAP（保角优先）；
+- $\lambda\to\infty$：纯ARAP（保面积优先）。
+
+局部阶段解析求解三次方程，全局阶段复用稀疏线性系统，效率与ARAP持平。
+
+\section{实验结果与对比}
+\subsection{畸变量化指标}
+基于雅克比奇异值定义角度/面积畸变：
+\begin{equation}
+D^\text{angle} = \sum_t \rho_t \left( \frac{\sigma_{t1}}{\sigma_{t2}} + \frac{\sigma_{t2}}{\sigma_{t1}} \right)
+\end{equation}
+\begin{equation}
+D^\text{area} = \sum_t \rho_t \left( \sigma_{t1}\sigma_{t2} + \frac{1}{\sigma_{t1}\sigma_{t2}} \right)
+\end{equation}
+权重$\rho_t = A_t / \sum A_t$，值越小畸变越低。
+
+\subsection{实验对比}
+对比LSCM、ABF++、LABF、IC、CP算法，**ARAP在面积畸变上全面最优**，角度畸变仅微小增加；算法10次迭代内收敛，支持多边界网格，效率与ABF++相当。
+
+\begin{table*}[htbp]
+\centering
+\caption{不同参数化方法畸变对比}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc|cccccc}
+\toprule
+\multirow{2}{*}{模型} & \multicolumn{6}{c|}{角度畸变 $D^\text{angle}$} & \multicolumn{6}{c}{面积畸变 $D^\text{area}$} \\
+& LSCM & dABF & LABF & IC & CP & ARAP & LSCM & dABF & LABF & IC & CP & ARAP \\
+\midrule
+石像鬼 & 2.00 & 2.00 & 2.00 & 2.05 & 2.00 & 2.06 & 88.14 & 2.64 & 2.64 & 2.67 & 2.64 & 2.05 \\
+伊西斯 & 2.05 & 2.08 & 2.12 & 3.09 & 2.29 & 2.19 & 15.36 & 8.37 & 9.12 & 3.91 & 11.94 & 2.11 \\
+球体 & 2.02 & 2.06 & 2.05 & 2.06 & 2.36 & 2.07 & 2.40 & 2.35 & 2.34 & 2.42 & 3.18 & 2.04 \\
+奶牛 & 2.01 & 2.01 & 2.01 & 2.46 & 2.01 & 2.03 & 30.09 & 2.19 & 2.22 & 2.51 & 2.18 & 2.03 \\
+甲虫 & 2.00 & 2.00 & — & 2.02 & 2.00 & 2.01 & 2.08 & 2.09 & — & 2.14 & 2.10 & 2.01 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\section{讨论与结论}
+本文提出的局部-全局框架统一了共形与刚性网格参数化，兼具**高精度、高效率、高灵活性**：局部最小化面片畸变，全局保证拓扑一致性；支持并行计算与矩阵预分解，适配工业级应用。
+该方法仅适用于圆盘拓扑网格，未来可扩展至高亏格网格与带约束参数化场景。
+
+\section{致谢}
+感谢Yongliang Yang、Miri Ben-Chen提供算法实验结果；感谢Hugues Hoppe的技术指导。本工作受国家自然科学基金、美以双边科学基金资助。
+
+\section{附录A 能量等价性证明}
+最小化能量 $E(\boldsymbol{u},L)=\sum A_t \fro{J_t-L_t}$，固定$\boldsymbol{u}$时最优$L_t$由SVD得：
+$$ L_t=U_t K_t V_t^T, \quad K_t=\mathrm{diag}(k_{1t},k_{2t}) $$
+代入能量展开：
+$$ E(\boldsymbol{u}) = \sum_{t=1}^T A_t \left[ (\sigma_{1t}-k_{1t})^2 + (\sigma_{2t}-k_{2t})^2 \right] $$
+1. ARAP：$k_{1t}=k_{2t}=1$，得等距能量；
+2. ASAP：$k_{1t}=k_{2t}=(\sigma_{1t}+\sigma_{2t})/2$，得LSCM共形能量。
+
+\section{附录B 混合模型解析解}
+对能量求偏导置零，得方程组：
+\begin{equation}
+C_1 a + 2\lambda a(a^2+b^2-1) = C_2
+\end{equation}
+\begin{equation}
+C_1 b + 2\lambda b(a^2+b^2-1) = C_3
+\end{equation}
+化简得单变量三次方程：
+\begin{equation}
+\frac{2\lambda(C_2^2+C_3^2)}{C_2^2}a^3 + (C_1-2\lambda)a - C_2 = 0
+\end{equation}
+特例解：
+- $\lambda=0$：$a=C_2/C_1,\ b=C_3/C_1$；
+- $\lambda\to\infty$：$a=\pm C_2/\sqrt{C_2^2+C_3^2},\ b=\pm C_3/\sqrt{C_2^2+C_3^2}$。
+
+\begin{thebibliography}{99}
+\bibitem{SA07} Sorkine O, Alexa M. 尽可能刚性曲面建模. 欧洲图形学几何处理研讨会, 2007.
+\bibitem{LPRM02} Lévy B 等. 用于纹理图集生成的最小二乘共形映射. ACM SIGGRAPH, 2002.
+\bibitem{SLMB05} Sheffer A 等. ABF++：快速鲁棒的基于角度的扁平化算法. ACM图形学汇刊, 2005.
+\bibitem{YKL08} Yang Y 等. 基于逆曲率图的最优曲面参数化. IEEE可视化与计算机图形学汇刊, 2008.
+\end{thebibliography}
+
+\end{document}

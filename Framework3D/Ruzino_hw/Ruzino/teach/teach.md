@@ -1,133 +1,228 @@
-# 作业说明
+# 作业文档
 
-## 学习过程
+# 7. Rasterization and Path Tracing
 
-- 阅读 [Ruzino框架配置说明](https://github.com/SyouSanGin/Ruzino-Homework/blob/main/README.md)并配置框架
-  - 目前没必要深入学习框架的实现，只需参考文档和[网格处理示例](./mesh_process_example.md)了解 **单个** 节点 `.cpp` 文件的编写，即可轻松完成后续作业；
-- 阅读 [网格处理示例](./mesh_process_example.md) 学习网格的基本表达方式，以及我们将用到的 OpenMesh 库
-  - 学习如何通过半边结构**遍历**顶点、面、边以及访问他们的**邻域**等；
-- **模仿**网格处理的示例，参考相关公式补充[hw5_boundary_map.cpp](https://github.com/SyouSanGin/Ruzino-Homework/blob/main/source/Editor/geometry_nodes/hw5_boundary_map.cpp)、[hw5_param.cpp](https://github.com/SyouSanGin/Ruzino-Homework/blob/main/source/Editor/geometry_nodes/hw5_param.cpp)等文件，连接节点图，实现简单的极小曲面和参数化效果。
 
-> [!Note]
-> 根据选取的权重不同，Tutte 参数化有不同的结果！
 
-## 测试网格
+> 作业步骤：
+>
+> - 查看[作业文档](https://github.com/USTC-CG/USTC_CG_26/blob/main/Homeworks/7_rasterization_and_path_tracing/docs/README.md)
+> - 在[项目目录](https://github.com/USTC-CG/USTC_CG_26/blob/main/Framework3D)中编写作业代码
+> - 按照[作业规范](https://github.com/USTC-CG/USTC_CG_26/blob/main/Homeworks/README.md)提交作业
 
-我们提供了若干具有一条边界的**三角网格**，见 [data/](../data/) 目录，它们的表达格式是 Universal Scene Description (USD)，参考[网格数据说明](../data/README.md)
+## 作业递交
 
-## 测试纹理
 
-可以使用 [测试纹理](../data/test.png) 对参数化网格进行纹理贴图，检验并测试参数化的结果。
 
-<div align=center><img width = 25% src ="../data/test.png"/></div align>
+- 递交内容：程序代码、实验报告及 `stage.usdc` 文件，见[提交文件格式](https://github.com/USTC-CG/USTC_CG_26/tree/main/Homeworks/7_rasterization_and_path_tracing#提交文件格式)
+- 递交时间：2026年4月26日（周日）晚
 
-## 1. 固定边界求解极小曲面
+## 要求
 
-我们需要在[hw5_param.cpp](https://github.com/SyouSanGin/Ruzino-Homework/blob/main/source/Editor/geometry_nodes/hw5_param.cpp)，实现网格上（均匀权重）的 **Laplace方程的建立和求解**，**边界条件仍然选取为原来的空间点位置**，就可以求解得到固定边界下的"**极小曲面**"。
 
-主要步骤：
 
-- 检测边界
-- 固定边界
-- 构建稀疏方程组
-- 求解稀疏方程组
-- 更新顶点坐标
+- 基础任务
 
-### 参考公式
+  - (Rast.) 实现 Blinn-Phong 着色模型 (
 
-#### 顶点的微分坐标
+    参考资料
 
-$$
-\boldsymbol\delta _ i = \boldsymbol{v _ i} - \sum _ {j \in N(i)} w _ j \boldsymbol{v _ j},
-$$
+    )
 
-其中 $N(i)$ 表示顶点 $i$ 的 1-邻域.
+    - 正确计算法线贴图
+    - 正确计算着色公式
 
-#### 极小曲面计算
+  - (Rast.) 实现 Shadow Mapping 算法 ([参考资料](https://learnopengl-cn.github.io/05 Advanced Lighting/03 Shadows/01 Shadow Mapping/))
 
-固定边界点坐标，取均匀权重下的 $\boldsymbol{\delta} _ i = \boldsymbol{0}$ 即
+  - (P.T.) 矩形光源相关内容 （相交计算，采样计算，Irradiance计算）
 
-$$
-\frac{1}{d _ i} \sum _ {j\in N(i)} (\boldsymbol{v} _ i - \boldsymbol{v} _ j) = \boldsymbol{0}, \quad \text{for all interior } i .
-$$
+  - (P.T.) 路径追踪算法中着色递归计算与Russian Roulette
 
-### 参考的节点连接图（这里有关节点的简单介绍[->](../NodeIntroduction.md/)）
+- 可选任务
 
-我这里演示的版本中，hw5_param节点的部分输入输出你们作业框架中是默认没有的，这是我为了做演示所以添加了一些其他的输入输出。**默认的输入只有一个，输出也只有一个**。你们在完成这个节点后，直接链接输入输出即可得到相同的效果。
+  - (Rast. )实现 Percentage Close Soft Shadow ([参考资料](https://zhuanlan.zhihu.com/p/478472753))
+  - (Rast.) 实现 Screen Space Ambient Occlusion ([参考资料](https://learnopengl-cn.github.io/05 Advanced Lighting/09 SSAO/#ssao))
+  - (Rast.) 实现Displacement Mapping ([Ref](https://zhuanlan.zhihu.com/p/369442463))
+  - (P.T.) 实现更复杂的BRDF模型并进行MIS ([Ref](https://zhuanlan.zhihu.com/p/379681777))
 
-你们在完成作业的过程中，请**自行根据需要添加输入输出**！
+- 拓展任务
 
-<img src="images/README/2026-03-31-13-38-57-image.png" title="" alt="" data-align="center">
+  - 全面对比光栅 & 光追效果、时间等效果
+  - 修改参数，对比效果
+  - 修改光栅光追渲染方法，实现非真实感渲染 [Ref](https://zhuanlan.zhihu.com/p/142145970)
 
-> [!tip]
-> 提示
-> 
-> ```cpp
-> halfedge_handle.is_boundary()；
-> ```
-> 
-> 可以判断是否是边界，加上遍历很容易判断出哪些点是落在边界上的。
-> 
-> 固定边界取决于你设置的边界，你可以通过.idx()来找到点的索引，再通过点的索引来找到点的位置，进而设置点的坐标。
-> 
-> 这里还要说明的一点是read_usd的路径问题，以Balls举例，File Name里面填的既可以是绝对路径，也可以是相对路径，其相对路径实在Binaries/debug或release里面的，这里推荐使用相对路径。prim path可以打开Balls.usda，可以看到里面定义的路径，没有大的变动基本上就跟我输入进去的一样。
+## 提供的材料
 
-## 2. 修改边界条件得到平面参数化
 
-### 2.1 边界映射
 
-完成[hw5_boundary_map.cpp](https://github.com/SyouSanGin/Ruzino-Homework/blob/main/source/Editor/geometry_nodes/hw5_boundary_map.cpp)，把网格**边界映射到平面凸区域的边界**（正方形、圆形）。可以可视化检查结果的正确性。请保证**映射后的区域落在$[0,1]^2$中**。
+### (1)说明文档
 
-### 2.2 参数化求解
 
-在上述边界条件下求解同样的 Laplace 方程，可以得到（均匀权重的）**Tutte 参数化**。（连接以上两个节点！）
 
-### 参考的节点连接图
+本次作业的要求说明和一些辅助资料
 
-<img src="images/README/2026-03-31-13-41-58-image.png" title="" alt="" data-align="center">
+- 作业文档(今年的) [->](https://github.com/USTC-CG/USTC_CG_26/blob/main/Homeworks/7_rasterization_and_path_tracing/docs)
+- 光栅化去年的文档(仅供参考) [->](https://github.com/USTC-CG/USTC_CG_26/blob/main/Homeworks/7_rasterization_and_path_tracing/docs-rast/README.md)
+- 光追去年年的文档(仅供参考) [->](https://github.com/USTC-CG/USTC_CG_25/blob/main/Homeworks/7_path_tracing/rtfd.pdf)
 
-## 3. 尝试比较不同的权重
+### (2)作业框架 [->](https://github.com/USTC-CG/USTC_CG_26/blob/main/Framework3D)
 
-计算不同权重下的 **Tutte 参数化**，例如
 
-- （要求实现）Cotangent weights 
-- （可选）shape-preserving weights （[Floater weights](https://www.cs.jhu.edu/~misha/Fall09/Floater97.pdf)）。
 
-uniform 的权重可以两个节点连成，就如上图。但要注意下，conform的权重要用原网格来算，**得加个 reference mesh 的输入，就像我这里的hw5_param节点一样**。
+### (3)测试数据 [->](https://github.com/USTC-CG/USTC_CG_26/blob/main/Homeworks/7_rasterization_and_path_tracing/data)
 
-### 参考公式
 
-#### Tutte 参数化计算
 
-分布边界点的坐标到平面凸区域的边界，求解同样的方程组：
+> 注：其中data_c中1.usda将**法线贴图**替换为了**位移贴图**，即你在shader中访问的法线贴图实际上为位移贴图！ data_a中数据建议在PT中使用！
 
-$$
-\boldsymbol{v _ i} - \sum _ {j \in N(i)} w _ j \boldsymbol{v _ j} = \boldsymbol{0}, \quad \text{for all interior } i .
-$$
+## 提交文件格式
 
-#### 权重选取
 
-- Uniform weights: $w _ j = 1$;
-- Cotangent weights: $w _ j = \cot \alpha _ {ij} + \cot \beta _ {ij}$（注意和原网格的几何有关）;
-- Floater's shape-preserving weights (optional): 参考论文 [Floater1997](https://www.cs.jhu.edu/~misha/Fall09/Floater97.pdf)； 
-- 归一化处理 :
 
-$$ w _ j = \frac{w _ j}{\displaystyle \sum_k w_k }.$$
+完成作业之后，打包三类内容即可：
 
-<div align=center><img width = 40% src ="figs/mesh-5.png"/></div align>
+- 修改的程序代码
+  - `Ruzino\source\Plugins\hd_RUZINO_GL` 文件夹
+  - `Ruzino\source\Plugins\hd_RUZINO_Embree` 文件夹
+  - 其他你修改过的东西
+- 报告：请**提交PDF**格式
+- stage.usdc； 在Ruzino目录下Assets文件夹中
 
-> [!Note]
-> 
-> - 你可以根据需求任意添加节点，或者给节点增加额外的输入、输出（不限于框架的设置）；
-> - 鼓励对实现的算法进行类的封装。
+### 注意事项
 
-> [!Note]
-> **思考：高亏格曲面？**
 
-## 4. 纹理可视化
 
-根据参数坐标，可以给网格贴上纹理图片。可以参考下面的例子进行节点的连接：
+- 导入数据（网格和纹理）时使用**相对路径**，例如，将你的数据放在**可执行文件目录**下，直接通过 `FilePath = 'xxx.usda'` 或者 `FilePath = 'zzz.png'` 访问，或者定位到作业目录的 `data/` 文件夹中
+- 请大家**尽量将算法相关代码都在节点定义文件中写完**，**避免**去额外创建其他的头文件/源文件将算法分离出去
+- 节点的**输入&输出你都是可以修改**的，不要死脑经说“我这个明明要xxxx输入/输出，为什么节点没有xxxxx”
 
-<img src="images/README/2026-03-31-13-54-06-image.png" title="" alt="" data-align="center">
 
-<img src="images/README/2026-03-31-13-54-46-image.png" title="" alt="" data-align="center">
+
+# 实现方案分析
+# 光栅化部分**分步实现方案（按作业要求+框架逻辑排序）**
+严格按照**从基础数据→光照模型→阴影→可选效果**的逻辑，结合Ruzino框架的节点与shader修改要求，一步步完成，**先做基础必做，再做可选拓展**。
+
+## 一、前置准备（必须第一步）
+1. **更新Ruzino框架**
+    按要求拉取最新main分支代码，更新submodule，保证框架是最新版（避免节点/shader缺失）。
+2. **构建环境**
+    用**Release模式**编译框架（作业明确要求，速度更快），确保可执行文件正常运行。
+3. **准备测试场景**
+    - 新建Mesh → 导入作业提供的USD测试模型（用相对路径）。
+    - 场景中添加**Sphere Light**（光栅化仅支持此光源），调整位置/亮度，显示变换Gizmo。
+    - 切换渲染器为**光栅化渲染器**，打开渲染节点编辑器。
+
+## 二、基础任务1：搭建光栅化核心节点链路（必须第二步）
+先把节点连对，才能看到渲染结果，作业明确给出节点依赖：
+1. 核心节点连接顺序：
+    `rasterize_impl` → `deferred_lighting` → `present_color`
+2. 阴影节点接入：
+    `shadow_mapping` 输出深度图 → 接入 `deferred_lighting` 的阴影输入
+3. 确认节点：
+    - `rasterize_impl`：输出G-Buffer（位置、法线、反照率、高光参数等）。
+    - `deferred_lighting`：执行Blinn-Phong+阴影计算，输出最终颜色。
+    - `present_color`：把最终颜色显示到屏幕。
+4. 小技巧：修改shader后**直接保存**，框架自动热加载，不用重新编译。
+
+## 三、基础任务2：实现G-Buffer法线贴图采样（必须第三步）
+作业要求Blinn-Phong必须**正确计算法线贴图**，这是光照的基础：
+1. **修改文件**：`rasterize_impl.fs`（渲染G-Buffer的片元着色器）。
+2. 核心工作：
+    - 采样模型的法线贴图纹理。
+    - 把**切线空间法线**转换为**世界空间法线**。
+    - 将正确的世界空间法线写入G-Buffer输出。
+3. 目的：保证后续Blinn-Phong使用的法线是正确的（而非模型默认法线）。
+
+## 四、基础任务3：实现Blinn-Phong着色模型（必须第四步）
+作业核心基础任务，在延迟着色中完成光照计算：
+1. **修改文件**：`blinn_phong.fs`（延迟渲染的片元着色器）。
+2. 分步实现：
+    1. 从G-Buffer读取数据：世界空间位置、世界空间法线、反照率、高光指数/强度。
+    2. 计算光照向量：光源方向、视角方向。
+    3. 实现Blinn-Phong公式：
+       - 漫反射项：`diffuse = 漫反射系数 * max(dot(法线, 光源方向), 0)`
+       - 高光项：`specular = 高光系数 * pow(max(dot(半程向量, 法线), 0), 高光指数)`
+       - 最终光照：`环境光 + 漫反射 + 高光`
+    4. 把光照结果输出为片段颜色。
+3. 验证：此时场景应出现正确的Blinn-Phong光照效果（无阴影）。
+
+## 五、基础任务4：实现Shadow Mapping阴影算法（必须第五步）
+作业第二个基础任务，分**两步**完成：
+### 子步骤1：生成阴影深度图
+1. **修改文件**：`shadow_mapping.vs` + `shadow_mapping.fs`。
+2. 核心工作：
+    - 顶点着色器：把顶点变换到**光源空间**，输出光源空间深度。
+    - 片元着色器：输出光源空间深度值，生成阴影深度图。
+    - 保证`shadow_mapping`节点从光源视角渲染深度图（默认朝向(0,0,0)）。
+
+### 子步骤2：阴影采样与遮蔽计算
+1. **修改文件**：`blinn_phong.fs`。
+2. 核心工作：
+    - 把当前像素的世界位置转换到**光源空间**。
+    - 采样阴影深度图，对比当前深度与深度图值。
+    - 计算阴影因子：深度更大则为阴影（乘0），否则正常光照（乘1）。
+    - 把阴影因子乘到Blinn-Phong光照结果上，实现硬阴影。
+3. 验证：场景出现正确的硬阴影，光照+阴影效果完整。
+
+---
+
+## 六、可选任务（按优先级/难度排序，基础完成后再做）
+### 可选1：实现PCSS（软阴影）
+1. **修改文件**：`blinn_phong.fs`（在Shadow Mapping基础上扩展）。
+2. 步骤：
+    1. 计算阴影贴图的平均深度。
+    2. 根据深度差计算软阴影的模糊半径。
+    3. 对阴影深度图做**百分比过滤**，输出软阴影。
+3. 效果：硬阴影变柔和，边缘过渡自然。
+
+### 可选2：实现SSAO（屏幕空间环境光遮蔽）
+1. **修改文件**：`ssao.fs`。
+2. 步骤：
+    1. 生成随机采样核+旋转噪声纹理。
+    2. 从G-Buffer读取位置/法线，计算遮蔽因子。
+    3. 对遮蔽结果做模糊降噪。
+    4. 把SSAO因子乘到最终光照结果上。
+3. 效果：物体缝隙/角落出现自然的暗部遮蔽。
+
+### 可选3：实现Displacement Mapping（位移贴图）
+1. **修改文件**：`rasterize_impl.vs`（顶点着色器）。
+2. 步骤：
+    1. 采样位移贴图（注意data_c中1.usda的法线贴图实际是位移贴图）。
+    2. 根据位移值沿法线方向**偏移顶点位置**。
+    3. 修正法线，保证光照正确。
+3. 效果：模型表面产生凹凸的几何位移，而非仅法线贴图的视觉凹凸。
+
+---
+
+## 七、最终验证（全部完成后）
+1. 检查：法线贴图正确、Blinn-Phong光照正常、Shadow Mapping阴影无错。
+2. 测试：切换不同模型/光源参数，确认效果稳定。
+3. 提交：保留`hd_RUZINO_GL`文件夹所有修改，配合stage.usdc+报告打包。
+
+要不要我帮你整理**每一步对应的shader核心逻辑要点**（不用写代码，只讲思路），方便你直接对着写？
+
+## 光线追踪部分
+
+光追作业需要大家**修改渲染器内部代码**以实现相应功能。渲染器在
+
+**Ruzino\source\Plugins\hd_RUZINO_Embree** 下。
+
+代码**默认使用直接光照积分器，大家需要在****renderer.cpp****中对积分器进行切换**，可以根据
+
+“TODO”找到相应位置（DirectLightIntegrator切换为PathIntegrator）
+
+完成**基础作业需要修改的代码大部分我标注了****“TODO”****的，搜索一下就能搜得到**。强调一
+
+下，这**只是****“****大部分****”****，不代表你需要修改的地方只有这些**。在hd_USTC_CG_Embree文件夹
+
+下面所有东西你都是可以修改的！
+
+如果你完成得对的话（基础内容），你可以得到类似这样的结果（场景中有Dome Light & 
+
+Sphere Light，开启光源显示）
+
+## 下一步实现选做任务
+
+- (Rast. )实现 Percentage Close Soft Shadow ([参考资料](https://zhuanlan.zhihu.com/p/478472753))
+- (Rast.) 实现 Screen Space Ambient Occlusion ([参考资料](https://learnopengl-cn.github.io/05 Advanced Lighting/09 SSAO/#ssao))
+- (Rast.) 实现Displacement Mapping ([Ref](https://zhuanlan.zhihu.com/p/369442463))
